@@ -1,5 +1,5 @@
 import { setGlobalData } from './shared/state.js';
-import { injectToastContainer, initializeBootstrapComponents, injectSignOutModal, injectBackToTopButton } from './shared/utils.js';
+import { injectToastContainer, initializeBootstrapComponents, injectSignOutModal, injectBackToTopButton, showRestrictedAccessModal } from './shared/utils.js';
 import { injectComponents } from './components/navbar.js';
 
 // Safe Lucide initializer
@@ -12,6 +12,25 @@ window.initIcons = () => {
 document.addEventListener('DOMContentLoaded', async () => {
     console.log('SyncEvent App Initialized');
 
+    const path = window.location.pathname;
+    const userStr = localStorage.getItem('currentUser');
+    const user = userStr ? JSON.parse(userStr) : null;
+    const role = user?.role?.name;
+
+    // 0. Global Role-Based Access Control
+    if (path.includes('/pages/organizer/') && !path.includes('signup.html')) {
+        if (role !== 'ORGANIZER') {
+            showRestrictedAccessModal('../../index.html');
+            return;
+        }
+    }
+
+    if (path.includes('/pages/admin/')) {
+        if (role !== 'ADMIN') {
+            showRestrictedAccessModal('../../index.html');
+            return;
+        }
+    }
     // 1. Fetch Data from API Endpoints - Wrap in a promise we can await later
     const dataPromise = Promise.all([
         fetch('http://localhost:3000/users').then(res => res.json()),
@@ -39,8 +58,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     };
 
+    // Booking RBAC
+    if (path.includes('/events/booking') && role !== 'ATTENDEE') {
+        showRestrictedAccessModal('../../index.html');
+        return;
+    }
+
     // Dynamic Imports Based on Path
-    const path = window.location.pathname;
 
     // About/Contact
     if (path.includes('/about/contact')) {

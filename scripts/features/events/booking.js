@@ -395,11 +395,26 @@ export function initBookingPage() {
     // Handle Payment
     const payBtn = document.getElementById('btn-pay-now');
     if (payBtn) {
-        payBtn.addEventListener('click', (e) => {
-            e.preventDefault();
+        const failureModalEl = document.getElementById('failureModal');
+        const failureModalInstance = failureModalEl ? new window.bootstrap.Modal(failureModalEl) : null;
+        const retryBtn = document.getElementById('btn-failure-retry');
+        const cancelBtn = document.getElementById('btn-failure-cancel');
+        let shouldShowFailureOnDismiss = false;
 
+        const goToTicketSelection = () => {
+            document.getElementById('step-payment').classList.add('d-none');
+            document.getElementById('step-select-tickets').classList.remove('d-none');
+            document.getElementById('step2-indicator').classList.remove('active');
+            document.getElementById('step1-indicator').classList.add('active');
+            if (Object.keys(cart).length > 0) {
+                document.getElementById('sticky-summary').classList.add('visible');
+            }
+        };
+
+        const launchRazorpayPayment = () => {
             const btn = document.getElementById('btn-pay-now');
             const originalText = btn.innerHTML;
+            shouldShowFailureOnDismiss = false;
 
             // Get total amount directly from dynamic calculation logic BEFORE altering DOM
             const totalText = document.getElementById('pay-btn-amount').textContent;
@@ -411,6 +426,8 @@ export function initBookingPage() {
             // Get currently logged-in user details for Razorpay prefill
             const userStr = localStorage.getItem('currentUser');
             const user = userStr ? JSON.parse(userStr) : null;
+            let hasFailedAttempt = false;
+            let paymentCompleted = false;
 
             // Configure Razorpay Option
             const options = {
@@ -421,12 +438,20 @@ export function initBookingPage() {
                 "description": `Ticket Booking for ${event.title}`,
                 "image": "https://ui-avatars.com/api/?name=S&background=17B978&color=fff",
                 "handler": function (response) {
+                    paymentCompleted = true;
+                    shouldShowFailureOnDismiss = false;
                     processSuccessfulBooking(response.razorpay_payment_id, totalAmount);
                 },
                 "modal": {
                     "ondismiss": function () {
                         btn.disabled = false;
                         btn.innerHTML = originalText;
+                        if (!paymentCompleted && (hasFailedAttempt || shouldShowFailureOnDismiss)) {
+                            // Delay slightly so Razorpay overlay fully closes before showing Bootstrap modal.
+                            setTimeout(() => {
+                                showFailureModal('Payment failed and checkout was closed. You can retry payment or cancel this booking.');
+                            }, 120);
+                        }
                     }
                 },
                 "prefill": {
@@ -440,17 +465,33 @@ export function initBookingPage() {
             };
 
             const rzp = new window.Razorpay(options);
-
             rzp.on('payment.failed', function (response) {
-                showToast('Payment Failed', response.error.description, 'danger');
-                // We intentionally do NOT show `showFailureModal()` or reset the button here.
-                // The Razorpay overlay naturally stays open after failures, allowing the user to gracefully retry 
-                // the transaction completely within the gateway environment. 
-                // They can close it manually to trigger the `ondismiss` handler below.
+                hasFailedAttempt = true;
+                shouldShowFailureOnDismiss = true;
+                const errorMessage = response?.error?.description || 'Payment attempt failed. Please try again.';
+                showToast('Payment Failed', errorMessage, 'danger');
             });
-
             rzp.open();
+        };
+
+        payBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            launchRazorpayPayment();
         });
+
+        if (retryBtn) {
+            retryBtn.addEventListener('click', () => {
+                if (failureModalInstance) failureModalInstance.hide();
+                launchRazorpayPayment();
+            });
+        }
+
+        if (cancelBtn) {
+            cancelBtn.addEventListener('click', () => {
+                if (failureModalInstance) failureModalInstance.hide();
+                window.location.href = `details.html?id=${event.id}`;
+            });
+        }
     }
 
     // Function to handle the actual backend booking creation after Razorpay completes
@@ -594,3 +635,4 @@ function showEventLoginModal(eventId) {
     const bsModal = new window.bootstrap.Modal(modalEl, { backdrop: 'static', keyboard: false });
     bsModal.show();
 }
+

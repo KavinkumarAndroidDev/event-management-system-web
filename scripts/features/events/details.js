@@ -1,5 +1,5 @@
 import { state } from '../../shared/state.js';
-import { showLoading } from '../../shared/utils.js';
+import { showLoading, showToast } from '../../shared/utils.js';
 
 export function initializeDetails() {
     const events = state.events;
@@ -193,13 +193,51 @@ export function populateSingleEvent(event) {
     setText('breadcrumb-active', event.title);
     document.title = `${event.title} - SyncEvent`;
 
+    const shareBtn = document.getElementById('btn-share-event');
+    if (shareBtn) {
+        shareBtn.onclick = async () => {
+            const shareUrl = window.location.href;
+            const shareData = {
+                title: event.title,
+                text: `Check out this event: ${event.title}`,
+                url: shareUrl
+            };
+
+            try {
+                if (navigator.share) {
+                    await navigator.share(shareData);
+                    return;
+                }
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    await navigator.clipboard.writeText(shareUrl);
+                    showToast('Link Copied', 'Event page link copied to clipboard.', 'success');
+                    return;
+                }
+                showToast('Share Unavailable', 'Sharing is not supported on this browser.', 'warning');
+            } catch (error) {
+                if (error && error.name !== 'AbortError') {
+                    showToast('Share Failed', 'Unable to share this event link right now.', 'danger');
+                }
+            }
+        };
+    }
+
     const bookBtn = document.getElementById('btn-book-tickets');
     if (bookBtn) {
+        const userStr = localStorage.getItem('currentUser');
+        const user = userStr ? JSON.parse(userStr) : null;
+
+        if (user && user.role && user.role.name !== 'ATTENDEE') {
+            bookBtn.classList.add('opacity-75');
+            bookBtn.title = 'Only attendees can book events';
+        }
+
         bookBtn.onclick = (e) => {
             e.preventDefault();
-            const userStr = localStorage.getItem('currentUser');
-            if (!userStr) {
+            if (!user) {
                 showEventLoginModal(event.id);
+            } else if (user.role && user.role.name !== 'ATTENDEE') {
+                showToast('Action Restricted', 'Only attendees can book events.', 'warning');
             } else {
                 window.location.href = `booking.html?id=${event.id}`;
             }

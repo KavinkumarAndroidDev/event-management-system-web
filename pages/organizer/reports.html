@@ -1,27 +1,25 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Reports - SyncEvent Organizer</title>
     <link rel="stylesheet" href="../../css/main.css">
     <link rel="icon" href="../../assets/favicon.svg" type="image/x-icon">
     <style>
-        
-        
-    
         /* Dashboard UI Refinements */
         body.bg-neutral-50 {
             background-color: #f8fafc !important;
         }
+
         .card-custom {
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -1px rgba(0, 0, 0, 0.02) !important;
-            border-color: rgba(0,0,0,0.06) !important;
+            border-color: rgba(0, 0, 0, 0.06) !important;
         }
-        
-    
-        
-        
-            </style>
+    </style>
 </head>
+
 <body class="bg-neutral-50">
     <!-- Organizer Navbar -->
     <header class="bg-white border-bottom sticky-top" style="height: 64px; z-index: 1000;">
@@ -29,32 +27,31 @@
             <div class="d-flex align-items-center justify-content-between h-100">
                 <!-- Left: Logo & Search -->
                 <div class="d-flex align-items-center gap-4">
-                    <a class="brand" href="../../index.html" style="width: 140px;">
+                    <a class="brand" href="dashboard.html" style="width: 140px;">
                         <img src="../../assets/logo.SVG" alt="SyncEvent" class="img-fluid">
                     </a>
                     <div class="position-relative d-none d-md-block" style="width: 300px;">
-                        <i data-lucide="search" class="position-absolute top-50 start-0 translate-middle-y ms-3 text-neutral-400" width="18"></i>
-                        <input type="text" class="form-control border-transparent ps-5" placeholder="Search events, orders...">
+                        <i data-lucide="search"
+                            class="position-absolute top-50 start-0 translate-middle-y ms-3 text-neutral-400"
+                            width="18"></i>
+                        <input type="text" class="form-control border-transparent ps-5"
+                            placeholder="Search events, orders...">
                     </div>
                 </div>
-                
+
                 <!-- Right: Actions & Profile -->
                 <div class="d-flex align-items-center gap-3">
-                    <a href="create-event.html" class="btn btn-outline-primary rounded-pill d-none d-md-flex align-items-center gap-2">
+                    <a href="create-event.html"
+                        class="btn btn-outline-primary rounded-pill d-none d-md-flex align-items-center gap-2">
                         <i data-lucide="plus" width="16"></i> Create Event
                     </a>
-                    
-                    <a href="notifications.html" class="icon-circle position-relative text-decoration-none bg-white ms-2">
+
+                    <a href="notifications.html"
+                        class="icon-circle position-relative text-decoration-none bg-white ms-2">
                         <i data-lucide="bell" style="width:20px;height:20px;"></i>
-                        <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle" style="width:10px; height:10px; margin-top:8px; margin-left:-8px;"></span>
+                        <span class="position-absolute top-0 start-100 translate-middle p-1 rounded-circle"
+                            style="width:10px;height:10px;margin-top:8px;margin-left:-8px;background:#17b978;"></span>
                     </a>
-                    <div class="d-flex align-items-center gap-2 ps-3 border-start ms-1">
-                        <div class="avatar-circle">JD</div>
-                        <div class="d-none d-sm-block">
-                            <div class="fw-bold text-neutral-900" style="font-size: 0.813rem; line-height: 1.2;">John Doe</div>
-                            <div class="text-neutral-400" style="font-size: 0.688rem; line-height: 1.1;">Organizer</div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -64,8 +61,17 @@
         <div class="container-fluid px-4">
             <div class="row g-4">
                 <!-- Sidebar -->
-                <div class="col-lg-2">
-                    <div class="card-custom p-3 position-sticky" style="top: 88px;">
+                <div class="col-lg-3">
+                    <div class="card-custom p-3">
+                        <!-- User Info -->
+                        <div class="d-flex align-items-center gap-3 mb-4">
+                            <span class="avatar-circle" id="sidebar-avatar"></span>
+                            <div class="overflow-hidden">
+                                <h6 class="mb-0 text-truncate" id="sidebar-name">Loading...</h6>
+                                <small class="text-neutral-400 text-truncate d-block" id="sidebar-email">...</small>
+                            </div>
+                        </div>
+                        <hr class="border-neutral-100 my-2">
                         <nav class="nav flex-column gap-1">
                             <a href="dashboard.html" class="sidebar-item">
                                 <i data-lucide="layout-dashboard" class="sidebar-icon"></i> Dashboard
@@ -94,158 +100,195 @@
                         </nav>
                         <hr class="border-neutral-100 my-3">
                         <div class="d-flex flex-column gap-2">
-                            <a href="../../index.html" class="btn btn-outline-danger w-100 rounded-pill"><i data-lucide="log-out" width="18" class="me-2"></i> Logout</a>
+                            <button class="btn btn-outline-danger w-100 rounded-pill" id="logoutBtn">
+                                <i data-lucide="log-out" width="18" class="me-2"></i> Logout
+                            </button>
                         </div>
                     </div>
                 </div>
 
                 <!-- Main Content -->
-                <div class="col-lg-10">
+                <div class="col-lg-9">
+
+                    <!-- Breadcrumb -->
+                    <nav aria-label="breadcrumb" class="mb-3">
+                        <ol class="breadcrumb mb-0" style="font-size:0.8125rem;">
+                            <li class="breadcrumb-item"><a href="dashboard.html"
+                                    class="text-decoration-none text-neutral-400">Dashboard</a></li>
+                            <li class="breadcrumb-item active text-primary fw-medium" aria-current="page">Reports</li>
+                        </ol>
+                    </nav>
+
                     <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h4 class="fw-bold mb-0">Reports</h4>
+                        <div class="d-flex align-items-center"><a href="dashboard.html"
+                                class="icon-circle text-decoration-none me-3" title="Back to Dashboard"
+                                style="flex-shrink:0;"><i data-lucide="arrow-left"
+                                    style="width:18px;height:18px;"></i></a>
+                            <h4 class="fw-bold mb-0">Reports</h4>
+                        </div>
                     </div>
                     <div class="mb-4">
-                    <h2 class="h3 fw-bold text-neutral-900 mb-1">Reports &amp; Analytics</h2>
-                    <p class="text-neutral-400 small mb-0">View comprehensive analytics and export reports</p>
-                </div>
-<div class="card-custom mb-4 py-3 px-4">
-                    <div class="row g-3 align-items-end">
-                        <div class="col-md-4">
-                            <label class="text-neutral-400 small fw-bold text-uppercase ls-1 mb-2" style="font-size: 11px;">Event Filter</label>
-                            <select class="form-select px-3 fw-medium">
-                                <option>All Events</option>
-                                <option>Tech Conference 2026</option>
-                            </select>
-                        </div>
-                        <div class="col-md-3">
-                            <label class="text-neutral-400 small fw-bold text-uppercase ls-1 mb-2" style="font-size: 11px;">Start Date</label>
-                            <input type="date" class="form-control px-3 fw-medium">
-                        </div>
-                        <div class="col-md-3">
-                            <label class="text-neutral-400 small fw-bold text-uppercase ls-1 mb-2" style="font-size: 11px;">End Date</label>
-                            <input type="date" class="form-control px-3 fw-medium">
-                        </div>
-                        <div class="col-md-2">
-                            <button class="btn btn-primary rounded-pill w-100 fw-bold">
-                                <i data-lucide="download" style="width:18px;height:18px;"></i> Export
-                            </button>
-                        </div>
+                        <h2 class="h3 fw-bold text-neutral-900 mb-1">Reports &amp; Analytics</h2>
+                        <p class="text-neutral-400 small mb-0">View comprehensive analytics and export reports</p>
                     </div>
-                </div>
-<div class="row g-4 mb-4">
-                    <div class="col-sm-6 col-xl-3">
-                        <div class="card-custom py-3 px-4 h-100">
-                            <div class="text-neutral-400 small fw-medium text-uppercase ls-1 mb-1" style="font-size: 10px;">Total Revenue</div>
-                            <div class="h3 fw-bold text-neutral-900 mb-1">$151,600</div>
-                            <div class="small fw-bold text-success"><i data-lucide="trending-up" class="me-1" style="width:12px;height:12px;"></i> +15.3%</div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-xl-3">
-                        <div class="card-custom py-3 px-4 h-100">
-                            <div class="text-neutral-400 small fw-medium text-uppercase ls-1 mb-1" style="font-size: 10px;">Tickets Sold</div>
-                            <div class="h3 fw-bold text-neutral-900 mb-1">1,000</div>
-                            <div class="small fw-bold text-success"><i data-lucide="trending-up" class="me-1" style="width:12px;height:12px;"></i> +8.7%</div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-xl-3">
-                        <div class="card-custom py-3 px-4 h-100">
-                            <div class="text-neutral-400 small fw-medium text-uppercase ls-1 mb-1" style="font-size: 10px;">Refunds</div>
-                            <div class="h3 fw-bold text-neutral-900 mb-1">$2,450</div>
-                            <div class="small fw-bold text-danger"><i data-lucide="trending-up" class="me-1" style="width:12px;height:12px;"></i> +2.1%</div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-xl-3">
-                        <div class="card-custom py-3 px-4 h-100">
-                            <div class="text-neutral-400 small fw-medium text-uppercase ls-1 mb-1" style="font-size: 10px;">Net Earnings</div>
-                            <div class="h3 fw-bold text-neutral-900 mb-1">$149,150</div>
-                            <div class="small fw-bold text-success"><i data-lucide="trending-up" class="me-1" style="width:12px;height:12px;"></i> +14.9%</div>
-                        </div>
-                    </div>
-                </div>
-<div class="row g-4 mb-4">
-                    <div class="col-lg-7">
-                        <div class="card-custom p-0 overflow-hidden h-100">
-                            <div class="px-4 py-3 border-bottom bg-light bg-opacity-10 d-flex justify-content-between align-items-center">
-                                <h3 class="h6 fw-bold text-neutral-900 mb-0">Revenue Over Time</h3>
-                                <div class="dropdown">
-                                    <button class="btn btn-sm btn-light rounded-pill border-0 px-3 dropdown-toggle" type="button" data-bs-toggle="dropdown">Last 6 Months</button>
-                                    <ul class="dropdown-menu border-0 shadow-sm rounded-4">
-                                        <li><a class="dropdown-item px-3" href="#">Last 3 Months</a></li>
-                                        <li><a class="dropdown-item px-3" href="#">Last 6 Months</a></li>
-                                        <li><a class="dropdown-item px-3" href="#">This Year</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="p-4">
-                                <div style="height:300px; position:relative;">
-                                    <canvas id="revenueChart"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-5">
-                        <div class="card-custom p-0 overflow-hidden h-100">
-                            <div class="px-4 py-3 border-bottom bg-light bg-opacity-10">
-                                <h3 class="h6 fw-bold text-neutral-900 mb-0">Ticket Sales by Type</h3>
-                            </div>
-                            <div class="p-4 text-center">
-                                <div style="height:240px; position:relative;" class="mx-auto mb-4">
-                                    <canvas id="pieChart"></canvas>
-                                </div>
-                                <div class="row g-3">
-                                    <div class="col-6">
-                                        <div class="d-flex align-items-center gap-2 justify-content-center">
-                                            <span class="rounded-circle" style="width:10px; height:10px; background:#17B978;"></span>
-                                            <span class="small text-neutral-400 fw-medium">General</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="d-flex align-items-center gap-2 justify-content-center">
-                                            <span class="rounded-circle" style="width:10px; height:10px; background:#9333EA;"></span>
-                                            <span class="small text-neutral-400 fw-medium">VIP</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="d-flex align-items-center gap-2 justify-content-center">
-                                            <span class="rounded-circle" style="width:10px; height:10px; background:#22C55E;"></span>
-                                            <span class="small text-neutral-400 fw-medium">Student</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="d-flex align-items-center gap-2 justify-content-center">
-                                            <span class="rounded-circle" style="width:10px; height:10px; background:#F59E0B;"></span>
-                                            <span class="small text-neutral-400 fw-medium">Early Bird</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-<div class="card-custom p-0 overflow-hidden">
-                    <div class="px-4 py-3 border-bottom bg-light bg-opacity-10">
-                        <h3 class="h6 fw-bold text-neutral-900 mb-0">Export Custom Reports</h3>
-                    </div>
-                    <div class="p-4">
-                        <div class="row g-3">
+                    <div class="card-custom mb-4 py-3 px-4">
+                        <div class="row g-3 align-items-end">
                             <div class="col-md-4">
-                                <button class="btn btn-outline-primary border-2 rounded-pill w-100 py-2 fw-bold d-flex align-items-center justify-content-center gap-2">
-                                    <i data-lucide="file-text" style="width:18px;height:18px;"></i> CSV Export
-                                </button>
+                                <label class="text-neutral-400 small fw-bold text-uppercase ls-1 mb-2"
+                                    style="font-size: 11px;">Event Filter</label>
+                                <select class="form-select px-3 fw-medium">
+                                    <option>All Events</option>
+                                    <option>Tech Conference 2026</option>
+                                </select>
                             </div>
-                            <div class="col-md-4">
-                                <button class="btn btn-outline-primary border-2 rounded-pill w-100 py-2 fw-bold d-flex align-items-center justify-content-center gap-2">
-                                    <i data-lucide="file" style="width:18px;height:18px;"></i> PDF Summary
-                                </button>
+                            <div class="col-md-3">
+                                <label class="text-neutral-400 small fw-bold text-uppercase ls-1 mb-2"
+                                    style="font-size: 11px;">Start Date</label>
+                                <input type="date" class="form-control px-3 fw-medium">
                             </div>
-                            <div class="col-md-4">
-                                <button class="btn btn-outline-neutral border-2 rounded-pill w-100 py-2 fw-bold d-flex align-items-center justify-content-center gap-2">
-                                    <i data-lucide="database" style="width:18px;height:18px;"></i> Excel Sheet
+                            <div class="col-md-3">
+                                <label class="text-neutral-400 small fw-bold text-uppercase ls-1 mb-2"
+                                    style="font-size: 11px;">End Date</label>
+                                <input type="date" class="form-control px-3 fw-medium">
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-primary rounded-pill w-100 fw-bold">
+                                    <i data-lucide="download" style="width:18px;height:18px;"></i> Export
                                 </button>
                             </div>
                         </div>
                     </div>
-                </div>
+                    <div class="row g-4 mb-4">
+                        <div class="col-sm-6 col-xl-3">
+                            <div class="card-custom py-3 px-4 h-100">
+                                <div class="text-neutral-400 small fw-medium text-uppercase ls-1 mb-1"
+                                    style="font-size: 10px;">Total Revenue</div>
+                                <div class="h3 fw-bold text-neutral-900 mb-1">$151,600</div>
+                                <div class="small fw-bold text-success"><i data-lucide="trending-up" class="me-1"
+                                        style="width:12px;height:12px;"></i> +15.3%</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xl-3">
+                            <div class="card-custom py-3 px-4 h-100">
+                                <div class="text-neutral-400 small fw-medium text-uppercase ls-1 mb-1"
+                                    style="font-size: 10px;">Tickets Sold</div>
+                                <div class="h3 fw-bold text-neutral-900 mb-1">1,000</div>
+                                <div class="small fw-bold text-success"><i data-lucide="trending-up" class="me-1"
+                                        style="width:12px;height:12px;"></i> +8.7%</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xl-3">
+                            <div class="card-custom py-3 px-4 h-100">
+                                <div class="text-neutral-400 small fw-medium text-uppercase ls-1 mb-1"
+                                    style="font-size: 10px;">Refunds</div>
+                                <div class="h3 fw-bold text-neutral-900 mb-1">$2,450</div>
+                                <div class="small fw-bold text-danger"><i data-lucide="trending-up" class="me-1"
+                                        style="width:12px;height:12px;"></i> +2.1%</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xl-3">
+                            <div class="card-custom py-3 px-4 h-100">
+                                <div class="text-neutral-400 small fw-medium text-uppercase ls-1 mb-1"
+                                    style="font-size: 10px;">Net Earnings</div>
+                                <div class="h3 fw-bold text-neutral-900 mb-1">$149,150</div>
+                                <div class="small fw-bold text-success"><i data-lucide="trending-up" class="me-1"
+                                        style="width:12px;height:12px;"></i> +14.9%</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row g-4 mb-4">
+                        <div class="col-lg-7">
+                            <div class="card-custom p-0 overflow-hidden h-100">
+                                <div
+                                    class="px-4 py-3 border-bottom bg-light bg-opacity-10 d-flex justify-content-between align-items-center">
+                                    <h3 class="h6 fw-bold text-neutral-900 mb-0">Revenue Over Time</h3>
+                                    <div class="dropdown">
+                                        <button class="btn btn-sm btn-light rounded-pill border-0 px-3 dropdown-toggle"
+                                            type="button" data-bs-toggle="dropdown">Last 6 Months</button>
+                                        <ul class="dropdown-menu border-0 shadow-sm rounded-4">
+                                            <li><a class="dropdown-item px-3" href="#">Last 3 Months</a></li>
+                                            <li><a class="dropdown-item px-3" href="#">Last 6 Months</a></li>
+                                            <li><a class="dropdown-item px-3" href="#">This Year</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="p-4">
+                                    <div style="height:300px; position:relative;">
+                                        <canvas id="revenueChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="card-custom p-0 overflow-hidden h-100">
+                                <div class="px-4 py-3 border-bottom bg-light bg-opacity-10">
+                                    <h3 class="h6 fw-bold text-neutral-900 mb-0">Ticket Sales by Type</h3>
+                                </div>
+                                <div class="p-4 text-center">
+                                    <div style="height:240px; position:relative;" class="mx-auto mb-4">
+                                        <canvas id="pieChart"></canvas>
+                                    </div>
+                                    <div class="row g-3">
+                                        <div class="col-6">
+                                            <div class="d-flex align-items-center gap-2 justify-content-center">
+                                                <span class="rounded-circle"
+                                                    style="width:10px; height:10px; background:#17B978;"></span>
+                                                <span class="small text-neutral-400 fw-medium">General</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="d-flex align-items-center gap-2 justify-content-center">
+                                                <span class="rounded-circle"
+                                                    style="width:10px; height:10px; background:#9333EA;"></span>
+                                                <span class="small text-neutral-400 fw-medium">VIP</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="d-flex align-items-center gap-2 justify-content-center">
+                                                <span class="rounded-circle"
+                                                    style="width:10px; height:10px; background:#22C55E;"></span>
+                                                <span class="small text-neutral-400 fw-medium">Student</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="d-flex align-items-center gap-2 justify-content-center">
+                                                <span class="rounded-circle"
+                                                    style="width:10px; height:10px; background:#F59E0B;"></span>
+                                                <span class="small text-neutral-400 fw-medium">Early Bird</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-custom p-0 overflow-hidden">
+                        <div class="px-4 py-3 border-bottom bg-light bg-opacity-10">
+                            <h3 class="h6 fw-bold text-neutral-900 mb-0">Export Custom Reports</h3>
+                        </div>
+                        <div class="p-4">
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <button
+                                        class="btn btn-outline-primary border-2 rounded-pill w-100 py-2 fw-bold d-flex align-items-center justify-content-center gap-2">
+                                        <i data-lucide="file-text" style="width:18px;height:18px;"></i> CSV Export
+                                    </button>
+                                </div>
+                                <div class="col-md-4">
+                                    <button
+                                        class="btn btn-outline-primary border-2 rounded-pill w-100 py-2 fw-bold d-flex align-items-center justify-content-center gap-2">
+                                        <i data-lucide="file" style="width:18px;height:18px;"></i> PDF Summary
+                                    </button>
+                                </div>
+                                <div class="col-md-4">
+                                    <button
+                                        class="btn btn-outline-neutral border-2 rounded-pill w-100 py-2 fw-bold d-flex align-items-center justify-content-center gap-2">
+                                        <i data-lucide="database" style="width:18px;height:18px;"></i> Excel Sheet
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -255,8 +298,12 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
+    <script type="module">
+        import { injectSignOutModal, populateSidebarUserInfo } from '../../scripts/shared/utils.js';
+
         lucide.createIcons();
+        injectSignOutModal();
+        populateSidebarUserInfo();
 
         // Revenue line chart
         new Chart(document.getElementById('revenueChart'), {
@@ -306,4 +353,25 @@
         });
     </script>
 
-</body></html>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="display:none;position:fixed;bottom:2rem;right:2rem;z-index:9999;
+               width:44px;height:44px;border-radius:50%;border:none;cursor:pointer;
+               background:#17b978;color:#fff;box-shadow:0 4px 16px rgba(23,185,120,0.35);
+               align-items:center;justify-content:center;transition:opacity 0.2s ease;" title="Back to top">
+        <i data-lucide="chevron-up" style="width:20px;height:20px;"></i>
+    </button>
+    <script>
+        var scrollBtn = document.getElementById('scrollTopBtn');
+        window.addEventListener('scroll', function () {
+            if (window.scrollY > 300) {
+                scrollBtn.style.display = 'flex';
+            } else {
+                scrollBtn.style.display = 'none';
+            }
+        });
+    </script>
+
+</body>
+
+</html>

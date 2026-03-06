@@ -1,6 +1,13 @@
 import { state } from '../../shared/state.js';
 import { showToast, setupGenericPagination } from '../../shared/utils.js';
 
+function getPaymentActivityDate(payment) {
+    // Use refund timestamp as latest activity for refunded transactions.
+    const sourceDate = payment.status === 'Refunded' ? (payment.refundDate || payment.date) : payment.date;
+    const parsed = new Date(sourceDate);
+    return Number.isNaN(parsed.getTime()) ? new Date(0) : parsed;
+}
+
 export function initProfilePage() {
     const userStr = localStorage.getItem('currentUser');
     const user = userStr ? JSON.parse(userStr) : null;
@@ -9,6 +16,16 @@ export function initProfilePage() {
         window.location.href = '../../index.html';
         return;
     }
+
+    const hideProfileLoader = () => {
+        const overlay = document.getElementById('profile-loading-overlay');
+        const contentArea = document.getElementById('profile-content-area');
+        if (overlay) overlay.style.opacity = '0';
+        setTimeout(() => {
+            if (overlay) overlay.remove();
+            if (contentArea) contentArea.classList.remove('opacity-0');
+        }, 400);
+    };
 
     if (!user) {
         // Handle Guest View
@@ -50,6 +67,7 @@ export function initProfilePage() {
         });
 
         if (window.initIcons) window.initIcons();
+        hideProfileLoader();
         return; // Halt further profile initialization
     }
 
@@ -67,10 +85,20 @@ export function initProfilePage() {
     document.getElementById('profile-email').value = user.profile.email;
     document.getElementById('profile-email').readOnly = true;
     document.getElementById('profile-email').classList.add('form-control-readonly');
+    document.getElementById('profile-email').style.backgroundColor = '#F3F4F6';
+    document.getElementById('profile-email').style.color = '#4B5563';
+    document.getElementById('profile-email').style.cursor = 'not-allowed';
+    document.getElementById('profile-email').style.borderStyle = 'dashed';
+    document.getElementById('profile-email').setAttribute('title', 'Email cannot be changed');
+    const emailLabel = document.getElementById('profile-email')?.closest('.col-md-6')?.querySelector('label');
+    if (emailLabel && !emailLabel.querySelector('.non-editable-label')) {
+        emailLabel.insertAdjacentHTML('beforeend', ' <span class="small text-neutral-400 non-editable-label" style="font-size: 0.75rem;">(Not editable)</span>');
+    }
 
     document.getElementById('profile-phone').value = user.profile.phone || '';
-    document.getElementById('profile-phone').readOnly = true;
-    document.getElementById('profile-phone').classList.add('form-control-readonly');
+    document.getElementById('profile-phone').readOnly = false;
+    document.getElementById('profile-phone').disabled = false;
+    document.getElementById('profile-phone').classList.remove('form-control-readonly');
     document.getElementById('profile-fullname').value = user.profile.fullName;
     document.getElementById('profile-dob').value = user.profile.dateOfBirth || '';
     if (user.profile.gender) document.getElementById('profile-gender').value = user.profile.gender;
@@ -101,13 +129,7 @@ export function initProfilePage() {
     }
 
     // Hide loader and show content
-    const overlay = document.getElementById('profile-loading-overlay');
-    const contentArea = document.getElementById('profile-content-area');
-    if (overlay) overlay.style.opacity = '0';
-    setTimeout(() => {
-        if (overlay) overlay.remove();
-        if (contentArea) contentArea.classList.remove('opacity-0');
-    }, 400);
+    hideProfileLoader();
 
     // Sidebar Navigation
     const navLinks = document.querySelectorAll('.sidebar-item[data-section]');
@@ -236,14 +258,17 @@ export function initProfilePage() {
     // Populate Recent Payments (overview widget)
     const paymentsContainer = document.getElementById('profile-recent-payments');
     if (paymentsContainer && state.payments) {
-        const recentPayments = state.payments.filter(p => p.userId === user.id).slice(0, 4);
+        const recentPayments = state.payments
+            .filter(p => p.userId === user.id)
+            .sort((a, b) => getPaymentActivityDate(b) - getPaymentActivityDate(a))
+            .slice(0, 4);
         if (recentPayments.length === 0) {
             paymentsContainer.innerHTML = '<div class="text-neutral-400 py-3">No recent payments.</div>';
         } else {
             paymentsContainer.innerHTML = recentPayments.map(pay => {
                 let badgeClass = '';
                 if (pay.status === 'Confirmed') badgeClass = 'border-success text-success';
-                else if (pay.status === 'Refunded') badgeClass = 'border-warning text-warning';
+                else if (pay.status === 'Refunded') badgeClass = 'border-danger text-danger';
                 else if (pay.status === 'Failed') badgeClass = 'border-danger text-danger';
 
                 return `
@@ -282,7 +307,45 @@ export function initProfilePage() {
     if (profileForm) {
         profileForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            showToast('Success', 'Profile updated successfully!', 'success');
+
+            // Get current values
+            const fullName = document.getElementById('profile-fullname').value;
+            const phone = document.getElementById('profile-phone').value;
+            const dob = document.getElementById('profile-dob').value;
+            const gender = document.getElementById('profile-gender').value;
+
+            // Update user object
+            user.profile.fullName = fullName;
+            user.profile.phone = phone;
+            user.profile.dateOfBirth = dob;
+            user.profile.gender = gender;
+
+            // Save to localStorage
+            localStorage.setItem('currentUser', JSON.stringify(user));
+
+            // Update UI elements immediately
+            document.getElementById('sidebar-name').textContent = fullName;
+            document.getElementById('profile-settings-name').textContent = fullName;
+
+            // Update initials
+            const initials = fullName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+            document.getElementById('sidebar-avatar').textContent = initials;
+
+            // Patch DB
+            fetch(`http://localhost:3000/users/${user.id}`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ profile: user.profile })
+            }).then(res => {
+                if (res.ok) {
+                    showToast('Success', 'Profile updated successfully!', 'success');
+                } else {
+                    showToast('Error', 'Failed to save changes to server.', 'danger');
+                }
+            }).catch(err => {
+                console.error("Error updating profile", err);
+                showToast('Success', 'Profile saved locally.', 'success');
+            });
         });
     }
 
@@ -360,8 +423,18 @@ function renderRegistrations() {
     const user = userStr ? JSON.parse(userStr) : null;
     const userId = user ? user.id : null;
 
-    // Filter for active registrations (future events or not completed)
-    const registrations = state.registrations.filter(r => r.userId === userId && r.status !== 'COMPLETED');
+    // Order: upcoming confirmed registrations first, cancelled after that.
+    const registrations = state.registrations
+        .filter(r => r.userId === userId && r.status !== 'COMPLETED')
+        .sort((a, b) => {
+            // First: Sort by status (CONFIRMED before CANCELLED)
+            const aCancelled = a.status === 'CANCELLED';
+            const bCancelled = b.status === 'CANCELLED';
+            if (aCancelled !== bCancelled) return aCancelled ? 1 : -1;
+
+            // Second: Sort by date (Upcoming first - soonest date at top)
+            return new Date(a.date) - new Date(b.date);
+        });
 
     setupGenericPagination({
         items: registrations,
@@ -505,10 +578,11 @@ function openCancelModal(reg) {
         const payment = state.payments.find(p => p.userId == reg.userId && p.eventId == reg.eventId && p.status === 'Confirmed');
         if (payment) {
             payment.status = 'Refunded';
+            payment.refundDate = new Date().toISOString();
             fetch(`http://localhost:3000/payments/${payment.id}`, {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ status: 'Refunded' })
+                body: JSON.stringify({ status: 'Refunded', refundDate: payment.refundDate })
             })
                 .then(res => {
                     if (!res.ok) throw new Error("Payment update failed");
@@ -558,9 +632,11 @@ function renderPastEvents() {
             return `
             <div class="card card-custom border-0 shadow-sm mb-3 past-event-card" style="border-radius: 12px; transition: all 0.2s;">
                 <div class="card-body p-3">
-                    <div class="d-flex align-items-center gap-3">
-                        <img src="${evt.img}" class="rounded-3 object-fit-cover" style="width: 80px; height: 80px; min-width: 80px; filter: grayscale(40%);" alt="${evt.eventName}">
-                        <div class="flex-grow-1 overflow-hidden">
+                    <div class="d-flex flex-column flex-sm-row align-items-center align-items-sm-start gap-4">
+                        <div class="flex-shrink-0">
+                            <img src="${evt.img}" class="rounded-3 object-fit-cover" style="width: 140px; height: 110px; min-width: 140px; filter: grayscale(40%);" alt="${evt.eventName}">
+                        </div>
+                        <div class="flex-grow-1 overflow-hidden w-100">
                             <div class="d-flex justify-content-between align-items-start mb-1">
                                 <h6 class="fw-bold mb-0 text-neutral-900 text-truncate" style="font-size: 1rem;">${evt.eventName}</h6>
                                 <span class="badge bg-neutral-100 text-neutral-500 rounded-pill px-2 py-1 fw-medium" style="font-size: 0.7rem;">Completed</span>
@@ -644,7 +720,9 @@ function renderPayments() {
     const user = userStr ? JSON.parse(userStr) : null;
     const userId = user ? user.id : null;
 
-    const payments = state.payments.filter(p => p.userId === userId);
+    const payments = state.payments
+        .filter(p => p.userId === userId)
+        .sort((a, b) => getPaymentActivityDate(b) - getPaymentActivityDate(a));
 
     setupGenericPagination({
         items: payments,
@@ -652,7 +730,7 @@ function renderPayments() {
         paginationId: 'payments-pagination',
         itemsPerPage: 5,
         renderItem: (pay) => {
-            const date = new Date(pay.date);
+            const date = getPaymentActivityDate(pay);
             const dateStr = date.toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' });
 
             let badgeClass = '';
@@ -660,7 +738,7 @@ function renderPayments() {
             if (pay.status === 'Confirmed') {
                 badgeClass = 'bg-success-subtle text-success border-success-subtle';
             } else if (pay.status === 'Refunded') {
-                badgeClass = 'bg-neutral-100 text-neutral-500 border-neutral-200';
+                badgeClass = 'bg-warning-subtle text-warning border-warning-subtle fw-bold';
             } else {
                 badgeClass = 'bg-danger-subtle text-danger border-danger-subtle';
             }
@@ -716,7 +794,7 @@ function openPaymentModal(pay) {
     document.getElementById('pay-modal-id').textContent = `#${pay.id.substring(0, 8).toUpperCase()}`;
     document.getElementById('pay-modal-amount').textContent = `₹${pay.amount}`;
 
-    const date = new Date(pay.date);
+    const date = getPaymentActivityDate(pay);
     document.getElementById('pay-modal-date').textContent = date.toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' });
 
     // Find event title from state if missing in pay object

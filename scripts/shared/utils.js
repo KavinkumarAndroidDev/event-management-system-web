@@ -138,6 +138,36 @@ export function injectSignOutModal() {
     }
 }
 
+export function populateSidebarUserInfo() {
+    const userStr = localStorage.getItem('currentUser');
+    const user = userStr ? JSON.parse(userStr) : null;
+    if (!user) return;
+
+    const avatarEl = document.getElementById('sidebar-avatar');
+    const nameEl = document.getElementById('sidebar-name');
+    const emailEl = document.getElementById('sidebar-email');
+
+    if (avatarEl) {
+        const initials = user.profile.fullName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+        avatarEl.textContent = initials;
+    }
+    if (nameEl) nameEl.textContent = user.profile.fullName;
+    if (emailEl) emailEl.textContent = user.profile.email;
+
+    // Handle Logout
+    const logoutBtns = document.querySelectorAll('[id^="logoutBtn"], .btn-logout');
+    logoutBtns.forEach(btn => {
+        btn.onclick = (e) => {
+            e.preventDefault();
+            const modalEl = document.getElementById('signOutModal');
+            if (modalEl) {
+                const bsModal = new window.bootstrap.Modal(modalEl);
+                bsModal.show();
+            }
+        };
+    });
+}
+
 export function initializeBootstrapComponents() {
     if (typeof bootstrap === 'undefined') return;
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
@@ -343,4 +373,50 @@ export function setupRealtimeValidation(formId) {
             }
         }
     });
+}
+
+/**
+ * Professional Restricted Access Modal with Countdown
+ */
+export function showRestrictedAccessModal(redirectUrl = '../../index.html') {
+    if (document.getElementById('restrictedAccessModal')) return;
+
+    const html = `
+    <div class="modal fade" id="restrictedAccessModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg rounded-4 p-4 text-center">
+                <div class="modal-body p-0">
+                    <div class="d-inline-flex align-items-center justify-content-center bg-danger-subtle text-danger rounded-circle mb-3" style="width: 72px; height: 72px; background: rgba(239, 68, 68, 0.1);">
+                        <i data-lucide="shield-alert" width="36" height="36"></i>
+                    </div>
+                    <h4 class="fw-bold text-neutral-900 mb-2">Restricted Access</h4>
+                    <p class="text-neutral-600 mb-4">You do not have the required permissions to access this page.</p>
+                    <div class="py-2 px-3 bg-light rounded-pill d-inline-block">
+                        <p class="text-neutral-500 small mb-0">Redirecting to home in <span id="access-countdown" class="fw-bold text-primary">3</span> seconds...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>`;
+
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = html;
+    document.body.appendChild(wrapper.firstElementChild);
+
+    if (window.initIcons) window.initIcons();
+
+    const modalEl = document.getElementById('restrictedAccessModal');
+    const bsModal = new window.bootstrap.Modal(modalEl);
+    bsModal.show();
+
+    let count = 3;
+    const countdownEl = document.getElementById('access-countdown');
+    const timer = setInterval(() => {
+        count--;
+        if (countdownEl) countdownEl.textContent = count;
+        if (count <= 0) {
+            clearInterval(timer);
+            window.location.href = redirectUrl;
+        }
+    }, 1000);
 }

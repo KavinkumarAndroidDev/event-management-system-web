@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,28 +8,45 @@
     <link rel="stylesheet" href="../../css/main.css">
     <link rel="icon" href="../../assets/favicon.svg" type="image/x-icon">
     <style>
-        body.bg-neutral-50 { background-color: #f8fafc !important; }
-        .card-custom { box-shadow: 0 4px 6px -1px rgba(0,0,0,0.04), 0 2px 4px -1px rgba(0,0,0,0.02) !important; border-color: rgba(0,0,0,0.06) !important; }
-        .notification-item { border-bottom: 1px solid rgba(0,0,0,0.05); transition: background 0.15s; }
-        .notification-item:last-child { border-bottom: 0; }
-        .notification-item.unread { background: rgba(23,185,120,0.04); }
-        .notification-item:hover { background: #f8fafc; }
+        body.bg-neutral-50 {
+            background-color: #f8fafc !important;
+        }
+
+        .card-custom {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -1px rgba(0, 0, 0, 0.02) !important;
+            border-color: rgba(0, 0, 0, 0.06) !important;
+        }
+
+        .notification-item {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            transition: background 0.15s;
+        }
+
+        .notification-item:last-child {
+            border-bottom: 0;
+        }
+
+        .notification-item.unread {
+            background: rgba(23, 185, 120, 0.04);
+        }
+
+        .notification-item:hover {
+            background: #f8fafc;
+        }
     </style>
 </head>
+
 <body class="bg-neutral-50">
     <header class="bg-white border-bottom sticky-top" style="height:64px;z-index:1000;">
         <div class="container-fluid px-4 h-100">
             <div class="d-flex align-items-center justify-content-between h-100">
-                <a class="brand" href="../../index.html" style="width:140px;"><img src="../../assets/logo.SVG" alt="SyncEvent" class="img-fluid"></a>
+                <a class="brand" href="dashboard.html" style="width:140px;"><img src="../../assets/logo.SVG"
+                        alt="SyncEvent" class="img-fluid"></a>
                 <div class="d-flex align-items-center gap-3">
-                    <a href="notifications.html" class="icon-circle position-relative text-decoration-none bg-white"><i data-lucide="bell" style="width:20px;height:20px;"></i><span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle" style="width:10px;height:10px;margin-top:8px;margin-left:-8px;"></span></a>
-                    <div class="d-flex align-items-center gap-2 ps-3 border-start ms-1">
-                        <div class="avatar-circle">AD</div>
-                        <div class="d-none d-sm-block">
-                            <div class="fw-bold text-neutral-900" style="font-size:0.813rem;">Admin User</div>
-                            <div class="text-neutral-400" style="font-size:0.688rem;">admin@example.com</div>
-                        </div>
-                    </div>
+                    <a href="notifications.html" class="icon-circle position-relative text-decoration-none bg-white"><i
+                            data-lucide="bell" style="width:20px;height:20px;"></i><span
+                            class="position-absolute top-0 start-100 translate-middle p-1 rounded-circle"
+                            style="width:10px;height:10px;margin-top:8px;margin-left:-8px;background:#17b978;"></span></a>
                 </div>
             </div>
         </div>
@@ -37,28 +55,66 @@
     <main class="section-sm">
         <div class="container-fluid px-4">
             <div class="row g-4">
-                <div class="col-lg-2">
-                    <div class="card-custom p-3 position-sticky" style="top:88px;">
+                <div class="col-lg-3">
+                    <div class="card-custom p-3">
+                        <!-- User Info -->
+                        <div class="d-flex align-items-center gap-3 mb-4">
+                            <span class="avatar-circle" id="sidebar-avatar"></span>
+                            <div class="overflow-hidden">
+                                <h6 class="mb-0 text-truncate" id="sidebar-name">Loading...</h6>
+                                <small class="text-neutral-400 text-truncate d-block" id="sidebar-email">...</small>
+                            </div>
+                        </div>
+                        <hr class="border-neutral-100 my-2">
                         <nav class="nav flex-column gap-1">
-                            <a href="dashboard.html" class="sidebar-item"><i data-lucide="layout-dashboard" class="sidebar-icon"></i> Dashboard</a>
-                            <a href="user-management.html" class="sidebar-item"><i data-lucide="users" class="sidebar-icon"></i> User Management</a>
-                            <a href="event-approvals.html" class="sidebar-item"><i data-lucide="check-circle" class="sidebar-icon"></i> Event Approvals <span class="badge rounded-pill ms-auto" style="background:#ef4444;color:#fff;font-size:10px;">8</span></a>
-                            <a href="events.html" class="sidebar-item"><i data-lucide="calendar" class="sidebar-icon"></i> Events</a>
-                            <a href="categories.html" class="sidebar-item"><i data-lucide="tag" class="sidebar-icon"></i> Categories</a>
-                            <a href="venues.html" class="sidebar-item"><i data-lucide="map-pin" class="sidebar-icon"></i> Venues</a>
-                            <a href="tickets-registrations.html" class="sidebar-item"><i data-lucide="ticket" class="sidebar-icon"></i> Tickets &amp; Registrations</a>
-                            <a href="payments-revenue.html" class="sidebar-item"><i data-lucide="dollar-sign" class="sidebar-icon"></i> Payments &amp; Revenue</a>
-                            <a href="reports-analytics.html" class="sidebar-item"><i data-lucide="bar-chart-2" class="sidebar-icon"></i> Reports &amp; Analytics</a>
-                            <a href="feedback-moderation.html" class="sidebar-item"><i data-lucide="message-square" class="sidebar-icon"></i> Feedback Moderation</a>
-                            <a href="notifications.html" class="sidebar-item active"><i data-lucide="bell" class="sidebar-icon"></i> Notifications <span class="badge rounded-pill ms-auto" style="background:#ef4444;color:#fff;font-size:10px;">5</span></a>
-                            <a href="profile.html" class="sidebar-item"><i data-lucide="user" class="sidebar-icon"></i> Profile</a>
+                            <a href="dashboard.html" class="sidebar-item"><i data-lucide="layout-dashboard"
+                                    class="sidebar-icon"></i> Dashboard</a>
+                            <a href="user-management.html" class="sidebar-item"><i data-lucide="users"
+                                    class="sidebar-icon"></i> User Management</a>
+                            <a href="event-approvals.html" class="sidebar-item"><i data-lucide="check-circle"
+                                    class="sidebar-icon"></i> Event Approvals <span class="badge rounded-pill ms-auto"
+                                    style="background:#17b978;color:#fff;font-size:10px;">8</span></a>
+                            <a href="events.html" class="sidebar-item"><i data-lucide="calendar"
+                                    class="sidebar-icon"></i> Events</a>
+                            <a href="categories.html" class="sidebar-item"><i data-lucide="tag"
+                                    class="sidebar-icon"></i> Categories</a>
+                            <a href="venues.html" class="sidebar-item"><i data-lucide="map-pin"
+                                    class="sidebar-icon"></i> Venues</a>
+                            <a href="tickets-registrations.html" class="sidebar-item"><i data-lucide="ticket"
+                                    class="sidebar-icon"></i> Tickets &amp; Registrations</a>
+                            <a href="payments-revenue.html" class="sidebar-item"><i data-lucide="dollar-sign"
+                                    class="sidebar-icon"></i> Payments &amp; Revenue</a>
+                            <a href="reports-analytics.html" class="sidebar-item"><i data-lucide="bar-chart-2"
+                                    class="sidebar-icon"></i> Reports &amp; Analytics</a>
+                            <a href="feedback-moderation.html" class="sidebar-item"><i data-lucide="message-square"
+                                    class="sidebar-icon"></i> Feedback Moderation</a>
+                            <a href="notifications.html" class="sidebar-item active"><i data-lucide="bell"
+                                    class="sidebar-icon"></i> Notifications <span class="badge rounded-pill ms-auto"
+                                    style="background:#17b978;color:#fff;font-size:10px;">5</span></a>
+                            <a href="profile.html" class="sidebar-item"><i data-lucide="user" class="sidebar-icon"></i>
+                                Profile</a>
                         </nav>
-                        <hr class="my-3" style="border-color:rgba(0,0,0,0.06);">
-                        <a href="../../index.html" class="btn btn-outline-danger w-100 rounded-pill"><i data-lucide="log-out" width="18" class="me-2"></i> Logout</a>
+                        <hr class="border-neutral-100 my-3">
+                        <div class="d-flex flex-column gap-2">
+                            <button class="btn btn-outline-danger w-100 rounded-pill" id="logoutBtn">
+                                <i data-lucide="log-out" width="18" class="me-2"></i> Logout
+                            </button>
+                        </div>
                     </div>
                 </div>
 
-                <div class="col-lg-10">
+                <div class="col-lg-9">
+
+                    <!-- Breadcrumb -->
+                    <nav aria-label="breadcrumb" class="mb-3">
+                        <ol class="breadcrumb mb-0" style="font-size:0.8125rem;">
+                            <li class="breadcrumb-item"><a href="dashboard.html"
+                                    class="text-decoration-none text-neutral-400">Dashboard</a></li>
+                            <li class="breadcrumb-item active text-primary fw-medium" aria-current="page">Notifications
+                            </li>
+                        </ol>
+                    </nav>
+
                     <div class="d-flex justify-content-between align-items-center mb-4">
                         <div>
                             <h4 class="fw-bold mb-1">Notifications</h4>
@@ -79,56 +135,70 @@
                     <div class="card-custom p-0 overflow-hidden">
                         <!-- Unread -->
                         <div class="notification-item unread px-4 py-4 d-flex align-items-start gap-3">
-                            <div class="icon-container flex-shrink-0" style="background:rgba(0,184,217,0.12);color:#00b8d9;width:40px;height:40px;min-width:40px;">
+                            <div class="icon-container flex-shrink-0"
+                                style="background:rgba(0,184,217,0.12);color:#00b8d9;width:40px;height:40px;min-width:40px;">
                                 <i data-lucide="shield" style="width:18px;height:18px;"></i>
                             </div>
                             <div class="flex-grow-1">
                                 <div class="d-flex align-items-center gap-2 mb-1">
                                     <span class="fw-bold text-neutral-900 small">System Maintenance Scheduled</span>
-                                    <span class="badge rounded-pill px-2" style="background:#111827;color:#fff;font-size:10px;">New</span>
+                                    <span class="badge rounded-pill px-2"
+                                        style="background:#111827;color:#fff;font-size:10px;">New</span>
                                 </div>
-                                <p class="text-neutral-400 small mb-1">System maintenance will be performed on Feb 20, 2026 from 2:00 AM to 4:00 AM EST.</p>
+                                <p class="text-neutral-400 small mb-1">System maintenance will be performed on Feb 20,
+                                    2026 from 2:00 AM to 4:00 AM EST.</p>
                                 <span class="text-neutral-400" style="font-size:11px;">2 hours ago</span>
                             </div>
-                            <button class="btn btn-sm btn-outline-secondary rounded-pill flex-shrink-0" style="font-size:12px;">Mark as Read</button>
+                            <button class="btn btn-sm btn-outline-secondary rounded-pill flex-shrink-0"
+                                style="font-size:12px;">Mark as Read</button>
                         </div>
                         <div class="notification-item unread px-4 py-4 d-flex align-items-start gap-3">
-                            <div class="icon-container flex-shrink-0" style="background:rgba(245,158,11,0.12);color:#f59e0b;width:40px;height:40px;min-width:40px;">
+                            <div class="icon-container flex-shrink-0"
+                                style="background:rgba(245,158,11,0.12);color:#f59e0b;width:40px;height:40px;min-width:40px;">
                                 <i data-lucide="alert-circle" style="width:18px;height:18px;"></i>
                             </div>
                             <div class="flex-grow-1">
                                 <div class="d-flex align-items-center gap-2 mb-1">
                                     <span class="fw-bold text-neutral-900 small">Refund Request Received</span>
-                                    <span class="badge rounded-pill px-2" style="background:#111827;color:#fff;font-size:10px;">New</span>
+                                    <span class="badge rounded-pill px-2"
+                                        style="background:#111827;color:#fff;font-size:10px;">New</span>
                                 </div>
-                                <p class="text-neutral-400 small mb-1">A refund request for $150 has been submitted by Michael Scott for Tech Conference 2026.</p>
+                                <p class="text-neutral-400 small mb-1">A refund request for $150 has been submitted by
+                                    Michael Scott for Tech Conference 2026.</p>
                                 <span class="text-neutral-400" style="font-size:11px;">3 hours ago</span>
                             </div>
-                            <button class="btn btn-sm btn-outline-secondary rounded-pill flex-shrink-0" style="font-size:12px;">Mark as Read</button>
+                            <button class="btn btn-sm btn-outline-secondary rounded-pill flex-shrink-0"
+                                style="font-size:12px;">Mark as Read</button>
                         </div>
                         <div class="notification-item unread px-4 py-4 d-flex align-items-start gap-3">
-                            <div class="icon-container flex-shrink-0" style="background:rgba(239,68,68,0.10);color:#ef4444;width:40px;height:40px;min-width:40px;">
+                            <div class="icon-container flex-shrink-0"
+                                style="background:rgba(239,68,68,0.10);color:#ef4444;width:40px;height:40px;min-width:40px;">
                                 <i data-lucide="calendar-x" style="width:18px;height:18px;"></i>
                             </div>
                             <div class="flex-grow-1">
                                 <div class="d-flex align-items-center gap-2 mb-1">
                                     <span class="fw-bold text-neutral-900 small">Event Cancelled</span>
-                                    <span class="badge rounded-pill px-2" style="background:#111827;color:#fff;font-size:10px;">New</span>
+                                    <span class="badge rounded-pill px-2"
+                                        style="background:#111827;color:#fff;font-size:10px;">New</span>
                                 </div>
-                                <p class="text-neutral-400 small mb-1">Holiday Party 2026 has been cancelled by the organizer. All attendees have been notified.</p>
+                                <p class="text-neutral-400 small mb-1">Holiday Party 2026 has been cancelled by the
+                                    organizer. All attendees have been notified.</p>
                                 <span class="text-neutral-400" style="font-size:11px;">5 hours ago</span>
                             </div>
-                            <button class="btn btn-sm btn-outline-secondary rounded-pill flex-shrink-0" style="font-size:12px;">Mark as Read</button>
+                            <button class="btn btn-sm btn-outline-secondary rounded-pill flex-shrink-0"
+                                style="font-size:12px;">Mark as Read</button>
                         </div>
 
                         <!-- Read -->
                         <div class="notification-item px-4 py-4 d-flex align-items-start gap-3">
-                            <div class="icon-container flex-shrink-0" style="background:rgba(239,68,68,0.10);color:#ef4444;width:40px;height:40px;min-width:40px;">
+                            <div class="icon-container flex-shrink-0"
+                                style="background:rgba(239,68,68,0.10);color:#ef4444;width:40px;height:40px;min-width:40px;">
                                 <i data-lucide="user-x" style="width:18px;height:18px;"></i>
                             </div>
                             <div class="flex-grow-1">
                                 <div class="fw-bold text-neutral-900 small mb-1">User Suspended</div>
-                                <p class="text-neutral-400 small mb-1">User account sarah@example.com has been suspended due to policy violations.</p>
+                                <p class="text-neutral-400 small mb-1">User account sarah@example.com has been suspended
+                                    due to policy violations.</p>
                                 <span class="text-neutral-400" style="font-size:11px;">8 hours ago</span>
                             </div>
                         </div>
@@ -138,7 +208,8 @@
                             </div>
                             <div class="flex-grow-1">
                                 <div class="fw-bold text-neutral-900 small mb-1">New Event Submission</div>
-                                <p class="text-neutral-400 small mb-1">A new event 'Spring Music Festival' has been submitted for approval by Robert Kim.</p>
+                                <p class="text-neutral-400 small mb-1">A new event 'Spring Music Festival' has been
+                                    submitted for approval by Robert Kim.</p>
                                 <span class="text-neutral-400" style="font-size:11px;">10 hours ago</span>
                             </div>
                         </div>
@@ -148,7 +219,8 @@
                             </div>
                             <div class="flex-grow-1">
                                 <div class="fw-bold text-neutral-900 small mb-1">Refund Processed</div>
-                                <p class="text-neutral-400 small mb-1">Refund of $200 has been processed for Jim Halpert for Music Festival Summer.</p>
+                                <p class="text-neutral-400 small mb-1">Refund of $200 has been processed for Jim Halpert
+                                    for Music Festival Summer.</p>
                                 <span class="text-neutral-400" style="font-size:11px;">12 hours ago</span>
                             </div>
                         </div>
@@ -158,7 +230,8 @@
                             </div>
                             <div class="flex-grow-1">
                                 <div class="fw-bold text-neutral-900 small mb-1">Event Approved</div>
-                                <p class="text-neutral-400 small mb-1">The event 'Tech Summit 2026' has been approved and is now live.</p>
+                                <p class="text-neutral-400 small mb-1">The event 'Tech Summit 2026' has been approved
+                                    and is now live.</p>
                                 <span class="text-neutral-400" style="font-size:11px;">1 day ago</span>
                             </div>
                         </div>
@@ -168,17 +241,20 @@
                             </div>
                             <div class="flex-grow-1">
                                 <div class="fw-bold text-neutral-900 small mb-1">New Organizer Registration</div>
-                                <p class="text-neutral-400 small mb-1">A new organizer Emma Wilson has registered on the platform.</p>
+                                <p class="text-neutral-400 small mb-1">A new organizer Emma Wilson has registered on the
+                                    platform.</p>
                                 <span class="text-neutral-400" style="font-size:11px;">1 day ago</span>
                             </div>
                         </div>
                         <div class="notification-item px-4 py-4 d-flex align-items-start gap-3">
-                            <div class="icon-container flex-shrink-0" style="background:rgba(245,158,11,0.12);color:#f59e0b;width:40px;height:40px;min-width:40px;">
+                            <div class="icon-container flex-shrink-0"
+                                style="background:rgba(245,158,11,0.12);color:#f59e0b;width:40px;height:40px;min-width:40px;">
                                 <i data-lucide="alert-triangle" style="width:18px;height:18px;"></i>
                             </div>
                             <div class="flex-grow-1">
                                 <div class="fw-bold text-neutral-900 small mb-1">Refund Alert</div>
-                                <p class="text-neutral-400 small mb-1">Multiple refund requests detected for Gaming Tournament. Please review.</p>
+                                <p class="text-neutral-400 small mb-1">Multiple refund requests detected for Gaming
+                                    Tournament. Please review.</p>
                                 <span class="text-neutral-400" style="font-size:11px;">2 days ago</span>
                             </div>
                         </div>
@@ -188,7 +264,8 @@
                             </div>
                             <div class="flex-grow-1">
                                 <div class="fw-bold text-neutral-900 small mb-1">Platform Update</div>
-                                <p class="text-neutral-400 small mb-1">Platform has been updated to version 2.5.0 with new features and improvements.</p>
+                                <p class="text-neutral-400 small mb-1">Platform has been updated to version 2.5.0 with
+                                    new features and improvements.</p>
                                 <span class="text-neutral-400" style="font-size:11px;">2 days ago</span>
                             </div>
                         </div>
@@ -199,19 +276,31 @@
                         <h2 class="h6 fw-bold mb-3">Notification Types</h2>
                         <div class="row g-3">
                             <div class="col-sm-3 d-flex align-items-center gap-2">
-                                <div class="icon-container flex-shrink-0" style="background:rgba(0,184,217,0.12);color:#00b8d9;width:32px;height:32px;min-width:32px;padding:0.5rem;"><i data-lucide="shield" style="width:14px;height:14px;"></i></div>
+                                <div class="icon-container flex-shrink-0"
+                                    style="background:rgba(0,184,217,0.12);color:#00b8d9;width:32px;height:32px;min-width:32px;padding:0.5rem;">
+                                    <i data-lucide="shield" style="width:14px;height:14px;"></i>
+                                </div>
                                 <span class="small text-neutral-400">System Alerts</span>
                             </div>
                             <div class="col-sm-3 d-flex align-items-center gap-2">
-                                <div class="icon-container flex-shrink-0" style="background:rgba(245,158,11,0.12);color:#f59e0b;width:32px;height:32px;min-width:32px;padding:0.5rem;"><i data-lucide="alert-circle" style="width:14px;height:14px;"></i></div>
+                                <div class="icon-container flex-shrink-0"
+                                    style="background:rgba(245,158,11,0.12);color:#f59e0b;width:32px;height:32px;min-width:32px;padding:0.5rem;">
+                                    <i data-lucide="alert-circle" style="width:14px;height:14px;"></i>
+                                </div>
                                 <span class="small text-neutral-400">Refund Alerts</span>
                             </div>
                             <div class="col-sm-3 d-flex align-items-center gap-2">
-                                <div class="icon-container flex-shrink-0" style="background:rgba(239,68,68,0.10);color:#ef4444;width:32px;height:32px;min-width:32px;padding:0.5rem;"><i data-lucide="calendar-x" style="width:14px;height:14px;"></i></div>
+                                <div class="icon-container flex-shrink-0"
+                                    style="background:rgba(239,68,68,0.10);color:#ef4444;width:32px;height:32px;min-width:32px;padding:0.5rem;">
+                                    <i data-lucide="calendar-x" style="width:14px;height:14px;"></i>
+                                </div>
                                 <span class="small text-neutral-400">Event Cancellations</span>
                             </div>
                             <div class="col-sm-3 d-flex align-items-center gap-2">
-                                <div class="icon-container flex-shrink-0" style="background:rgba(239,68,68,0.10);color:#ef4444;width:32px;height:32px;min-width:32px;padding:0.5rem;"><i data-lucide="user-x" style="width:14px;height:14px;"></i></div>
+                                <div class="icon-container flex-shrink-0"
+                                    style="background:rgba(239,68,68,0.10);color:#ef4444;width:32px;height:32px;min-width:32px;padding:0.5rem;">
+                                    <i data-lucide="user-x" style="width:14px;height:14px;"></i>
+                                </div>
                                 <span class="small text-neutral-400">User Suspensions</span>
                             </div>
                         </div>
@@ -223,6 +312,32 @@
 
     <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script>lucide.createIcons();</script>
+    <script type="module">
+        import { injectSignOutModal, populateSidebarUserInfo } from '../../scripts/shared/utils.js';
+
+        lucide.createIcons();
+        injectSignOutModal();
+        populateSidebarUserInfo();
+    </script>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="display:none;position:fixed;bottom:2rem;right:2rem;z-index:9999;
+               width:44px;height:44px;border-radius:50%;border:none;cursor:pointer;
+               background:#17b978;color:#fff;box-shadow:0 4px 16px rgba(23,185,120,0.35);
+               align-items:center;justify-content:center;transition:opacity 0.2s ease;" title="Back to top">
+        <i data-lucide="chevron-up" style="width:20px;height:20px;"></i>
+    </button>
+    <script>
+        var scrollBtn = document.getElementById('scrollTopBtn');
+        window.addEventListener('scroll', function () {
+            if (window.scrollY > 300) {
+                scrollBtn.style.display = 'flex';
+            } else {
+                scrollBtn.style.display = 'none';
+            }
+        });
+    </script>
+
 </body>
+
 </html>

@@ -7,7 +7,18 @@
     <title>Event Details - SyncEvent</title>
     <link rel="stylesheet" href="../../css/main.css">
     <link rel="icon" href="../../assets/favicon.svg" type="image/x-icon">
-
+    <style>
+        .icon-circle-btn {
+            width: 36px;
+            height: 36px;
+            padding: 0;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+    </style>
 </head>
 
 <body class="bg-white">
@@ -60,7 +71,24 @@
                     <!-- Right Column: Booking Card -->
                     <div class="col-lg-4">
                         <div class="card-custom">
-                            <h3 class="mb-4" id="event-title">Event Title</h3>
+                            <div class="d-flex justify-content-between align-items-start gap-2 mb-4">
+                                <h3 class="mb-0" id="event-title">Event Title</h3>
+                                <!-- <button id="btn-share-event" type="button"
+                                    class="btn btn-outline-primary icon-circle-btn" title="Share Event">
+                                    <i data-lucide="share-2" width="18" height="18"></i>
+                                </button> -->
+                                <!-- <button id="btn-share-event" type="button"
+                                    class="btn btn-outline-primary icon-circle-btn shadow-sm" title="Share Event"
+                                    style="flex-shrink: 0;">
+                                    <i data-lucide="share-2" width="18" height="18"></i>
+                                </button> -->
+                                <button id="btn-share-event"
+        class="btn btn-text text-primary d-inline-flex align-items-center gap-2 p-0">
+    <i data-lucide="share-2" width="16" height="16"></i>
+    Share
+</button>
+
+                            </div>
 
                             <!-- Detail Rows -->
                             <div class="d-flex align-items-start gap-2 mb-3">

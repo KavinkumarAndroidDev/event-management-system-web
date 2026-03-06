@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,24 +8,28 @@
     <link rel="stylesheet" href="../../css/main.css">
     <link rel="icon" href="../../assets/favicon.svg" type="image/x-icon">
     <style>
-        body.bg-neutral-50 { background-color: #f8fafc !important; }
-        .card-custom { box-shadow: 0 4px 6px -1px rgba(0,0,0,0.04), 0 2px 4px -1px rgba(0,0,0,0.02) !important; border-color: rgba(0,0,0,0.06) !important; }
+        body.bg-neutral-50 {
+            background-color: #f8fafc !important;
+        }
+
+        .card-custom {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -1px rgba(0, 0, 0, 0.02) !important;
+            border-color: rgba(0, 0, 0, 0.06) !important;
+        }
     </style>
 </head>
+
 <body class="bg-neutral-50">
     <header class="bg-white border-bottom sticky-top" style="height:64px;z-index:1000;">
         <div class="container-fluid px-4 h-100">
             <div class="d-flex align-items-center justify-content-between h-100">
-                <a class="brand" href="../../index.html" style="width:140px;"><img src="../../assets/logo.SVG" alt="SyncEvent" class="img-fluid"></a>
+                <a class="brand" href="dashboard.html" style="width:140px;"><img src="../../assets/logo.SVG"
+                        alt="SyncEvent" class="img-fluid"></a>
                 <div class="d-flex align-items-center gap-3">
-                    <a href="notifications.html" class="icon-circle position-relative text-decoration-none bg-white"><i data-lucide="bell" style="width:20px;height:20px;"></i><span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle" style="width:10px;height:10px;margin-top:8px;margin-left:-8px;"></span></a>
-                    <div class="d-flex align-items-center gap-2 ps-3 border-start ms-1">
-                        <div class="avatar-circle">AD</div>
-                        <div class="d-none d-sm-block">
-                            <div class="fw-bold text-neutral-900" style="font-size:0.813rem;">Admin User</div>
-                            <div class="text-neutral-400" style="font-size:0.688rem;">admin@example.com</div>
-                        </div>
-                    </div>
+                    <a href="notifications.html" class="icon-circle position-relative text-decoration-none bg-white"><i
+                            data-lucide="bell" style="width:20px;height:20px;"></i><span
+                            class="position-absolute top-0 start-100 translate-middle p-1 rounded-circle"
+                            style="width:10px;height:10px;margin-top:8px;margin-left:-8px;background:#17b978;"></span></a>
                 </div>
             </div>
         </div>
@@ -33,38 +38,83 @@
     <main class="section-sm">
         <div class="container-fluid px-4">
             <div class="row g-4">
-                <div class="col-lg-2">
-                    <div class="card-custom p-3 position-sticky" style="top:88px;">
+                <div class="col-lg-3">
+                    <div class="card-custom p-3">
+                        <!-- User Info -->
+                        <div class="d-flex align-items-center gap-3 mb-4">
+                            <span class="avatar-circle" id="sidebar-avatar"></span>
+                            <div class="overflow-hidden">
+                                <h6 class="mb-0 text-truncate" id="sidebar-name">Loading...</h6>
+                                <small class="text-neutral-400 text-truncate d-block" id="sidebar-email">...</small>
+                            </div>
+                        </div>
+                        <hr class="border-neutral-100 my-2">
                         <nav class="nav flex-column gap-1">
-                            <a href="dashboard.html" class="sidebar-item"><i data-lucide="layout-dashboard" class="sidebar-icon"></i> Dashboard</a>
-                            <a href="user-management.html" class="sidebar-item"><i data-lucide="users" class="sidebar-icon"></i> User Management</a>
-                            <a href="event-approvals.html" class="sidebar-item"><i data-lucide="check-circle" class="sidebar-icon"></i> Event Approvals <span class="badge rounded-pill ms-auto" style="background:#ef4444;color:#fff;font-size:10px;">8</span></a>
-                            <a href="events.html" class="sidebar-item"><i data-lucide="calendar" class="sidebar-icon"></i> Events</a>
-                            <a href="categories.html" class="sidebar-item"><i data-lucide="tag" class="sidebar-icon"></i> Categories</a>
-                            <a href="venues.html" class="sidebar-item"><i data-lucide="map-pin" class="sidebar-icon"></i> Venues</a>
-                            <a href="tickets-registrations.html" class="sidebar-item"><i data-lucide="ticket" class="sidebar-icon"></i> Tickets &amp; Registrations</a>
-                            <a href="payments-revenue.html" class="sidebar-item"><i data-lucide="dollar-sign" class="sidebar-icon"></i> Payments &amp; Revenue</a>
-                            <a href="reports-analytics.html" class="sidebar-item active"><i data-lucide="bar-chart-2" class="sidebar-icon"></i> Reports &amp; Analytics</a>
-                            <a href="feedback-moderation.html" class="sidebar-item"><i data-lucide="message-square" class="sidebar-icon"></i> Feedback Moderation</a>
-                            <a href="notifications.html" class="sidebar-item"><i data-lucide="bell" class="sidebar-icon"></i> Notifications <span class="badge rounded-pill ms-auto" style="background:#ef4444;color:#fff;font-size:10px;">5</span></a>
-                            <a href="profile.html" class="sidebar-item"><i data-lucide="user" class="sidebar-icon"></i> Profile</a>
+                            <a href="dashboard.html" class="sidebar-item"><i data-lucide="layout-dashboard"
+                                    class="sidebar-icon"></i> Dashboard</a>
+                            <a href="user-management.html" class="sidebar-item"><i data-lucide="users"
+                                    class="sidebar-icon"></i> User Management</a>
+                            <a href="event-approvals.html" class="sidebar-item"><i data-lucide="check-circle"
+                                    class="sidebar-icon"></i> Event Approvals <span class="badge rounded-pill ms-auto"
+                                    style="background:#17b978;color:#fff;font-size:10px;">8</span></a>
+                            <a href="events.html" class="sidebar-item"><i data-lucide="calendar"
+                                    class="sidebar-icon"></i> Events</a>
+                            <a href="categories.html" class="sidebar-item"><i data-lucide="tag"
+                                    class="sidebar-icon"></i> Categories</a>
+                            <a href="venues.html" class="sidebar-item"><i data-lucide="map-pin"
+                                    class="sidebar-icon"></i> Venues</a>
+                            <a href="tickets-registrations.html" class="sidebar-item"><i data-lucide="ticket"
+                                    class="sidebar-icon"></i> Tickets &amp; Registrations</a>
+                            <a href="payments-revenue.html" class="sidebar-item"><i data-lucide="dollar-sign"
+                                    class="sidebar-icon"></i> Payments &amp; Revenue</a>
+                            <a href="reports-analytics.html" class="sidebar-item active"><i data-lucide="bar-chart-2"
+                                    class="sidebar-icon"></i> Reports &amp; Analytics</a>
+                            <a href="feedback-moderation.html" class="sidebar-item"><i data-lucide="message-square"
+                                    class="sidebar-icon"></i> Feedback Moderation</a>
+                            <a href="notifications.html" class="sidebar-item"><i data-lucide="bell"
+                                    class="sidebar-icon"></i> Notifications <span class="badge rounded-pill ms-auto"
+                                    style="background:#17b978;color:#fff;font-size:10px;">5</span></a>
+                            <a href="profile.html" class="sidebar-item"><i data-lucide="user" class="sidebar-icon"></i>
+                                Profile</a>
                         </nav>
-                        <hr class="my-3" style="border-color:rgba(0,0,0,0.06);">
-                        <a href="../../index.html" class="btn btn-outline-danger w-100 rounded-pill"><i data-lucide="log-out" width="18" class="me-2"></i> Logout</a>
+                        <hr class="border-neutral-100 my-3">
+                        <div class="d-flex flex-column gap-2">
+                            <button class="btn btn-outline-danger w-100 rounded-pill" id="logoutBtn">
+                                <i data-lucide="log-out" width="18" class="me-2"></i> Logout
+                            </button>
+                        </div>
                     </div>
                 </div>
 
-                <div class="col-lg-10">
+                <div class="col-lg-9">
+
+                    <!-- Breadcrumb -->
+                    <nav aria-label="breadcrumb" class="mb-3">
+                        <ol class="breadcrumb mb-0" style="font-size:0.8125rem;">
+                            <li class="breadcrumb-item"><a href="dashboard.html"
+                                    class="text-decoration-none text-neutral-400">Dashboard</a></li>
+                            <li class="breadcrumb-item active text-primary fw-medium" aria-current="page">Reports &
+                                Analytics</li>
+                        </ol>
+                    </nav>
+
                     <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
-                        <h4 class="fw-bold mb-0">Reports &amp; Analytics</h4>
+                        <div class="d-flex align-items-center"><a href="dashboard.html"
+                                class="icon-circle text-decoration-none me-3" title="Back to Dashboard"
+                                style="flex-shrink:0;"><i data-lucide="arrow-left"
+                                    style="width:18px;height:18px;"></i></a>
+                            <h4 class="fw-bold mb-0">Reports &amp; Analytics</h4>
+                        </div>
                         <div class="d-flex gap-2">
                             <select class="form-select" style="width:160px;">
                                 <option>Last 30 Days</option>
                                 <option>Last 90 Days</option>
                                 <option>This Year</option>
                             </select>
-                            <button class="btn btn-outline-secondary rounded-pill px-4"><i data-lucide="download" width="16" class="me-2"></i> Export CSV</button>
-                            <button class="btn btn-outline-secondary rounded-pill px-4"><i data-lucide="file-text" width="16" class="me-2"></i> Export PDF</button>
+                            <button class="btn btn-outline-secondary rounded-pill px-4"><i data-lucide="download"
+                                    width="16" class="me-2"></i> Export CSV</button>
+                            <button class="btn btn-outline-secondary rounded-pill px-4"><i data-lucide="file-text"
+                                    width="16" class="me-2"></i> Export PDF</button>
                         </div>
                     </div>
 
@@ -122,21 +172,26 @@
                     <div class="row g-4">
                         <div class="col-sm-4">
                             <div class="card-custom p-4 text-center">
-                                <div class="icon-container mx-auto mb-3"><i data-lucide="calendar" style="width:24px;height:24px;"></i></div>
+                                <div class="icon-container mx-auto mb-3"><i data-lucide="calendar"
+                                        style="width:24px;height:24px;"></i></div>
                                 <div class="h3 fw-bold text-neutral-900 mb-1">234 attendees</div>
                                 <div class="text-neutral-400 small">Average Event Size</div>
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="card-custom p-4 text-center">
-                                <div class="icon-container mx-auto mb-3" style="background:rgba(0,184,217,0.12);color:#00b8d9;"><i data-lucide="download" style="width:24px;height:24px;"></i></div>
+                                <div class="icon-container mx-auto mb-3"
+                                    style="background:rgba(0,184,217,0.12);color:#00b8d9;"><i data-lucide="download"
+                                        style="width:24px;height:24px;"></i></div>
                                 <div class="h3 fw-bold text-neutral-900 mb-1">$52.30</div>
                                 <div class="text-neutral-400 small">Average Ticket Price</div>
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="card-custom p-4 text-center">
-                                <div class="icon-container mx-auto mb-3" style="background:rgba(245,158,11,0.12);color:#f59e0b;"><i data-lucide="star" style="width:24px;height:24px;"></i></div>
+                                <div class="icon-container mx-auto mb-3"
+                                    style="background:rgba(245,158,11,0.12);color:#f59e0b;"><i data-lucide="star"
+                                        style="width:24px;height:24px;"></i></div>
                                 <div class="h3 fw-bold text-neutral-900 mb-1">4.7 / 5.0</div>
                                 <div class="text-neutral-400 small">Customer Satisfaction</div>
                             </div>
@@ -150,35 +205,59 @@
     <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
+    <script type="module">
+        import { injectSignOutModal, populateSidebarUserInfo } from '../../scripts/shared/utils.js';
+
         lucide.createIcons();
+        injectSignOutModal();
+        populateSidebarUserInfo();
 
         new Chart(document.getElementById('revenueChart').getContext('2d'), {
             type: 'line',
             data: {
-                labels: ['Aug 25','Sep 25','Oct 25','Nov 25','Dec 25','Jan 26','Feb 26'],
-                datasets: [{ data: [45000,48000,50000,62000,56000,75000,70000], borderColor:'#17B978', backgroundColor:'rgba(23,185,120,0.08)', borderWidth:2, fill:true, tension:0.4, pointRadius:3, pointBackgroundColor:'#17B978' }]
+                labels: ['Aug 25', 'Sep 25', 'Oct 25', 'Nov 25', 'Dec 25', 'Jan 26', 'Feb 26'],
+                datasets: [{ data: [45000, 48000, 50000, 62000, 56000, 75000, 70000], borderColor: '#17B978', backgroundColor: 'rgba(23,185,120,0.08)', borderWidth: 2, fill: true, tension: 0.4, pointRadius: 3, pointBackgroundColor: '#17B978' }]
             },
-            options: { responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}}, scales:{ x:{grid:{display:false},ticks:{font:{size:11},color:'#9CA3AF'}}, y:{grid:{color:'#F5F5F5'},ticks:{font:{size:11},color:'#9CA3AF'}} } }
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false }, ticks: { font: { size: 11 }, color: '#9CA3AF' } }, y: { grid: { color: '#F5F5F5' }, ticks: { font: { size: 11 }, color: '#9CA3AF' } } } }
         });
 
         new Chart(document.getElementById('categoryChart').getContext('2d'), {
             type: 'bar',
             data: {
-                labels: ['Technology','Music','Food','Business','Arts','Sports'],
-                datasets: [{ data: [4000,3100,2900,5000,1700,3800], backgroundColor:'#17B978', borderRadius:4 }]
+                labels: ['Technology', 'Music', 'Food', 'Business', 'Arts', 'Sports'],
+                datasets: [{ data: [4000, 3100, 2900, 5000, 1700, 3800], backgroundColor: '#17B978', borderRadius: 4 }]
             },
-            options: { responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}}, scales:{ x:{grid:{display:false},ticks:{font:{size:11},color:'#9CA3AF'}}, y:{grid:{color:'#F5F5F5'},ticks:{font:{size:11},color:'#9CA3AF'}} } }
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false }, ticks: { font: { size: 11 }, color: '#9CA3AF' } }, y: { grid: { color: '#F5F5F5' }, ticks: { font: { size: 11 }, color: '#9CA3AF' } } } }
         });
 
         new Chart(document.getElementById('organizersChart').getContext('2d'), {
             type: 'bar',
             data: {
-                labels: ['John Doe','Jane Smith','Mike Johnson','David Brown','Lisa Anderson'],
-                datasets: [{ data: [55000,42000,32000,36000,28000], backgroundColor:'#17B978', borderRadius:4 }]
+                labels: ['John Doe', 'Jane Smith', 'Mike Johnson', 'David Brown', 'Lisa Anderson'],
+                datasets: [{ data: [55000, 42000, 32000, 36000, 28000], backgroundColor: '#17B978', borderRadius: 4 }]
             },
-            options: { indexAxis:'y', responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}}, scales:{ x:{grid:{color:'#F5F5F5'},ticks:{font:{size:11},color:'#9CA3AF'}}, y:{grid:{display:false},ticks:{font:{size:11},color:'#9CA3AF'}} } }
+            options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { color: '#F5F5F5' }, ticks: { font: { size: 11 }, color: '#9CA3AF' } }, y: { grid: { display: false }, ticks: { font: { size: 11 }, color: '#9CA3AF' } } } }
         });
     </script>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="display:none;position:fixed;bottom:2rem;right:2rem;z-index:9999;
+               width:44px;height:44px;border-radius:50%;border:none;cursor:pointer;
+               background:#17b978;color:#fff;box-shadow:0 4px 16px rgba(23,185,120,0.35);
+               align-items:center;justify-content:center;transition:opacity 0.2s ease;" title="Back to top">
+        <i data-lucide="chevron-up" style="width:20px;height:20px;"></i>
+    </button>
+    <script>
+        var scrollBtn = document.getElementById('scrollTopBtn');
+        window.addEventListener('scroll', function () {
+            if (window.scrollY > 300) {
+                scrollBtn.style.display = 'flex';
+            } else {
+                scrollBtn.style.display = 'none';
+            }
+        });
+    </script>
+
 </body>
+
 </html>

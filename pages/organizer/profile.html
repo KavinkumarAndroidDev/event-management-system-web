@@ -1,27 +1,25 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Profile - SyncEvent Organizer</title>
     <link rel="stylesheet" href="../../css/main.css">
     <link rel="icon" href="../../assets/favicon.svg" type="image/x-icon">
     <style>
-        
-        
-    
         /* Dashboard UI Refinements */
         body.bg-neutral-50 {
             background-color: #f8fafc !important;
         }
+
         .card-custom {
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -1px rgba(0, 0, 0, 0.02) !important;
-            border-color: rgba(0,0,0,0.06) !important;
+            border-color: rgba(0, 0, 0, 0.06) !important;
         }
-        
-    
-        
-        
-            </style>
+    </style>
 </head>
+
 <body class="bg-neutral-50">
     <!-- Organizer Navbar -->
     <header class="bg-white border-bottom sticky-top" style="height: 64px; z-index: 1000;">
@@ -29,32 +27,31 @@
             <div class="d-flex align-items-center justify-content-between h-100">
                 <!-- Left: Logo & Search -->
                 <div class="d-flex align-items-center gap-4">
-                    <a class="brand" href="../../index.html" style="width: 140px;">
+                    <a class="brand" href="dashboard.html" style="width: 140px;">
                         <img src="../../assets/logo.SVG" alt="SyncEvent" class="img-fluid">
                     </a>
                     <div class="position-relative d-none d-md-block" style="width: 300px;">
-                        <i data-lucide="search" class="position-absolute top-50 start-0 translate-middle-y ms-3 text-neutral-400" width="18"></i>
-                        <input type="text" class="form-control border-transparent ps-5" placeholder="Search events, orders...">
+                        <i data-lucide="search"
+                            class="position-absolute top-50 start-0 translate-middle-y ms-3 text-neutral-400"
+                            width="18"></i>
+                        <input type="text" class="form-control border-transparent ps-5"
+                            placeholder="Search events, orders...">
                     </div>
                 </div>
-                
+
                 <!-- Right: Actions & Profile -->
                 <div class="d-flex align-items-center gap-3">
-                    <a href="create-event.html" class="btn btn-outline-primary rounded-pill d-none d-md-flex align-items-center gap-2">
+                    <a href="create-event.html"
+                        class="btn btn-outline-primary rounded-pill d-none d-md-flex align-items-center gap-2">
                         <i data-lucide="plus" width="16"></i> Create Event
                     </a>
-                    
-                    <a href="notifications.html" class="icon-circle position-relative text-decoration-none bg-white ms-2">
+
+                    <a href="notifications.html"
+                        class="icon-circle position-relative text-decoration-none bg-white ms-2">
                         <i data-lucide="bell" style="width:20px;height:20px;"></i>
-                        <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle" style="width:10px; height:10px; margin-top:8px; margin-left:-8px;"></span>
+                        <span class="position-absolute top-0 start-100 translate-middle p-1 rounded-circle"
+                            style="width:10px;height:10px;margin-top:8px;margin-left:-8px;background:#17b978;"></span>
                     </a>
-                    <div class="d-flex align-items-center gap-2 ps-3 border-start ms-1">
-                        <div class="avatar-circle">JD</div>
-                        <div class="d-none d-sm-block">
-                            <div class="fw-bold text-neutral-900" style="font-size: 0.813rem; line-height: 1.2;">John Doe</div>
-                            <div class="text-neutral-400" style="font-size: 0.688rem; line-height: 1.1;">Organizer</div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -64,8 +61,17 @@
         <div class="container-fluid px-4">
             <div class="row g-4">
                 <!-- Sidebar -->
-                <div class="col-lg-2">
-                    <div class="card-custom p-3 position-sticky" style="top: 88px;">
+                <div class="col-lg-3">
+                    <div class="card-custom p-3">
+                        <!-- User Info -->
+                        <div class="d-flex align-items-center gap-3 mb-4">
+                            <span class="avatar-circle" id="sidebar-avatar"></span>
+                            <div class="overflow-hidden">
+                                <h6 class="mb-0 text-truncate" id="sidebar-name">Loading...</h6>
+                                <small class="text-neutral-400 text-truncate d-block" id="sidebar-email">...</small>
+                            </div>
+                        </div>
+                        <hr class="border-neutral-100 my-2">
                         <nav class="nav flex-column gap-1">
                             <a href="dashboard.html" class="sidebar-item">
                                 <i data-lucide="layout-dashboard" class="sidebar-icon"></i> Dashboard
@@ -94,104 +100,130 @@
                         </nav>
                         <hr class="border-neutral-100 my-3">
                         <div class="d-flex flex-column gap-2">
-                            <a href="../../index.html" class="btn btn-outline-danger w-100 rounded-pill"><i data-lucide="log-out" width="18" class="me-2"></i> Logout</a>
+                            <button class="btn btn-outline-danger w-100 rounded-pill" id="logoutBtn">
+                                <i data-lucide="log-out" width="18" class="me-2"></i> Logout
+                            </button>
                         </div>
                     </div>
                 </div>
 
                 <!-- Main Content -->
-                <div class="col-lg-10">
+                <div class="col-lg-9">
+
+                    <!-- Breadcrumb -->
+                    <nav aria-label="breadcrumb" class="mb-3">
+                        <ol class="breadcrumb mb-0" style="font-size:0.8125rem;">
+                            <li class="breadcrumb-item"><a href="dashboard.html"
+                                    class="text-decoration-none text-neutral-400">Dashboard</a></li>
+                            <li class="breadcrumb-item active text-primary fw-medium" aria-current="page">Profile</li>
+                        </ol>
+                    </nav>
+
                     <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h4 class="fw-bold mb-0">Profile</h4>
+                        <div class="d-flex align-items-center"><a href="dashboard.html"
+                                class="icon-circle text-decoration-none me-3" title="Back to Dashboard"
+                                style="flex-shrink:0;"><i data-lucide="arrow-left"
+                                    style="width:18px;height:18px;"></i></a>
+                            <h4 class="fw-bold mb-0">Profile</h4>
+                        </div>
                     </div>
                     <div class="mb-4 text-center">
-                    <div class="position-relative d-inline-block mb-3">
-                        <div class="avatar-circle" style="width: 100px; height: 100px; font-size: 32px;">JD</div>
-                        <button class="btn btn-sm btn-primary rounded-circle position-absolute bottom-0 end-0 p-2 shadow" onclick="document.getElementById('avatarInput').click()">
-                            <i data-lucide="camera" style="width: 16px; height: 16px;"></i>
-                        </button>
-                        <input type="file" id="avatarInput" hidden="" accept="image/*">
+                        <div class="position-relative d-inline-block mb-3">
+                            <div class="avatar-circle" style="width: 100px; height: 100px; font-size: 32px;">JD</div>
+                            <button
+                                class="btn btn-sm btn-primary rounded-circle position-absolute bottom-0 end-0 p-2 shadow"
+                                onclick="document.getElementById('avatarInput').click()">
+                                <i data-lucide="camera" style="width: 16px; height: 16px;"></i>
+                            </button>
+                            <input type="file" id="avatarInput" hidden="" accept="image/*">
+                        </div>
+                        <h2 class="h3 fw-bold text-neutral-900 mb-1">Profile Settings</h2>
+                        <p class="text-neutral-400 small mb-0">Manage your organizer profile and account settings</p>
                     </div>
-                    <h2 class="h3 fw-bold text-neutral-900 mb-1">Profile Settings</h2>
-                    <p class="text-neutral-400 small mb-0">Manage your organizer profile and account settings</p>
-                </div>
-<div class="card-custom mb-4 p-4">
-                    <h3 class="h6 fw-bold text-neutral-900 mb-4 border-bottom pb-3">Basic Information</h3>
-                    <div class="row g-4">
-                        <div class="col-md-6">
-                            <label class="form-label fw-bold text-neutral-900 small">Full Name</label>
-                            <input type="text" class="form-control" value="John Doe">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label fw-bold text-neutral-900 small">Email Address</label>
-                            <input type="email" class="form-control" value="john@doe.com" disabled="">
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label fw-bold text-neutral-900 small">Organization Name</label>
-                            <input type="text" class="form-control" value="Tech Events Global">
-                        </div>
-                    </div>
-                    <div class="mt-4 pt-2">
-                        <button class="btn btn-primary rounded-pill px-4 fw-bold">Save Changes</button>
-                    </div>
-                </div>
-<div class="card-custom mb-4 p-4">
-                    <h3 class="h6 fw-bold text-neutral-900 mb-4 border-bottom pb-3">Public Profile</h3>
-                    <div class="row g-4">
-                        <div class="col-12">
-                            <label class="form-label fw-bold text-neutral-900 small">About Organizer</label>
-                            <textarea class="form-control" rows="4">We organize innovative tech conferences and networking events across the globe, connecting developers and industry leaders.</textarea>
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label fw-bold text-neutral-900 small d-block mb-3">Social Links</label>
-                            <div class="input-group mb-3 px-3 py-1 bg-light rounded-pill align-items-center">
-                                <span class="text-neutral-400 small fw-bold px-2 border-end" style="width: 100px;">Website</span>
-                                <input type="url" class="form-control" value="https://techevents.com">
+                    <div class="card-custom mb-4 p-4">
+                        <h3 class="h6 fw-bold text-neutral-900 mb-4 border-bottom pb-3">Basic Information</h3>
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold text-neutral-900 small">Full Name</label>
+                                <input type="text" class="form-control" value="John Doe">
                             </div>
-                            <div class="input-group mb-3 px-3 py-1 bg-light rounded-pill align-items-center">
-                                <span class="text-neutral-400 small fw-bold px-2 border-end" style="width: 100px;">Twitter</span>
-                                <input type="url" class="form-control" value="https://twitter.com/techevents">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold text-neutral-900 small">Email Address</label>
+                                <input type="email" class="form-control" value="john@doe.com" disabled="">
                             </div>
-                            <div class="input-group px-3 py-1 bg-light rounded-pill align-items-center">
-                                <span class="text-neutral-400 small fw-bold px-2 border-end" style="width: 100px;">LinkedIn</span>
-                                <input type="url" class="form-control" value="https://linkedin.com/company/techevents">
+                            <div class="col-12">
+                                <label class="form-label fw-bold text-neutral-900 small">Organization Name</label>
+                                <input type="text" class="form-control" value="Tech Events Global">
                             </div>
                         </div>
-                    </div>
-                    <div class="mt-4 pt-2">
-                        <button class="btn btn-primary rounded-pill px-4 fw-bold">Update Profile</button>
-                    </div>
-                </div>
-<div class="card-custom mb-4 p-4">
-                    <h3 class="h6 fw-bold text-neutral-900 mb-4 border-bottom pb-3">Security</h3>
-                    <div class="row g-4">
-                        <div class="col-12">
-                            <label class="form-label fw-bold text-neutral-900 small">Current Password</label>
-                            <input type="password" class="form-control" placeholder="••••••••">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label fw-bold text-neutral-900 small">New Password</label>
-                            <input type="password" class="form-control">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label fw-bold text-neutral-900 small">Confirm New Password</label>
-                            <input type="password" class="form-control">
+                        <div class="mt-4 pt-2">
+                            <button class="btn btn-primary rounded-pill px-4 fw-bold">Save Changes</button>
                         </div>
                     </div>
-                    <div class="mt-4 pt-2">
-                        <button class="btn btn-primary rounded-pill px-4 fw-bold">Change Password</button>
-                    </div>
-                </div>
-<div class="card-custom mb-5 p-4 border-0" style="background: rgba(239, 68, 68, 0.05);">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h3 class="h6 fw-bold text-danger mb-1">Delete Account</h3>
-                            <p class="text-neutral-600 small mb-0">Once you delete your account, there is no going back.
-                            </p>
+                    <div class="card-custom mb-4 p-4">
+                        <h3 class="h6 fw-bold text-neutral-900 mb-4 border-bottom pb-3">Public Profile</h3>
+                        <div class="row g-4">
+                            <div class="col-12">
+                                <label class="form-label fw-bold text-neutral-900 small">About Organizer</label>
+                                <textarea class="form-control"
+                                    rows="4">We organize innovative tech conferences and networking events across the globe, connecting developers and industry leaders.</textarea>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label fw-bold text-neutral-900 small d-block mb-3">Social
+                                    Links</label>
+                                <div class="input-group mb-3 px-3 py-1 bg-light rounded-pill align-items-center">
+                                    <span class="text-neutral-400 small fw-bold px-2 border-end"
+                                        style="width: 100px;">Website</span>
+                                    <input type="url" class="form-control" value="https://techevents.com">
+                                </div>
+                                <div class="input-group mb-3 px-3 py-1 bg-light rounded-pill align-items-center">
+                                    <span class="text-neutral-400 small fw-bold px-2 border-end"
+                                        style="width: 100px;">Twitter</span>
+                                    <input type="url" class="form-control" value="https://twitter.com/techevents">
+                                </div>
+                                <div class="input-group px-3 py-1 bg-light rounded-pill align-items-center">
+                                    <span class="text-neutral-400 small fw-bold px-2 border-end"
+                                        style="width: 100px;">LinkedIn</span>
+                                    <input type="url" class="form-control"
+                                        value="https://linkedin.com/company/techevents">
+                                </div>
+                            </div>
                         </div>
-                        <button class="btn btn-danger rounded-pill px-4 fw-bold">Delete Forever</button>
+                        <div class="mt-4 pt-2">
+                            <button class="btn btn-primary rounded-pill px-4 fw-bold">Update Profile</button>
+                        </div>
                     </div>
-                </div>
+                    <div class="card-custom mb-4 p-4">
+                        <h3 class="h6 fw-bold text-neutral-900 mb-4 border-bottom pb-3">Security</h3>
+                        <div class="row g-4">
+                            <div class="col-12">
+                                <label class="form-label fw-bold text-neutral-900 small">Current Password</label>
+                                <input type="password" class="form-control" placeholder="••••••••">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold text-neutral-900 small">New Password</label>
+                                <input type="password" class="form-control">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold text-neutral-900 small">Confirm New Password</label>
+                                <input type="password" class="form-control">
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-2">
+                            <button class="btn btn-primary rounded-pill px-4 fw-bold">Change Password</button>
+                        </div>
+                    </div>
+                    <div class="card-custom mb-5 p-4 border-0" style="background: rgba(239, 68, 68, 0.05);">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h3 class="h6 fw-bold text-danger mb-1">Delete Account</h3>
+                                <p class="text-neutral-600 small mb-0">Once you delete your account, there is no going
+                                    back.
+                                </p>
+                            </div>
+                            <button class="btn btn-danger rounded-pill px-4 fw-bold">Delete Forever</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -200,12 +232,37 @@
     <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <script>
+    <script type="module">
+        import { injectSignOutModal, populateSidebarUserInfo } from '../../scripts/shared/utils.js';
+
         lucide.createIcons();
+        injectSignOutModal();
+        populateSidebarUserInfo();
         function togglePw(id) {
             const input = document.getElementById(id);
             input.type = input.type === 'password' ? 'text' : 'password';
         }
     </script>
 
-</body></html>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="display:none;position:fixed;bottom:2rem;right:2rem;z-index:9999;
+               width:44px;height:44px;border-radius:50%;border:none;cursor:pointer;
+               background:#17b978;color:#fff;box-shadow:0 4px 16px rgba(23,185,120,0.35);
+               align-items:center;justify-content:center;transition:opacity 0.2s ease;" title="Back to top">
+        <i data-lucide="chevron-up" style="width:20px;height:20px;"></i>
+    </button>
+    <script>
+        var scrollBtn = document.getElementById('scrollTopBtn');
+        window.addEventListener('scroll', function () {
+            if (window.scrollY > 300) {
+                scrollBtn.style.display = 'flex';
+            } else {
+                scrollBtn.style.display = 'none';
+            }
+        });
+    </script>
+
+</body>
+
+</html>

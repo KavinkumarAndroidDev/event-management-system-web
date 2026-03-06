@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,29 +8,31 @@
     <link rel="stylesheet" href="../../css/main.css">
     <link rel="icon" href="../../assets/favicon.svg" type="image/x-icon">
     <style>
-        body.bg-neutral-50 { background-color: #f8fafc !important; }
-        .card-custom { box-shadow: 0 4px 6px -1px rgba(0,0,0,0.04), 0 2px 4px -1px rgba(0,0,0,0.02) !important; border-color: rgba(0,0,0,0.06) !important; }
+        body.bg-neutral-50 {
+            background-color: #f8fafc !important;
+        }
+
+        .card-custom {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -1px rgba(0, 0, 0, 0.02) !important;
+            border-color: rgba(0, 0, 0, 0.06) !important;
+        }
     </style>
 </head>
+
 <body class="bg-neutral-50">
     <header class="bg-white border-bottom sticky-top" style="height:64px;z-index:1000;">
         <div class="container-fluid px-4 h-100">
             <div class="d-flex align-items-center justify-content-between h-100">
                 <div class="d-flex align-items-center gap-4">
-                    <a class="brand" href="../../index.html" style="width:140px;"><img src="../../assets/logo.SVG" alt="SyncEvent" class="img-fluid"></a>
+                    <a class="brand" href="dashboard.html" style="width:140px;"><img src="../../assets/logo.SVG"
+                            alt="SyncEvent" class="img-fluid"></a>
                 </div>
                 <div class="d-flex align-items-center gap-3">
                     <a href="notifications.html" class="icon-circle position-relative text-decoration-none bg-white">
                         <i data-lucide="bell" style="width:20px;height:20px;"></i>
-                        <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle" style="width:10px;height:10px;margin-top:8px;margin-left:-8px;"></span>
+                        <span class="position-absolute top-0 start-100 translate-middle p-1 rounded-circle"
+                            style="width:10px;height:10px;margin-top:8px;margin-left:-8px;background:#17b978;"></span>
                     </a>
-                    <div class="d-flex align-items-center gap-2 ps-3 border-start ms-1">
-                        <div class="avatar-circle">AD</div>
-                        <div class="d-none d-sm-block">
-                            <div class="fw-bold text-neutral-900" style="font-size:0.813rem;line-height:1.2;">Admin User</div>
-                            <div class="text-neutral-400" style="font-size:0.688rem;line-height:1.1;">admin@example.com</div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -39,38 +42,83 @@
         <div class="container-fluid px-4">
             <div class="row g-4">
                 <!-- Sidebar -->
-                <div class="col-lg-2">
-                    <div class="card-custom p-3 position-sticky" style="top:88px;">
+                <div class="col-lg-3">
+                    <div class="card-custom p-3">
+                        <!-- User Info -->
+                        <div class="d-flex align-items-center gap-3 mb-4">
+                            <span class="avatar-circle" id="sidebar-avatar"></span>
+                            <div class="overflow-hidden">
+                                <h6 class="mb-0 text-truncate" id="sidebar-name">Loading...</h6>
+                                <small class="text-neutral-400 text-truncate d-block" id="sidebar-email">...</small>
+                            </div>
+                        </div>
+                        <hr class="border-neutral-100 my-2">
                         <nav class="nav flex-column gap-1">
-                            <a href="dashboard.html" class="sidebar-item"><i data-lucide="layout-dashboard" class="sidebar-icon"></i> Dashboard</a>
-                            <a href="user-management.html" class="sidebar-item"><i data-lucide="users" class="sidebar-icon"></i> User Management</a>
-                            <a href="event-approvals.html" class="sidebar-item active"><i data-lucide="check-circle" class="sidebar-icon"></i> Event Approvals <span class="badge rounded-pill ms-auto" style="background:#ef4444;color:#fff;font-size:10px;">8</span></a>
-                            <a href="events.html" class="sidebar-item"><i data-lucide="calendar" class="sidebar-icon"></i> Events</a>
-                            <a href="categories.html" class="sidebar-item"><i data-lucide="tag" class="sidebar-icon"></i> Categories</a>
-                            <a href="venues.html" class="sidebar-item"><i data-lucide="map-pin" class="sidebar-icon"></i> Venues</a>
-                            <a href="tickets-registrations.html" class="sidebar-item"><i data-lucide="ticket" class="sidebar-icon"></i> Tickets &amp; Registrations</a>
-                            <a href="payments-revenue.html" class="sidebar-item"><i data-lucide="dollar-sign" class="sidebar-icon"></i> Payments &amp; Revenue</a>
-                            <a href="reports-analytics.html" class="sidebar-item"><i data-lucide="bar-chart-2" class="sidebar-icon"></i> Reports &amp; Analytics</a>
-                            <a href="feedback-moderation.html" class="sidebar-item"><i data-lucide="message-square" class="sidebar-icon"></i> Feedback Moderation</a>
-                            <a href="notifications.html" class="sidebar-item"><i data-lucide="bell" class="sidebar-icon"></i> Notifications <span class="badge rounded-pill ms-auto" style="background:#ef4444;color:#fff;font-size:10px;">5</span></a>
-                            <a href="profile.html" class="sidebar-item"><i data-lucide="user" class="sidebar-icon"></i> Profile</a>
+                            <a href="dashboard.html" class="sidebar-item"><i data-lucide="layout-dashboard"
+                                    class="sidebar-icon"></i> Dashboard</a>
+                            <a href="user-management.html" class="sidebar-item"><i data-lucide="users"
+                                    class="sidebar-icon"></i> User Management</a>
+                            <a href="event-approvals.html" class="sidebar-item active"><i data-lucide="check-circle"
+                                    class="sidebar-icon"></i> Event Approvals <span class="badge rounded-pill ms-auto"
+                                    style="background:#17b978;color:#fff;font-size:10px;">8</span></a>
+                            <a href="events.html" class="sidebar-item"><i data-lucide="calendar"
+                                    class="sidebar-icon"></i> Events</a>
+                            <a href="categories.html" class="sidebar-item"><i data-lucide="tag"
+                                    class="sidebar-icon"></i> Categories</a>
+                            <a href="venues.html" class="sidebar-item"><i data-lucide="map-pin"
+                                    class="sidebar-icon"></i> Venues</a>
+                            <a href="tickets-registrations.html" class="sidebar-item"><i data-lucide="ticket"
+                                    class="sidebar-icon"></i> Tickets &amp; Registrations</a>
+                            <a href="payments-revenue.html" class="sidebar-item"><i data-lucide="dollar-sign"
+                                    class="sidebar-icon"></i> Payments &amp; Revenue</a>
+                            <a href="reports-analytics.html" class="sidebar-item"><i data-lucide="bar-chart-2"
+                                    class="sidebar-icon"></i> Reports &amp; Analytics</a>
+                            <a href="feedback-moderation.html" class="sidebar-item"><i data-lucide="message-square"
+                                    class="sidebar-icon"></i> Feedback Moderation</a>
+                            <a href="notifications.html" class="sidebar-item"><i data-lucide="bell"
+                                    class="sidebar-icon"></i> Notifications <span class="badge rounded-pill ms-auto"
+                                    style="background:#17b978;color:#fff;font-size:10px;">5</span></a>
+                            <a href="profile.html" class="sidebar-item"><i data-lucide="user" class="sidebar-icon"></i>
+                                Profile</a>
                         </nav>
-                        <hr class="my-3" style="border-color:rgba(0,0,0,0.06);">
-                        <a href="../../index.html" class="btn btn-outline-danger w-100 rounded-pill"><i data-lucide="log-out" width="18" class="me-2"></i> Logout</a>
+                        <hr class="border-neutral-100 my-3">
+                        <div class="d-flex flex-column gap-2">
+                            <button class="btn btn-outline-danger w-100 rounded-pill" id="logoutBtn">
+                                <i data-lucide="log-out" width="18" class="me-2"></i> Logout
+                            </button>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Main Content -->
-                <div class="col-lg-10">
+                <div class="col-lg-9">
+
+                    <!-- Breadcrumb -->
+                    <nav aria-label="breadcrumb" class="mb-3">
+                        <ol class="breadcrumb mb-0" style="font-size:0.8125rem;">
+                            <li class="breadcrumb-item"><a href="dashboard.html"
+                                    class="text-decoration-none text-neutral-400">Dashboard</a></li>
+                            <li class="breadcrumb-item active text-primary fw-medium" aria-current="page">Event
+                                Approvals</li>
+                        </ol>
+                    </nav>
+
                     <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h4 class="fw-bold mb-0">Event Approvals</h4>
+                        <div class="d-flex align-items-center"><a href="dashboard.html"
+                                class="icon-circle text-decoration-none me-3" title="Back to Dashboard"
+                                style="flex-shrink:0;"><i data-lucide="arrow-left"
+                                    style="width:18px;height:18px;"></i></a>
+                            <h4 class="fw-bold mb-0">Event Approvals</h4>
+                        </div>
                     </div>
 
                     <div class="card-custom p-0 overflow-hidden">
                         <!-- Search & Filter -->
                         <div class="px-4 py-3 border-bottom d-flex align-items-center gap-3">
                             <div class="position-relative flex-grow-1" style="max-width:500px;">
-                                <i data-lucide="search" class="position-absolute top-50 start-0 translate-middle-y ms-3 text-neutral-400" width="16"></i>
+                                <i data-lucide="search"
+                                    class="position-absolute top-50 start-0 translate-middle-y ms-3 text-neutral-400"
+                                    width="16"></i>
                                 <input type="text" class="form-control ps-5" placeholder="Search by event name...">
                             </div>
                             <select class="form-select" style="width:160px;">
@@ -84,13 +132,20 @@
                             <table class="table table-hover align-middle mb-0">
                                 <thead class="bg-light">
                                     <tr>
-                                        <th class="ps-4 py-3 text-uppercase small fw-bold text-neutral-400" style="font-size:11px;letter-spacing:0.05em;">Event Name</th>
-                                        <th class="py-3 text-uppercase small fw-bold text-neutral-400" style="font-size:11px;letter-spacing:0.05em;">Organizer</th>
-                                        <th class="py-3 text-uppercase small fw-bold text-neutral-400" style="font-size:11px;letter-spacing:0.05em;">Category</th>
-                                        <th class="py-3 text-uppercase small fw-bold text-neutral-400" style="font-size:11px;letter-spacing:0.05em;">Event Date</th>
-                                        <th class="py-3 text-uppercase small fw-bold text-neutral-400" style="font-size:11px;letter-spacing:0.05em;">Submitted Date</th>
-                                        <th class="py-3 text-uppercase small fw-bold text-neutral-400" style="font-size:11px;letter-spacing:0.05em;">Status</th>
-                                        <th class="pe-4 py-3 text-uppercase small fw-bold text-neutral-400" style="font-size:11px;letter-spacing:0.05em;">Actions</th>
+                                        <th class="ps-4 py-3 text-uppercase small fw-bold text-neutral-400"
+                                            style="font-size:11px;letter-spacing:0.05em;">Event Name</th>
+                                        <th class="py-3 text-uppercase small fw-bold text-neutral-400"
+                                            style="font-size:11px;letter-spacing:0.05em;">Organizer</th>
+                                        <th class="py-3 text-uppercase small fw-bold text-neutral-400"
+                                            style="font-size:11px;letter-spacing:0.05em;">Category</th>
+                                        <th class="py-3 text-uppercase small fw-bold text-neutral-400"
+                                            style="font-size:11px;letter-spacing:0.05em;">Event Date</th>
+                                        <th class="py-3 text-uppercase small fw-bold text-neutral-400"
+                                            style="font-size:11px;letter-spacing:0.05em;">Submitted Date</th>
+                                        <th class="py-3 text-uppercase small fw-bold text-neutral-400"
+                                            style="font-size:11px;letter-spacing:0.05em;">Status</th>
+                                        <th class="pe-4 py-3 text-uppercase small fw-bold text-neutral-400"
+                                            style="font-size:11px;letter-spacing:0.05em;">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -100,12 +155,19 @@
                                         <td class="text-neutral-400 small">Technology</td>
                                         <td class="text-neutral-400 small">2026-03-15</td>
                                         <td class="text-neutral-400 small">2026-02-10</td>
-                                        <td><span class="badge rounded-pill px-3 py-2 fw-bold" style="font-size:11px;background:#F1F5F9;color:#475569;">Pending</span></td>
+                                        <td><span class="badge rounded-pill px-3 py-2 fw-bold"
+                                                style="font-size:11px;background:#F1F5F9;color:#475569;">Pending</span>
+                                        </td>
                                         <td class="pe-4">
                                             <div class="d-flex align-items-center gap-2">
-                                                <a href="#" class="btn btn-sm text-primary p-0 fw-bold" style="font-size:12px;">View</a>
-                                                <button class="btn btn-sm btn-dark rounded-pill px-3" style="font-size:12px;" onclick="showApproveModal('Tech Conference 2026')">Approve</button>
-                                                <button class="btn btn-sm btn-danger rounded-pill px-3" style="font-size:12px;" onclick="showRejectModal('Tech Conference 2026')">Reject</button>
+                                                <a href="#" class="btn btn-sm text-primary p-0 fw-bold"
+                                                    style="font-size:12px;">View</a>
+                                                <button class="btn btn-sm btn-primary rounded-pill px-3"
+                                                    style="font-size:12px;"
+                                                    onclick="showApproveModal('Tech Conference 2026')">Approve</button>
+                                                <button class="btn btn-sm btn-danger rounded-pill px-3"
+                                                    style="font-size:12px;"
+                                                    onclick="showRejectModal('Tech Conference 2026')">Reject</button>
                                             </div>
                                         </td>
                                     </tr>
@@ -115,12 +177,19 @@
                                         <td class="text-neutral-400 small">Music</td>
                                         <td class="text-neutral-400 small">2026-07-20</td>
                                         <td class="text-neutral-400 small">2026-02-12</td>
-                                        <td><span class="badge rounded-pill px-3 py-2 fw-bold" style="font-size:11px;background:#F1F5F9;color:#475569;">Pending</span></td>
+                                        <td><span class="badge rounded-pill px-3 py-2 fw-bold"
+                                                style="font-size:11px;background:#F1F5F9;color:#475569;">Pending</span>
+                                        </td>
                                         <td class="pe-4">
                                             <div class="d-flex align-items-center gap-2">
-                                                <a href="#" class="btn btn-sm text-primary p-0 fw-bold" style="font-size:12px;">View</a>
-                                                <button class="btn btn-sm btn-dark rounded-pill px-3" style="font-size:12px;" onclick="showApproveModal('Music Festival Summer')">Approve</button>
-                                                <button class="btn btn-sm btn-danger rounded-pill px-3" style="font-size:12px;" onclick="showRejectModal('Music Festival Summer')">Reject</button>
+                                                <a href="#" class="btn btn-sm text-primary p-0 fw-bold"
+                                                    style="font-size:12px;">View</a>
+                                                <button class="btn btn-sm btn-primary rounded-pill px-3"
+                                                    style="font-size:12px;"
+                                                    onclick="showApproveModal('Music Festival Summer')">Approve</button>
+                                                <button class="btn btn-sm btn-danger rounded-pill px-3"
+                                                    style="font-size:12px;"
+                                                    onclick="showRejectModal('Music Festival Summer')">Reject</button>
                                             </div>
                                         </td>
                                     </tr>
@@ -130,12 +199,19 @@
                                         <td class="text-neutral-400 small">Food</td>
                                         <td class="text-neutral-400 small">2026-04-10</td>
                                         <td class="text-neutral-400 small">2026-02-13</td>
-                                        <td><span class="badge rounded-pill px-3 py-2 fw-bold" style="font-size:11px;background:#F1F5F9;color:#475569;">Pending</span></td>
+                                        <td><span class="badge rounded-pill px-3 py-2 fw-bold"
+                                                style="font-size:11px;background:#F1F5F9;color:#475569;">Pending</span>
+                                        </td>
                                         <td class="pe-4">
                                             <div class="d-flex align-items-center gap-2">
-                                                <a href="#" class="btn btn-sm text-primary p-0 fw-bold" style="font-size:12px;">View</a>
-                                                <button class="btn btn-sm btn-dark rounded-pill px-3" style="font-size:12px;" onclick="showApproveModal('Food &amp; Wine Expo')">Approve</button>
-                                                <button class="btn btn-sm btn-danger rounded-pill px-3" style="font-size:12px;" onclick="showRejectModal('Food &amp; Wine Expo')">Reject</button>
+                                                <a href="#" class="btn btn-sm text-primary p-0 fw-bold"
+                                                    style="font-size:12px;">View</a>
+                                                <button class="btn btn-sm btn-primary rounded-pill px-3"
+                                                    style="font-size:12px;"
+                                                    onclick="showApproveModal('Food &amp; Wine Expo')">Approve</button>
+                                                <button class="btn btn-sm btn-danger rounded-pill px-3"
+                                                    style="font-size:12px;"
+                                                    onclick="showRejectModal('Food &amp; Wine Expo')">Reject</button>
                                             </div>
                                         </td>
                                     </tr>
@@ -145,12 +221,19 @@
                                         <td class="text-neutral-400 small">Business</td>
                                         <td class="text-neutral-400 small">2026-03-25</td>
                                         <td class="text-neutral-400 small">2026-02-14</td>
-                                        <td><span class="badge rounded-pill px-3 py-2 fw-bold" style="font-size:11px;background:#F1F5F9;color:#475569;">Pending</span></td>
+                                        <td><span class="badge rounded-pill px-3 py-2 fw-bold"
+                                                style="font-size:11px;background:#F1F5F9;color:#475569;">Pending</span>
+                                        </td>
                                         <td class="pe-4">
                                             <div class="d-flex align-items-center gap-2">
-                                                <a href="#" class="btn btn-sm text-primary p-0 fw-bold" style="font-size:12px;">View</a>
-                                                <button class="btn btn-sm btn-dark rounded-pill px-3" style="font-size:12px;" onclick="showApproveModal('Startup Pitch Night')">Approve</button>
-                                                <button class="btn btn-sm btn-danger rounded-pill px-3" style="font-size:12px;" onclick="showRejectModal('Startup Pitch Night')">Reject</button>
+                                                <a href="#" class="btn btn-sm text-primary p-0 fw-bold"
+                                                    style="font-size:12px;">View</a>
+                                                <button class="btn btn-sm btn-primary rounded-pill px-3"
+                                                    style="font-size:12px;"
+                                                    onclick="showApproveModal('Startup Pitch Night')">Approve</button>
+                                                <button class="btn btn-sm btn-danger rounded-pill px-3"
+                                                    style="font-size:12px;"
+                                                    onclick="showRejectModal('Startup Pitch Night')">Reject</button>
                                             </div>
                                         </td>
                                     </tr>
@@ -160,12 +243,19 @@
                                         <td class="text-neutral-400 small">Entertainment</td>
                                         <td class="text-neutral-400 small">2026-06-10</td>
                                         <td class="text-neutral-400 small">2026-02-11</td>
-                                        <td><span class="badge rounded-pill px-3 py-2 fw-bold" style="font-size:11px;background:#F1F5F9;color:#475569;">Pending</span></td>
+                                        <td><span class="badge rounded-pill px-3 py-2 fw-bold"
+                                                style="font-size:11px;background:#F1F5F9;color:#475569;">Pending</span>
+                                        </td>
                                         <td class="pe-4">
                                             <div class="d-flex align-items-center gap-2">
-                                                <a href="#" class="btn btn-sm text-primary p-0 fw-bold" style="font-size:12px;">View</a>
-                                                <button class="btn btn-sm btn-dark rounded-pill px-3" style="font-size:12px;" onclick="showApproveModal('Film Festival')">Approve</button>
-                                                <button class="btn btn-sm btn-danger rounded-pill px-3" style="font-size:12px;" onclick="showRejectModal('Film Festival')">Reject</button>
+                                                <a href="#" class="btn btn-sm text-primary p-0 fw-bold"
+                                                    style="font-size:12px;">View</a>
+                                                <button class="btn btn-sm btn-primary rounded-pill px-3"
+                                                    style="font-size:12px;"
+                                                    onclick="showApproveModal('Film Festival')">Approve</button>
+                                                <button class="btn btn-sm btn-danger rounded-pill px-3"
+                                                    style="font-size:12px;"
+                                                    onclick="showRejectModal('Film Festival')">Reject</button>
                                             </div>
                                         </td>
                                     </tr>
@@ -183,12 +273,15 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-0 shadow-modal" style="border-radius:1rem;">
                 <div class="modal-body p-4">
-                    <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal"></button>
+                    <button type="button" class="btn-close position-absolute top-0 end-0 m-3"
+                        data-bs-dismiss="modal"></button>
                     <h5 class="fw-bold mb-2">Approve Event</h5>
                     <p class="text-neutral-400 small" id="approveModalText"></p>
                     <div class="d-flex justify-content-end gap-2 mt-4">
-                        <button type="button" class="btn btn-outline-secondary rounded-pill px-4" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-dark rounded-pill px-4 fw-bold" data-bs-dismiss="modal">Confirm Approval</button>
+                        <button type="button" class="btn btn-outline-secondary rounded-pill px-4"
+                            data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary rounded-pill px-4 fw-bold"
+                            data-bs-dismiss="modal">Confirm Approval</button>
                     </div>
                 </div>
             </div>
@@ -200,13 +293,16 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-0 shadow-modal" style="border-radius:1rem;">
                 <div class="modal-body p-4">
-                    <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal"></button>
+                    <button type="button" class="btn-close position-absolute top-0 end-0 m-3"
+                        data-bs-dismiss="modal"></button>
                     <h5 class="fw-bold mb-2">Reject Event</h5>
                     <p class="text-neutral-400 small mb-3" id="rejectModalText"></p>
                     <textarea class="form-control" rows="3" placeholder="Enter rejection reason..."></textarea>
                     <div class="d-flex justify-content-end gap-2 mt-4">
-                        <button type="button" class="btn btn-outline-secondary rounded-pill px-4" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-danger rounded-pill px-4 fw-bold" data-bs-dismiss="modal">Confirm Rejection</button>
+                        <button type="button" class="btn btn-outline-secondary rounded-pill px-4"
+                            data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-danger rounded-pill px-4 fw-bold"
+                            data-bs-dismiss="modal">Confirm Rejection</button>
                     </div>
                 </div>
             </div>
@@ -215,8 +311,12 @@
 
     <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script>
+    <script type="module">
+        import { injectSignOutModal, populateSidebarUserInfo } from '../../scripts/shared/utils.js';
+
         lucide.createIcons();
+        injectSignOutModal();
+        populateSidebarUserInfo();
         function showApproveModal(name) {
             document.getElementById('approveModalText').textContent = `Are you sure you want to approve "${name}"? This event will be published and visible to all users.`;
             new bootstrap.Modal(document.getElementById('approveModal')).show();
@@ -226,5 +326,25 @@
             new bootstrap.Modal(document.getElementById('rejectModal')).show();
         }
     </script>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="display:none;position:fixed;bottom:2rem;right:2rem;z-index:9999;
+               width:44px;height:44px;border-radius:50%;border:none;cursor:pointer;
+               background:#17b978;color:#fff;box-shadow:0 4px 16px rgba(23,185,120,0.35);
+               align-items:center;justify-content:center;transition:opacity 0.2s ease;" title="Back to top">
+        <i data-lucide="chevron-up" style="width:20px;height:20px;"></i>
+    </button>
+    <script>
+        var scrollBtn = document.getElementById('scrollTopBtn');
+        window.addEventListener('scroll', function () {
+            if (window.scrollY > 300) {
+                scrollBtn.style.display = 'flex';
+            } else {
+                scrollBtn.style.display = 'none';
+            }
+        });
+    </script>
+
 </body>
+
 </html>

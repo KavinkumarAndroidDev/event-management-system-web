@@ -55,7 +55,6 @@ export function performLogin(loginId, otp, onRedirect = null) {
         }
 
         localStorage.setItem('currentUser', JSON.stringify(user));
-
         // Create success modal
         let modalEl = document.getElementById('loginSuccessModal');
         if (!modalEl) {

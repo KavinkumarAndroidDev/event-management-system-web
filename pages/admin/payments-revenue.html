@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,24 +8,28 @@
     <link rel="stylesheet" href="../../css/main.css">
     <link rel="icon" href="../../assets/favicon.svg" type="image/x-icon">
     <style>
-        body.bg-neutral-50 { background-color: #f8fafc !important; }
-        .card-custom { box-shadow: 0 4px 6px -1px rgba(0,0,0,0.04), 0 2px 4px -1px rgba(0,0,0,0.02) !important; border-color: rgba(0,0,0,0.06) !important; }
+        body.bg-neutral-50 {
+            background-color: #f8fafc !important;
+        }
+
+        .card-custom {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -1px rgba(0, 0, 0, 0.02) !important;
+            border-color: rgba(0, 0, 0, 0.06) !important;
+        }
     </style>
 </head>
+
 <body class="bg-neutral-50">
     <header class="bg-white border-bottom sticky-top" style="height:64px;z-index:1000;">
         <div class="container-fluid px-4 h-100">
             <div class="d-flex align-items-center justify-content-between h-100">
-                <a class="brand" href="../../index.html" style="width:140px;"><img src="../../assets/logo.SVG" alt="SyncEvent" class="img-fluid"></a>
+                <a class="brand" href="dashboard.html" style="width:140px;"><img src="../../assets/logo.SVG"
+                        alt="SyncEvent" class="img-fluid"></a>
                 <div class="d-flex align-items-center gap-3">
-                    <a href="notifications.html" class="icon-circle position-relative text-decoration-none bg-white"><i data-lucide="bell" style="width:20px;height:20px;"></i><span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle" style="width:10px;height:10px;margin-top:8px;margin-left:-8px;"></span></a>
-                    <div class="d-flex align-items-center gap-2 ps-3 border-start ms-1">
-                        <div class="avatar-circle">AD</div>
-                        <div class="d-none d-sm-block">
-                            <div class="fw-bold text-neutral-900" style="font-size:0.813rem;">Admin User</div>
-                            <div class="text-neutral-400" style="font-size:0.688rem;">admin@example.com</div>
-                        </div>
-                    </div>
+                    <a href="notifications.html" class="icon-circle position-relative text-decoration-none bg-white"><i
+                            data-lucide="bell" style="width:20px;height:20px;"></i><span
+                            class="position-absolute top-0 start-100 translate-middle p-1 rounded-circle"
+                            style="width:10px;height:10px;margin-top:8px;margin-left:-8px;background:#17b978;"></span></a>
                 </div>
             </div>
         </div>
@@ -33,37 +38,81 @@
     <main class="section-sm">
         <div class="container-fluid px-4">
             <div class="row g-4">
-                <div class="col-lg-2">
-                    <div class="card-custom p-3 position-sticky" style="top:88px;">
+                <div class="col-lg-3">
+                    <div class="card-custom p-3">
+                        <!-- User Info -->
+                        <div class="d-flex align-items-center gap-3 mb-4">
+                            <span class="avatar-circle" id="sidebar-avatar"></span>
+                            <div class="overflow-hidden">
+                                <h6 class="mb-0 text-truncate" id="sidebar-name">Loading...</h6>
+                                <small class="text-neutral-400 text-truncate d-block" id="sidebar-email">...</small>
+                            </div>
+                        </div>
+                        <hr class="border-neutral-100 my-2">
                         <nav class="nav flex-column gap-1">
-                            <a href="dashboard.html" class="sidebar-item"><i data-lucide="layout-dashboard" class="sidebar-icon"></i> Dashboard</a>
-                            <a href="user-management.html" class="sidebar-item"><i data-lucide="users" class="sidebar-icon"></i> User Management</a>
-                            <a href="event-approvals.html" class="sidebar-item"><i data-lucide="check-circle" class="sidebar-icon"></i> Event Approvals <span class="badge rounded-pill ms-auto" style="background:#ef4444;color:#fff;font-size:10px;">8</span></a>
-                            <a href="events.html" class="sidebar-item"><i data-lucide="calendar" class="sidebar-icon"></i> Events</a>
-                            <a href="categories.html" class="sidebar-item"><i data-lucide="tag" class="sidebar-icon"></i> Categories</a>
-                            <a href="venues.html" class="sidebar-item"><i data-lucide="map-pin" class="sidebar-icon"></i> Venues</a>
-                            <a href="tickets-registrations.html" class="sidebar-item"><i data-lucide="ticket" class="sidebar-icon"></i> Tickets &amp; Registrations</a>
-                            <a href="payments-revenue.html" class="sidebar-item active"><i data-lucide="dollar-sign" class="sidebar-icon"></i> Payments &amp; Revenue</a>
-                            <a href="reports-analytics.html" class="sidebar-item"><i data-lucide="bar-chart-2" class="sidebar-icon"></i> Reports &amp; Analytics</a>
-                            <a href="feedback-moderation.html" class="sidebar-item"><i data-lucide="message-square" class="sidebar-icon"></i> Feedback Moderation</a>
-                            <a href="notifications.html" class="sidebar-item"><i data-lucide="bell" class="sidebar-icon"></i> Notifications <span class="badge rounded-pill ms-auto" style="background:#ef4444;color:#fff;font-size:10px;">5</span></a>
-                            <a href="profile.html" class="sidebar-item"><i data-lucide="user" class="sidebar-icon"></i> Profile</a>
+                            <a href="dashboard.html" class="sidebar-item"><i data-lucide="layout-dashboard"
+                                    class="sidebar-icon"></i> Dashboard</a>
+                            <a href="user-management.html" class="sidebar-item"><i data-lucide="users"
+                                    class="sidebar-icon"></i> User Management</a>
+                            <a href="event-approvals.html" class="sidebar-item"><i data-lucide="check-circle"
+                                    class="sidebar-icon"></i> Event Approvals <span class="badge rounded-pill ms-auto"
+                                    style="background:#17b978;color:#fff;font-size:10px;">8</span></a>
+                            <a href="events.html" class="sidebar-item"><i data-lucide="calendar"
+                                    class="sidebar-icon"></i> Events</a>
+                            <a href="categories.html" class="sidebar-item"><i data-lucide="tag"
+                                    class="sidebar-icon"></i> Categories</a>
+                            <a href="venues.html" class="sidebar-item"><i data-lucide="map-pin"
+                                    class="sidebar-icon"></i> Venues</a>
+                            <a href="tickets-registrations.html" class="sidebar-item"><i data-lucide="ticket"
+                                    class="sidebar-icon"></i> Tickets &amp; Registrations</a>
+                            <a href="payments-revenue.html" class="sidebar-item active"><i data-lucide="dollar-sign"
+                                    class="sidebar-icon"></i> Payments &amp; Revenue</a>
+                            <a href="reports-analytics.html" class="sidebar-item"><i data-lucide="bar-chart-2"
+                                    class="sidebar-icon"></i> Reports &amp; Analytics</a>
+                            <a href="feedback-moderation.html" class="sidebar-item"><i data-lucide="message-square"
+                                    class="sidebar-icon"></i> Feedback Moderation</a>
+                            <a href="notifications.html" class="sidebar-item"><i data-lucide="bell"
+                                    class="sidebar-icon"></i> Notifications <span class="badge rounded-pill ms-auto"
+                                    style="background:#17b978;color:#fff;font-size:10px;">5</span></a>
+                            <a href="profile.html" class="sidebar-item"><i data-lucide="user" class="sidebar-icon"></i>
+                                Profile</a>
                         </nav>
-                        <hr class="my-3" style="border-color:rgba(0,0,0,0.06);">
-                        <a href="../../index.html" class="btn btn-outline-danger w-100 rounded-pill"><i data-lucide="log-out" width="18" class="me-2"></i> Logout</a>
+                        <hr class="border-neutral-100 my-3">
+                        <div class="d-flex flex-column gap-2">
+                            <button class="btn btn-outline-danger w-100 rounded-pill" id="logoutBtn">
+                                <i data-lucide="log-out" width="18" class="me-2"></i> Logout
+                            </button>
+                        </div>
                     </div>
                 </div>
 
-                <div class="col-lg-10">
+                <div class="col-lg-9">
+
+                    <!-- Breadcrumb -->
+                    <nav aria-label="breadcrumb" class="mb-3">
+                        <ol class="breadcrumb mb-0" style="font-size:0.8125rem;">
+                            <li class="breadcrumb-item"><a href="dashboard.html"
+                                    class="text-decoration-none text-neutral-400">Dashboard</a></li>
+                            <li class="breadcrumb-item active text-primary fw-medium" aria-current="page">Payments &
+                                Revenue</li>
+                        </ol>
+                    </nav>
+
                     <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h4 class="fw-bold mb-0">Payments &amp; Revenue</h4>
+                        <div class="d-flex align-items-center"><a href="dashboard.html"
+                                class="icon-circle text-decoration-none me-3" title="Back to Dashboard"
+                                style="flex-shrink:0;"><i data-lucide="arrow-left"
+                                    style="width:18px;height:18px;"></i></a>
+                            <h4 class="fw-bold mb-0">Payments &amp; Revenue</h4>
+                        </div>
                     </div>
 
                     <!-- Stat Cards -->
                     <div class="row g-4 mb-4">
                         <div class="col-sm-6 col-xl-3">
                             <div class="card-custom p-4">
-                                <div class="icon-container mb-3"><i data-lucide="dollar-sign" style="width:24px;height:24px;"></i></div>
+                                <div class="icon-container mb-3"><i data-lucide="dollar-sign"
+                                        style="width:24px;height:24px;"></i></div>
                                 <div class="h3 fw-bold text-neutral-900 mb-1">$245,670</div>
                                 <div class="text-neutral-400 small fw-medium mb-1">Gross Revenue</div>
                                 <div class="text-success small">↑ 18% from last month</div>
@@ -71,7 +120,9 @@
                         </div>
                         <div class="col-sm-6 col-xl-3">
                             <div class="card-custom p-4">
-                                <div class="icon-container mb-3" style="background:rgba(0,184,217,0.12);color:#00b8d9;"><i data-lucide="trending-up" style="width:24px;height:24px;"></i></div>
+                                <div class="icon-container mb-3" style="background:rgba(0,184,217,0.12);color:#00b8d9;">
+                                    <i data-lucide="trending-up" style="width:24px;height:24px;"></i>
+                                </div>
                                 <div class="h3 fw-bold text-neutral-900 mb-1">$24,567</div>
                                 <div class="text-neutral-400 small fw-medium mb-1">Platform Fee</div>
                                 <div class="text-success small">↑ 18% from last month</div>
@@ -79,7 +130,9 @@
                         </div>
                         <div class="col-sm-6 col-xl-3">
                             <div class="card-custom p-4">
-                                <div class="icon-container mb-3" style="background:rgba(34,197,94,0.12);color:#22c55e;"><i data-lucide="download" style="width:24px;height:24px;"></i></div>
+                                <div class="icon-container mb-3" style="background:rgba(34,197,94,0.12);color:#22c55e;">
+                                    <i data-lucide="download" style="width:24px;height:24px;"></i>
+                                </div>
                                 <div class="h3 fw-bold text-neutral-900 mb-1">$221,103</div>
                                 <div class="text-neutral-400 small fw-medium mb-1">Net Payout</div>
                                 <div class="text-success small">↑ 18% from last month</div>
@@ -87,7 +140,9 @@
                         </div>
                         <div class="col-sm-6 col-xl-3">
                             <div class="card-custom p-4">
-                                <div class="icon-container mb-3" style="background:rgba(239,68,68,0.10);color:#ef4444;"><i data-lucide="refresh-cw" style="width:24px;height:24px;"></i></div>
+                                <div class="icon-container mb-3"
+                                    style="background:rgba(245,158,11,0.12);color:#f59e0b;"><i data-lucide="refresh-cw"
+                                        style="width:24px;height:24px;"></i></div>
                                 <div class="h3 fw-bold text-neutral-900 mb-1">$12,450</div>
                                 <div class="text-neutral-400 small fw-medium mb-1">Refund Amount</div>
                                 <div class="text-danger small">↓ 5% from last month</div>
@@ -104,15 +159,24 @@
                             <table class="table table-hover align-middle mb-0">
                                 <thead class="bg-light">
                                     <tr>
-                                        <th class="ps-4 py-3 text-uppercase small fw-bold text-neutral-400" style="font-size:11px;letter-spacing:0.05em;">Event</th>
-                                        <th class="py-3 text-uppercase small fw-bold text-neutral-400" style="font-size:11px;letter-spacing:0.05em;">Organizer</th>
-                                        <th class="py-3 text-uppercase small fw-bold text-neutral-400" style="font-size:11px;letter-spacing:0.05em;">Tickets Sold</th>
-                                        <th class="py-3 text-uppercase small fw-bold text-neutral-400" style="font-size:11px;letter-spacing:0.05em;">Gross</th>
-                                        <th class="py-3 text-uppercase small fw-bold text-neutral-400" style="font-size:11px;letter-spacing:0.05em;">Platform %</th>
-                                        <th class="py-3 text-uppercase small fw-bold text-neutral-400" style="font-size:11px;letter-spacing:0.05em;">Platform Fee</th>
-                                        <th class="py-3 text-uppercase small fw-bold text-neutral-400" style="font-size:11px;letter-spacing:0.05em;">Net</th>
-                                        <th class="py-3 text-uppercase small fw-bold text-neutral-400" style="font-size:11px;letter-spacing:0.05em;">Payout Status</th>
-                                        <th class="pe-4 py-3 text-uppercase small fw-bold text-neutral-400" style="font-size:11px;letter-spacing:0.05em;">Actions</th>
+                                        <th class="ps-4 py-3 text-uppercase small fw-bold text-neutral-400"
+                                            style="font-size:11px;letter-spacing:0.05em;">Event</th>
+                                        <th class="py-3 text-uppercase small fw-bold text-neutral-400"
+                                            style="font-size:11px;letter-spacing:0.05em;">Organizer</th>
+                                        <th class="py-3 text-uppercase small fw-bold text-neutral-400"
+                                            style="font-size:11px;letter-spacing:0.05em;">Tickets Sold</th>
+                                        <th class="py-3 text-uppercase small fw-bold text-neutral-400"
+                                            style="font-size:11px;letter-spacing:0.05em;">Gross</th>
+                                        <th class="py-3 text-uppercase small fw-bold text-neutral-400"
+                                            style="font-size:11px;letter-spacing:0.05em;">Platform %</th>
+                                        <th class="py-3 text-uppercase small fw-bold text-neutral-400"
+                                            style="font-size:11px;letter-spacing:0.05em;">Platform Fee</th>
+                                        <th class="py-3 text-uppercase small fw-bold text-neutral-400"
+                                            style="font-size:11px;letter-spacing:0.05em;">Net</th>
+                                        <th class="py-3 text-uppercase small fw-bold text-neutral-400"
+                                            style="font-size:11px;letter-spacing:0.05em;">Payout Status</th>
+                                        <th class="pe-4 py-3 text-uppercase small fw-bold text-neutral-400"
+                                            style="font-size:11px;letter-spacing:0.05em;">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -124,8 +188,10 @@
                                         <td class="text-neutral-400 small">10%</td>
                                         <td class="text-neutral-400 small">$2,250</td>
                                         <td class="text-neutral-900 small fw-bold">$20,250</td>
-                                        <td><span class="badge rounded-pill px-3 py-2 fw-bold" style="font-size:11px;background:#111827;color:#fff;">Paid</span></td>
-                                        <td class="pe-4"><a href="#" class="btn btn-sm text-primary p-0 fw-bold" style="font-size:12px;">View</a></td>
+                                        <td><span class="badge rounded-pill px-3 py-2 fw-bold"
+                                                style="font-size:11px;background:#111827;color:#fff;">Paid</span></td>
+                                        <td class="pe-4"><a href="#" class="btn btn-sm text-primary p-0 fw-bold"
+                                                style="font-size:12px;">View</a></td>
                                     </tr>
                                     <tr>
                                         <td class="ps-4 fw-bold text-neutral-900">Music Festival Summer</td>
@@ -135,8 +201,11 @@
                                         <td class="text-neutral-400 small">10%</td>
                                         <td class="text-neutral-400 small">$6,000</td>
                                         <td class="text-neutral-900 small fw-bold">$54,000</td>
-                                        <td><span class="badge rounded-pill px-3 py-2 fw-bold" style="font-size:11px;background:#F1F5F9;color:#475569;">Pending</span></td>
-                                        <td class="pe-4"><a href="#" class="btn btn-sm text-primary p-0 fw-bold" style="font-size:12px;">View</a></td>
+                                        <td><span class="badge rounded-pill px-3 py-2 fw-bold"
+                                                style="font-size:11px;background:#F1F5F9;color:#475569;">Pending</span>
+                                        </td>
+                                        <td class="pe-4"><a href="#" class="btn btn-sm text-primary p-0 fw-bold"
+                                                style="font-size:12px;">View</a></td>
                                     </tr>
                                     <tr>
                                         <td class="ps-4 fw-bold text-neutral-900">Food &amp; Wine Expo</td>
@@ -146,8 +215,10 @@
                                         <td class="text-neutral-400 small">10%</td>
                                         <td class="text-neutral-400 small">$1,500</td>
                                         <td class="text-neutral-900 small fw-bold">$13,500</td>
-                                        <td><span class="badge rounded-pill px-3 py-2 fw-bold" style="font-size:11px;background:#111827;color:#fff;">Paid</span></td>
-                                        <td class="pe-4"><a href="#" class="btn btn-sm text-primary p-0 fw-bold" style="font-size:12px;">View</a></td>
+                                        <td><span class="badge rounded-pill px-3 py-2 fw-bold"
+                                                style="font-size:11px;background:#111827;color:#fff;">Paid</span></td>
+                                        <td class="pe-4"><a href="#" class="btn btn-sm text-primary p-0 fw-bold"
+                                                style="font-size:12px;">View</a></td>
                                     </tr>
                                     <tr>
                                         <td class="ps-4 fw-bold text-neutral-900">Startup Pitch Night</td>
@@ -157,8 +228,11 @@
                                         <td class="text-neutral-400 small">10%</td>
                                         <td class="text-neutral-400 small">$750</td>
                                         <td class="text-neutral-900 small fw-bold">$6,750</td>
-                                        <td><span class="badge rounded-pill px-3 py-2 fw-bold" style="font-size:11px;background:#F1F5F9;color:#475569;">Pending</span></td>
-                                        <td class="pe-4"><a href="#" class="btn btn-sm text-primary p-0 fw-bold" style="font-size:12px;">View</a></td>
+                                        <td><span class="badge rounded-pill px-3 py-2 fw-bold"
+                                                style="font-size:11px;background:#F1F5F9;color:#475569;">Pending</span>
+                                        </td>
+                                        <td class="pe-4"><a href="#" class="btn btn-sm text-primary p-0 fw-bold"
+                                                style="font-size:12px;">View</a></td>
                                     </tr>
                                     <tr>
                                         <td class="ps-4 fw-bold text-neutral-900">Art Gallery Opening</td>
@@ -168,8 +242,10 @@
                                         <td class="text-neutral-400 small">10%</td>
                                         <td class="text-neutral-400 small">$1,000</td>
                                         <td class="text-neutral-900 small fw-bold">$9,000</td>
-                                        <td><span class="badge rounded-pill px-3 py-2 fw-bold" style="font-size:11px;background:#111827;color:#fff;">Paid</span></td>
-                                        <td class="pe-4"><a href="#" class="btn btn-sm text-primary p-0 fw-bold" style="font-size:12px;">View</a></td>
+                                        <td><span class="badge rounded-pill px-3 py-2 fw-bold"
+                                                style="font-size:11px;background:#111827;color:#fff;">Paid</span></td>
+                                        <td class="pe-4"><a href="#" class="btn btn-sm text-primary p-0 fw-bold"
+                                                style="font-size:12px;">View</a></td>
                                     </tr>
                                     <tr>
                                         <td class="ps-4 fw-bold text-neutral-900">Gaming Tournament</td>
@@ -179,8 +255,11 @@
                                         <td class="text-neutral-400 small">10%</td>
                                         <td class="text-neutral-400 small">$2,500</td>
                                         <td class="text-neutral-900 small fw-bold">$22,500</td>
-                                        <td><span class="badge rounded-pill px-3 py-2 fw-bold" style="font-size:11px;background:#e5f4f0;color:#17b978;">Processing</span></td>
-                                        <td class="pe-4"><a href="#" class="btn btn-sm text-primary p-0 fw-bold" style="font-size:12px;">View</a></td>
+                                        <td><span class="badge rounded-pill px-3 py-2 fw-bold"
+                                                style="font-size:11px;background:#e5f4f0;color:#17b978;">Processing</span>
+                                        </td>
+                                        <td class="pe-4"><a href="#" class="btn btn-sm text-primary p-0 fw-bold"
+                                                style="font-size:12px;">View</a></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -196,13 +275,20 @@
                             <table class="table table-hover align-middle mb-0">
                                 <thead class="bg-light">
                                     <tr>
-                                        <th class="ps-4 py-3 text-uppercase small fw-bold text-neutral-400" style="font-size:11px;letter-spacing:0.05em;">Event</th>
-                                        <th class="py-3 text-uppercase small fw-bold text-neutral-400" style="font-size:11px;letter-spacing:0.05em;">Attendee</th>
-                                        <th class="py-3 text-uppercase small fw-bold text-neutral-400" style="font-size:11px;letter-spacing:0.05em;">Amount</th>
-                                        <th class="py-3 text-uppercase small fw-bold text-neutral-400" style="font-size:11px;letter-spacing:0.05em;">Reason</th>
-                                        <th class="py-3 text-uppercase small fw-bold text-neutral-400" style="font-size:11px;letter-spacing:0.05em;">Date</th>
-                                        <th class="py-3 text-uppercase small fw-bold text-neutral-400" style="font-size:11px;letter-spacing:0.05em;">Status</th>
-                                        <th class="pe-4 py-3 text-uppercase small fw-bold text-neutral-400" style="font-size:11px;letter-spacing:0.05em;">Actions</th>
+                                        <th class="ps-4 py-3 text-uppercase small fw-bold text-neutral-400"
+                                            style="font-size:11px;letter-spacing:0.05em;">Event</th>
+                                        <th class="py-3 text-uppercase small fw-bold text-neutral-400"
+                                            style="font-size:11px;letter-spacing:0.05em;">Attendee</th>
+                                        <th class="py-3 text-uppercase small fw-bold text-neutral-400"
+                                            style="font-size:11px;letter-spacing:0.05em;">Amount</th>
+                                        <th class="py-3 text-uppercase small fw-bold text-neutral-400"
+                                            style="font-size:11px;letter-spacing:0.05em;">Reason</th>
+                                        <th class="py-3 text-uppercase small fw-bold text-neutral-400"
+                                            style="font-size:11px;letter-spacing:0.05em;">Date</th>
+                                        <th class="py-3 text-uppercase small fw-bold text-neutral-400"
+                                            style="font-size:11px;letter-spacing:0.05em;">Status</th>
+                                        <th class="pe-4 py-3 text-uppercase small fw-bold text-neutral-400"
+                                            style="font-size:11px;letter-spacing:0.05em;">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -212,8 +298,12 @@
                                         <td class="text-neutral-900 small fw-bold">$150</td>
                                         <td class="text-neutral-400 small">Cannot attend</td>
                                         <td class="text-neutral-400 small">2026-02-10</td>
-                                        <td><span class="badge rounded-pill px-3 py-2 fw-bold" style="font-size:11px;background:#F1F5F9;color:#475569;">Pending</span></td>
-                                        <td class="pe-4"><button class="btn btn-sm btn-dark rounded-pill px-3 fw-bold" style="font-size:12px;">Approve Refund</button></td>
+                                        <td><span class="badge rounded-pill px-3 py-2 fw-bold"
+                                                style="font-size:11px;background:#F1F5F9;color:#475569;">Pending</span>
+                                        </td>
+                                        <td class="pe-4"><button
+                                                class="btn btn-sm btn-primary rounded-pill px-3 fw-bold"
+                                                style="font-size:12px;">Approve Refund</button></td>
                                     </tr>
                                     <tr>
                                         <td class="ps-4 fw-bold text-neutral-900">Music Festival Summer</td>
@@ -221,8 +311,12 @@
                                         <td class="text-neutral-900 small fw-bold">$200</td>
                                         <td class="text-neutral-400 small">Event date conflict</td>
                                         <td class="text-neutral-400 small">2026-02-12</td>
-                                        <td><span class="badge rounded-pill px-3 py-2 fw-bold" style="font-size:11px;background:#F1F5F9;color:#475569;">Pending</span></td>
-                                        <td class="pe-4"><button class="btn btn-sm btn-dark rounded-pill px-3 fw-bold" style="font-size:12px;">Approve Refund</button></td>
+                                        <td><span class="badge rounded-pill px-3 py-2 fw-bold"
+                                                style="font-size:11px;background:#F1F5F9;color:#475569;">Pending</span>
+                                        </td>
+                                        <td class="pe-4"><button
+                                                class="btn btn-sm btn-primary rounded-pill px-3 fw-bold"
+                                                style="font-size:12px;">Approve Refund</button></td>
                                     </tr>
                                     <tr>
                                         <td class="ps-4 fw-bold text-neutral-900">Food &amp; Wine Expo</td>
@@ -230,7 +324,9 @@
                                         <td class="text-neutral-900 small fw-bold">$100</td>
                                         <td class="text-neutral-400 small">Health issues</td>
                                         <td class="text-neutral-400 small">2026-02-13</td>
-                                        <td><span class="badge rounded-pill px-3 py-2 fw-bold" style="font-size:11px;background:#111827;color:#fff;">Approved</span></td>
+                                        <td><span class="badge rounded-pill px-3 py-2 fw-bold"
+                                                style="font-size:11px;background:#111827;color:#fff;">Approved</span>
+                                        </td>
                                         <td class="pe-4"><span class="text-neutral-400 small">—</span></td>
                                     </tr>
                                 </tbody>
@@ -244,6 +340,32 @@
 
     <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script>lucide.createIcons();</script>
+    <script type="module">
+        import { injectSignOutModal, populateSidebarUserInfo } from '../../scripts/shared/utils.js';
+
+        lucide.createIcons();
+        injectSignOutModal();
+        populateSidebarUserInfo();
+    </script>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="display:none;position:fixed;bottom:2rem;right:2rem;z-index:9999;
+               width:44px;height:44px;border-radius:50%;border:none;cursor:pointer;
+               background:#17b978;color:#fff;box-shadow:0 4px 16px rgba(23,185,120,0.35);
+               align-items:center;justify-content:center;transition:opacity 0.2s ease;" title="Back to top">
+        <i data-lucide="chevron-up" style="width:20px;height:20px;"></i>
+    </button>
+    <script>
+        var scrollBtn = document.getElementById('scrollTopBtn');
+        window.addEventListener('scroll', function () {
+            if (window.scrollY > 300) {
+                scrollBtn.style.display = 'flex';
+            } else {
+                scrollBtn.style.display = 'none';
+            }
+        });
+    </script>
+
 </body>
+
 </html>

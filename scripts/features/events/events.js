@@ -2,10 +2,10 @@ import { state } from '../../shared/state.js';
 import { showLoading, hideLoading } from '../../shared/utils.js';
 
 export function initializeEvents() {
-    const events = state.events;
+    let events = state.events;
 
     // Show loading for main grid if it exists
-    const eventsGrid = document.getElementById('events-grid');
+    let eventsGrid = document.getElementById('events-grid');
     if (eventsGrid) {
         if (!events || events.length === 0) {
             showLoading('events-grid', 'Fetching the latest events...');

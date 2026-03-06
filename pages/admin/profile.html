@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,24 +8,28 @@
     <link rel="stylesheet" href="../../css/main.css">
     <link rel="icon" href="../../assets/favicon.svg" type="image/x-icon">
     <style>
-        body.bg-neutral-50 { background-color: #f8fafc !important; }
-        .card-custom { box-shadow: 0 4px 6px -1px rgba(0,0,0,0.04), 0 2px 4px -1px rgba(0,0,0,0.02) !important; border-color: rgba(0,0,0,0.06) !important; }
+        body.bg-neutral-50 {
+            background-color: #f8fafc !important;
+        }
+
+        .card-custom {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -1px rgba(0, 0, 0, 0.02) !important;
+            border-color: rgba(0, 0, 0, 0.06) !important;
+        }
     </style>
 </head>
+
 <body class="bg-neutral-50">
     <header class="bg-white border-bottom sticky-top" style="height:64px;z-index:1000;">
         <div class="container-fluid px-4 h-100">
             <div class="d-flex align-items-center justify-content-between h-100">
-                <a class="brand" href="../../index.html" style="width:140px;"><img src="../../assets/logo.SVG" alt="SyncEvent" class="img-fluid"></a>
+                <a class="brand" href="dashboard.html" style="width:140px;"><img src="../../assets/logo.SVG"
+                        alt="SyncEvent" class="img-fluid"></a>
                 <div class="d-flex align-items-center gap-3">
-                    <a href="notifications.html" class="icon-circle position-relative text-decoration-none bg-white"><i data-lucide="bell" style="width:20px;height:20px;"></i><span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle" style="width:10px;height:10px;margin-top:8px;margin-left:-8px;"></span></a>
-                    <div class="d-flex align-items-center gap-2 ps-3 border-start ms-1">
-                        <div class="avatar-circle">AD</div>
-                        <div class="d-none d-sm-block">
-                            <div class="fw-bold text-neutral-900" style="font-size:0.813rem;">Admin User</div>
-                            <div class="text-neutral-400" style="font-size:0.688rem;">admin@example.com</div>
-                        </div>
-                    </div>
+                    <a href="notifications.html" class="icon-circle position-relative text-decoration-none bg-white"><i
+                            data-lucide="bell" style="width:20px;height:20px;"></i><span
+                            class="position-absolute top-0 start-100 translate-middle p-1 rounded-circle"
+                            style="width:10px;height:10px;margin-top:8px;margin-left:-8px;background:#17b978;"></span></a>
                 </div>
             </div>
         </div>
@@ -33,30 +38,72 @@
     <main class="section-sm">
         <div class="container-fluid px-4">
             <div class="row g-4">
-                <div class="col-lg-2">
-                    <div class="card-custom p-3 position-sticky" style="top:88px;">
+                <div class="col-lg-3">
+                    <div class="card-custom p-3">
+                        <!-- User Info -->
+                        <div class="d-flex align-items-center gap-3 mb-4">
+                            <span class="avatar-circle" id="sidebar-avatar"></span>
+                            <div class="overflow-hidden">
+                                <h6 class="mb-0 text-truncate" id="sidebar-name">Loading...</h6>
+                                <small class="text-neutral-400 text-truncate d-block" id="sidebar-email">...</small>
+                            </div>
+                        </div>
+                        <hr class="border-neutral-100 my-2">
                         <nav class="nav flex-column gap-1">
-                            <a href="dashboard.html" class="sidebar-item"><i data-lucide="layout-dashboard" class="sidebar-icon"></i> Dashboard</a>
-                            <a href="user-management.html" class="sidebar-item"><i data-lucide="users" class="sidebar-icon"></i> User Management</a>
-                            <a href="event-approvals.html" class="sidebar-item"><i data-lucide="check-circle" class="sidebar-icon"></i> Event Approvals <span class="badge rounded-pill ms-auto" style="background:#ef4444;color:#fff;font-size:10px;">8</span></a>
-                            <a href="events.html" class="sidebar-item"><i data-lucide="calendar" class="sidebar-icon"></i> Events</a>
-                            <a href="categories.html" class="sidebar-item"><i data-lucide="tag" class="sidebar-icon"></i> Categories</a>
-                            <a href="venues.html" class="sidebar-item"><i data-lucide="map-pin" class="sidebar-icon"></i> Venues</a>
-                            <a href="tickets-registrations.html" class="sidebar-item"><i data-lucide="ticket" class="sidebar-icon"></i> Tickets &amp; Registrations</a>
-                            <a href="payments-revenue.html" class="sidebar-item"><i data-lucide="dollar-sign" class="sidebar-icon"></i> Payments &amp; Revenue</a>
-                            <a href="reports-analytics.html" class="sidebar-item"><i data-lucide="bar-chart-2" class="sidebar-icon"></i> Reports &amp; Analytics</a>
-                            <a href="feedback-moderation.html" class="sidebar-item"><i data-lucide="message-square" class="sidebar-icon"></i> Feedback Moderation</a>
-                            <a href="notifications.html" class="sidebar-item"><i data-lucide="bell" class="sidebar-icon"></i> Notifications <span class="badge rounded-pill ms-auto" style="background:#ef4444;color:#fff;font-size:10px;">5</span></a>
-                            <a href="profile.html" class="sidebar-item active"><i data-lucide="user" class="sidebar-icon"></i> Profile</a>
+                            <a href="dashboard.html" class="sidebar-item"><i data-lucide="layout-dashboard"
+                                    class="sidebar-icon"></i> Dashboard</a>
+                            <a href="user-management.html" class="sidebar-item"><i data-lucide="users"
+                                    class="sidebar-icon"></i> User Management</a>
+                            <a href="event-approvals.html" class="sidebar-item"><i data-lucide="check-circle"
+                                    class="sidebar-icon"></i> Event Approvals <span class="badge rounded-pill ms-auto"
+                                    style="background:#17b978;color:#fff;font-size:10px;">8</span></a>
+                            <a href="events.html" class="sidebar-item"><i data-lucide="calendar"
+                                    class="sidebar-icon"></i> Events</a>
+                            <a href="categories.html" class="sidebar-item"><i data-lucide="tag"
+                                    class="sidebar-icon"></i> Categories</a>
+                            <a href="venues.html" class="sidebar-item"><i data-lucide="map-pin"
+                                    class="sidebar-icon"></i> Venues</a>
+                            <a href="tickets-registrations.html" class="sidebar-item"><i data-lucide="ticket"
+                                    class="sidebar-icon"></i> Tickets &amp; Registrations</a>
+                            <a href="payments-revenue.html" class="sidebar-item"><i data-lucide="dollar-sign"
+                                    class="sidebar-icon"></i> Payments &amp; Revenue</a>
+                            <a href="reports-analytics.html" class="sidebar-item"><i data-lucide="bar-chart-2"
+                                    class="sidebar-icon"></i> Reports &amp; Analytics</a>
+                            <a href="feedback-moderation.html" class="sidebar-item"><i data-lucide="message-square"
+                                    class="sidebar-icon"></i> Feedback Moderation</a>
+                            <a href="notifications.html" class="sidebar-item"><i data-lucide="bell"
+                                    class="sidebar-icon"></i> Notifications <span class="badge rounded-pill ms-auto"
+                                    style="background:#17b978;color:#fff;font-size:10px;">5</span></a>
+                            <a href="profile.html" class="sidebar-item active"><i data-lucide="user"
+                                    class="sidebar-icon"></i> Profile</a>
                         </nav>
-                        <hr class="my-3" style="border-color:rgba(0,0,0,0.06);">
-                        <a href="../../index.html" class="btn btn-outline-danger w-100 rounded-pill"><i data-lucide="log-out" width="18" class="me-2"></i> Logout</a>
+                        <hr class="border-neutral-100 my-3">
+                        <div class="d-flex flex-column gap-2">
+                            <button class="btn btn-outline-danger w-100 rounded-pill" id="logoutBtn">
+                                <i data-lucide="log-out" width="18" class="me-2"></i> Logout
+                            </button>
+                        </div>
                     </div>
                 </div>
 
-                <div class="col-lg-10">
+                <div class="col-lg-9">
+
+                    <!-- Breadcrumb -->
+                    <nav aria-label="breadcrumb" class="mb-3">
+                        <ol class="breadcrumb mb-0" style="font-size:0.8125rem;">
+                            <li class="breadcrumb-item"><a href="dashboard.html"
+                                    class="text-decoration-none text-neutral-400">Dashboard</a></li>
+                            <li class="breadcrumb-item active text-primary fw-medium" aria-current="page">Profile</li>
+                        </ol>
+                    </nav>
+
                     <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h4 class="fw-bold mb-0">Profile</h4>
+                        <div class="d-flex align-items-center"><a href="dashboard.html"
+                                class="icon-circle text-decoration-none me-3" title="Back to Dashboard"
+                                style="flex-shrink:0;"><i data-lucide="arrow-left"
+                                    style="width:18px;height:18px;"></i></a>
+                            <h4 class="fw-bold mb-0">Profile</h4>
+                        </div>
                     </div>
 
                     <!-- Admin Information -->
@@ -65,7 +112,8 @@
                             <i data-lucide="user" style="width:16px;height:16px;" class="me-2"></i> Admin Information
                         </h3>
                         <div class="d-flex align-items-center gap-4 mb-4">
-                            <div class="avatar-circle flex-shrink-0" style="width:80px;height:80px;font-size:24px;">AD</div>
+                            <div class="avatar-circle flex-shrink-0" style="width:80px;height:80px;font-size:24px;">AD
+                            </div>
                             <div>
                                 <div class="fw-bold text-neutral-900 mb-1">Admin User</div>
                                 <div class="text-neutral-400 small">Super Admin · admin@example.com</div>
@@ -127,16 +175,19 @@
                         <div class="d-flex justify-content-between align-items-center border-bottom py-3">
                             <div>
                                 <div class="fw-bold text-neutral-900 small">Email Notifications</div>
-                                <div class="text-neutral-400" style="font-size:12px;">Receive email notifications for important system events</div>
+                                <div class="text-neutral-400" style="font-size:12px;">Receive email notifications for
+                                    important system events</div>
                             </div>
                             <div class="form-check form-switch mb-0">
-                                <input class="form-check-input" type="checkbox" checked style="width:2.5rem;height:1.25rem;">
+                                <input class="form-check-input" type="checkbox" checked
+                                    style="width:2.5rem;height:1.25rem;">
                             </div>
                         </div>
                         <div class="d-flex justify-content-between align-items-center border-bottom py-3">
                             <div>
                                 <div class="fw-bold text-neutral-900 small">Two-Factor Authentication</div>
-                                <div class="text-neutral-400" style="font-size:12px;">Add an extra layer of security to your account</div>
+                                <div class="text-neutral-400" style="font-size:12px;">Add an extra layer of security to
+                                    your account</div>
                             </div>
                             <div class="form-check form-switch mb-0">
                                 <input class="form-check-input" type="checkbox" style="width:2.5rem;height:1.25rem;">
@@ -145,7 +196,8 @@
                         <div class="d-flex justify-content-between align-items-center border-bottom py-3">
                             <div>
                                 <div class="fw-bold text-neutral-900 small">Auto-Approve Events</div>
-                                <div class="text-neutral-400" style="font-size:12px;">Automatically approve events from verified organizers</div>
+                                <div class="text-neutral-400" style="font-size:12px;">Automatically approve events from
+                                    verified organizers</div>
                             </div>
                             <div class="form-check form-switch mb-0">
                                 <input class="form-check-input" type="checkbox" style="width:2.5rem;height:1.25rem;">
@@ -154,10 +206,12 @@
                         <div class="d-flex justify-content-between align-items-center py-3">
                             <div>
                                 <div class="fw-bold text-neutral-900 small">Daily Reports</div>
-                                <div class="text-neutral-400" style="font-size:12px;">Receive daily summary reports via email</div>
+                                <div class="text-neutral-400" style="font-size:12px;">Receive daily summary reports via
+                                    email</div>
                             </div>
                             <div class="form-check form-switch mb-0">
-                                <input class="form-check-input" type="checkbox" checked style="width:2.5rem;height:1.25rem;">
+                                <input class="form-check-input" type="checkbox" checked
+                                    style="width:2.5rem;height:1.25rem;">
                             </div>
                         </div>
                     </div>
@@ -193,16 +247,20 @@
                         <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-3">
                             <div>
                                 <div class="fw-bold text-neutral-900 small">Export All Data</div>
-                                <div class="text-neutral-400" style="font-size:12px;">Download a complete copy of all platform data</div>
+                                <div class="text-neutral-400" style="font-size:12px;">Download a complete copy of all
+                                    platform data</div>
                             </div>
-                            <button class="btn btn-outline-secondary rounded-pill px-4 fw-bold" style="font-size:12px;">Export Data</button>
+                            <button class="btn btn-outline-secondary rounded-pill px-4 fw-bold"
+                                style="font-size:12px;">Export Data</button>
                         </div>
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
                                 <div class="fw-bold text-neutral-900 small">Clear System Cache</div>
-                                <div class="text-neutral-400" style="font-size:12px;">Clear all cached data to improve performance</div>
+                                <div class="text-neutral-400" style="font-size:12px;">Clear all cached data to improve
+                                    performance</div>
                             </div>
-                            <button class="btn btn-outline-secondary rounded-pill px-4 fw-bold" style="font-size:12px;">Clear Cache</button>
+                            <button class="btn btn-outline-secondary rounded-pill px-4 fw-bold"
+                                style="font-size:12px;">Clear Cache</button>
                         </div>
                     </div>
                 </div>
@@ -212,6 +270,32 @@
 
     <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script>lucide.createIcons();</script>
+    <script type="module">
+        import { injectSignOutModal, populateSidebarUserInfo } from '../../scripts/shared/utils.js';
+
+        lucide.createIcons();
+        injectSignOutModal();
+        populateSidebarUserInfo();
+    </script>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="display:none;position:fixed;bottom:2rem;right:2rem;z-index:9999;
+               width:44px;height:44px;border-radius:50%;border:none;cursor:pointer;
+               background:#17b978;color:#fff;box-shadow:0 4px 16px rgba(23,185,120,0.35);
+               align-items:center;justify-content:center;transition:opacity 0.2s ease;" title="Back to top">
+        <i data-lucide="chevron-up" style="width:20px;height:20px;"></i>
+    </button>
+    <script>
+        var scrollBtn = document.getElementById('scrollTopBtn');
+        window.addEventListener('scroll', function () {
+            if (window.scrollY > 300) {
+                scrollBtn.style.display = 'flex';
+            } else {
+                scrollBtn.style.display = 'none';
+            }
+        });
+    </script>
+
 </body>
+
 </html>

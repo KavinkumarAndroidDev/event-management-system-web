@@ -64,12 +64,19 @@ function injectHeader(rootPath, user, currentPath) {
         `;
   }
 
+  // Role-based home redirection
+  let homeUrl = `${rootPath}index.html`;
+  if (user) {
+    if (user.role.name === 'ORGANIZER') homeUrl = `${rootPath}pages/organizer/dashboard.html`;
+    else if (user.role.name === 'ADMIN') homeUrl = `${rootPath}pages/admin/dashboard.html`;
+  }
+
   header.innerHTML = `
     <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
       <div class="container-custom w-100 px-0 d-flex align-items-center justify-content-between">
         
         <!-- Logo -->
-        <a class="navbar-brand py-0 m-0" href="${rootPath}index.html">
+        <a class="navbar-brand py-0 m-0" href="${homeUrl}">
           <img src="${rootPath}assets/logo.SVG" alt="SyncEvent" height="40">
         </a>
         
@@ -84,7 +91,7 @@ function injectHeader(rootPath, user, currentPath) {
             <!-- Centered Links -->
             <ul class="navbar-nav mx-auto mb-3 mb-lg-0 gap-1 gap-lg-3 text-center mt-3 mt-lg-0">
                 <li class="nav-item">
-                    <a href="${rootPath}index.html" class="nav-link text-neutral-900 fw-medium ${isHome ? 'active' : ''}">Home</a>
+                    <a href="${homeUrl}" class="nav-link text-neutral-900 fw-medium ${isHome ? 'active' : ''}">Home</a>
                 </li>
                 <li class="nav-item">
                     <a href="${rootPath}pages/events/index.html" class="nav-link text-neutral-900 fw-medium ${isEvents ? 'active' : ''}">Events</a>
