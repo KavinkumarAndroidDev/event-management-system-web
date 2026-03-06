@@ -1,7 +1,18 @@
 import { state } from '../../shared/state.js';
+import { showLoading, hideLoading } from '../../shared/utils.js';
 
 export function initializeEvents() {
     const events = state.events;
+
+    // Show loading for main grid if it exists
+    const eventsGrid = document.getElementById('events-grid');
+    if (eventsGrid) {
+        if (!events || events.length === 0) {
+            showLoading('events-grid', 'Fetching the latest events...');
+        } else {
+            hideLoading('events-grid');
+        }
+    }
 
     // Homepage: Featured Events
     const featuredContainer = document.getElementById('featured-events');
@@ -61,7 +72,6 @@ export function initializeEvents() {
     }
 
     // Events Page: All Events
-    const eventsGrid = document.getElementById('events-grid');
     if (eventsGrid && events) {
         setupPagination(events);
     }
@@ -291,6 +301,34 @@ function filterEvents(query) {
         }
     }
 
-    setupPagination(filtered);
+    if (filtered.length === 0) {
+        const grid = document.getElementById('events-grid');
+        grid.innerHTML = `
+            <div class="col-12 text-center py-5">
+                <div class="text-neutral-400 mb-3">
+                    <i data-lucide="search-x" width="48" height="48"></i>
+                </div>
+                <h5 class="text-neutral-600">No events found matching your filters</h5>
+                <p class="text-neutral-400 small">Try clearing some filters to see more events.</p>
+                <button class="btn btn-outline-primary rounded-pill btn-sm mt-3" onclick="document.getElementById('clear-filters-desktop').click()">Clear All Filters</button>
+            </div>
+        `;
+        if (window.initIcons) window.initIcons({ root: grid });
+    } else {
+        setupPagination(filtered);
+    }
+
+    // Update dynamic heading if it exists
+    const heading = document.getElementById('events-title-heading');
+    if (heading) {
+        const checkedCities = Array.from(cityCheckboxes).filter(cb => cb.checked);
+        if (checkedCities.length === 1) {
+            heading.textContent = `Events in ${checkedCities[0].nextElementSibling.textContent}`;
+        } else if (checkedCities.length > 1) {
+            heading.textContent = 'Events in Multiple Cities';
+        } else {
+            heading.textContent = 'All Events';
+        }
+    }
 }
 

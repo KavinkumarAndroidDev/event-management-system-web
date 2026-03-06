@@ -15239,3 +15239,46 @@ h4,
   color: #17B978;
   border: none;
 }
+/* --- Back to Top Button --- */
+.back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 48px;
+  height: 48px;
+  background-color: #17B978;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(23, 185, 120, 0.3);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.back-to-top:hover {
+  background-color: #0d7c4e;
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(23, 185, 120, 0.4);
+}
+
+/* --- Centered Loading Container --- */
+.loading-container {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 250px;
+  width: 100%;
+  gap: 1.25rem;
+}

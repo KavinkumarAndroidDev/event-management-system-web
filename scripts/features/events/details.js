@@ -1,10 +1,16 @@
 import { state } from '../../shared/state.js';
+import { showLoading } from '../../shared/utils.js';
 
 export function initializeDetails() {
     const events = state.events;
     const urlParams = new URLSearchParams(window.location.search);
     const eventId = urlParams.get('id');
-    if (eventId && events) {
+
+    if (!eventId) return;
+
+    if (!events || events.length === 0) {
+        showLoading('event-details-container', 'Loading event details...');
+    } else {
         const event = events.find(e => e.id === eventId);
         if (event) {
             populateSingleEvent(event);
@@ -42,6 +48,8 @@ export function populateSingleEvent(event) {
     setText('event-price', minPrice === 0 ? 'Free' : `₹${minPrice}`);
 
     setText('event-description', event.fullDescription);
+    setupShowMore('event-description', 300); // 300 chars limit
+
     setText('venue-name', event.venue.name);
     setText('venue-address', `${event.venue.address.street}, ${event.venue.address.city}, ${event.venue.address.pincode}`);
 
@@ -245,4 +253,32 @@ function showEventLoginModal(eventId) {
 
     const bsModal = new window.bootstrap.Modal(modalEl);
     bsModal.show();
+}
+
+function setupShowMore(elementId, limit) {
+    const el = document.getElementById(elementId);
+    if (!el) return;
+
+    const fullText = el.textContent;
+    if (fullText.length <= limit) return;
+
+    const truncatedText = fullText.substring(0, limit) + '...';
+    el.textContent = truncatedText;
+
+    const btn = document.getElementById('btn-show-more');
+    if (btn) {
+        btn.classList.remove('d-none');
+        btn.onclick = () => {
+            if (btn.getAttribute('data-expanded') === 'true') {
+                el.textContent = truncatedText;
+                btn.innerHTML = 'Show More <i data-lucide="chevron-down" width="18"></i>';
+                btn.setAttribute('data-expanded', 'false');
+            } else {
+                el.textContent = fullText;
+                btn.innerHTML = 'Show Less <i data-lucide="chevron-up" width="18"></i>';
+                btn.setAttribute('data-expanded', 'true');
+            }
+            if (window.initIcons) window.initIcons({ root: btn });
+        };
+    }
 }

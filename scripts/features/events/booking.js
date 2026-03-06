@@ -1,5 +1,5 @@
 import { state } from '../../shared/state.js';
-import { showToast } from '../../shared/utils.js';
+import { showToast, showLoading } from '../../shared/utils.js';
 
 export function initBookingPage() {
     const userStr = localStorage.getItem('currentUser');
@@ -14,10 +14,22 @@ export function initBookingPage() {
     const urlParams = new URLSearchParams(window.location.search);
     const eventId = urlParams.get('id');
 
-    if (!eventId || !state.events) return;
+    if (!eventId) return;
+
+    if (!state.events || state.events.length === 0) {
+        showLoading('booking-page-container', 'Setting up your booking...');
+        return;
+    }
 
     const event = state.events.find(e => e.id === eventId);
     if (!event) return;
+
+    // Update breadcrumb with icon
+    const backBtn = document.querySelector('.breadcrumb-back');
+    if (backBtn && !backBtn.querySelector('i')) {
+        backBtn.innerHTML = `<i data-lucide="chevron-left" width="20" height="20" class="me-1" style="vertical-align: middle; margin-top: -2px;"></i>` + backBtn.innerHTML;
+        if (window.initIcons) window.initIcons({ root: backBtn });
+    }
 
     // Populate Header Info
     document.getElementById('booking-event-title').textContent = event.title;

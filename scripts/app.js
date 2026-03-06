@@ -1,5 +1,5 @@
 import { setGlobalData } from './shared/state.js';
-import { injectToastContainer, initializeBootstrapComponents, injectSignOutModal } from './shared/utils.js';
+import { injectToastContainer, initializeBootstrapComponents, injectSignOutModal, injectBackToTopButton } from './shared/utils.js';
 import { injectComponents } from './components/navbar.js';
 
 // Safe Lucide initializer
@@ -12,8 +12,8 @@ window.initIcons = () => {
 document.addEventListener('DOMContentLoaded', async () => {
     console.log('SyncEvent App Initialized');
 
-    // 1. Fetch Data from API Endpoints
-    Promise.all([
+    // 1. Fetch Data from API Endpoints - Wrap in a promise we can await later
+    const dataPromise = Promise.all([
         fetch('http://localhost:3000/users').then(res => res.json()),
         fetch('http://localhost:3000/events').then(res => res.json()),
         fetch('http://localhost:3000/registrations').then(res => res.json()),
@@ -22,11 +22,22 @@ document.addEventListener('DOMContentLoaded', async () => {
         .then(([users, events, registrations, payments]) => {
             const data = { users, events, registrations, payments };
             setGlobalData(data);
-
-            // Dispatch custom event when data is loaded so specific scripts can react
+            // Dispatch custom event for legacy compatibility
             document.dispatchEvent(new CustomEvent('dataLoaded', { detail: data }));
+            return data;
         })
-        .catch(err => console.log('API fetch error:', err));
+        .catch(err => {
+            console.log('API fetch error:', err);
+            return null;
+        });
+
+    // Helper: Execute logic only when data is fully loaded and state is ready
+    const whenDataReady = async (callback) => {
+        const data = await dataPromise;
+        if (data && typeof callback === 'function') {
+            callback(data);
+        }
+    };
 
     // Dynamic Imports Based on Path
     const path = window.location.pathname;
@@ -56,47 +67,33 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Events
     if (path.includes('/events') && !path.includes('details') && !path.includes('booking')) {
         const { initializeEvents, setupGlobalInteractions } = await import('./features/events/events.js');
-        // Initialize once data loads
-        document.addEventListener('dataLoaded', () => {
-            initializeEvents();
-        });
+        whenDataReady(() => initializeEvents());
         setupGlobalInteractions();
     } else if (path.includes('/events/details')) {
         const { initializeDetails } = await import('./features/events/details.js');
-        document.addEventListener('dataLoaded', () => {
-            initializeDetails();
-        });
+        whenDataReady(() => initializeDetails());
     } else if (path.includes('/events/booking')) {
         const { initBookingPage } = await import('./features/events/booking.js');
-        document.addEventListener('dataLoaded', () => {
-            initBookingPage();
-        });
+        whenDataReady(() => initBookingPage());
     }
 
     // Index (Homepage includes featured events)
     if (path === '/' || path.endsWith('/index.html') || path === '') {
         const { initializeEvents } = await import('./features/events/events.js');
-        document.addEventListener('dataLoaded', () => {
-            initializeEvents();
-        });
+        whenDataReady(() => initializeEvents());
     }
 
     // Profile
     if (path.includes('/profile')) {
         const { initProfilePage } = await import('./features/profile/profile.js');
-        import('./shared/state.js').then(stateMod => {
-            if (stateMod.state && stateMod.state.users && stateMod.state.users.length > 0) {
-                initProfilePage();
-            } else {
-                document.addEventListener('dataLoaded', () => initProfilePage());
-            }
-        });
+        whenDataReady(() => initProfilePage());
     }
 
     // Globals
     injectComponents();
     injectToastContainer();
     injectSignOutModal();
+    injectBackToTopButton();
     window.initIcons();
     initializeBootstrapComponents();
 });

@@ -1,4 +1,7 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Events - SyncEvent</title>
@@ -93,10 +96,7 @@
         .chevron-icon {
             transition: transform 0.2s ease-in-out;
         }
-    
-        
-        
-            </style>
+    </style>
 </head>
 
 <body class="bg-neutral-50">
@@ -135,7 +135,8 @@
                         <div class="search-field">
                             <svg class="search-icon" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                                 <circle cx="7" cy="7" r="4.5" stroke="currentColor" stroke-width="1.5"></circle>
-                                <path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                                <path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.5"
+                                    stroke-linecap="round">
                                 </path>
                             </svg>
                             <input type="search" class="form-control" placeholder="Search events">
@@ -157,33 +158,45 @@
                         <div class="filter-sidebar">
                             <!-- Desktop Header -->
                             <div class="d-flex justify-content-between align-items-center mb-4 d-none d-lg-flex">
-                                <h3 class="mb-0 text-neutral-900" style="font-family: 'DM Sans', sans-serif; font-size: 24px; font-weight: 500;">
+                                <h3 class="mb-0 text-neutral-900"
+                                    style="font-family: 'DM Sans', sans-serif; font-size: 24px; font-weight: 500;">
                                     Filters</h3>
-                                <a href="#" id="clear-filters-desktop" class="text-primary small text-decoration-none fw-medium">Clear All</a>
+                                <a href="#" id="clear-filters-desktop"
+                                    class="text-primary small text-decoration-none fw-medium">Clear All</a>
                             </div>
 
                             <!-- Mobile Toggle Header -->
-                            <div class="d-flex d-lg-none justify-content-between align-items-center mb-3 cursor-pointer" data-bs-toggle="collapse" data-bs-target="#mobileFilterCollapse" aria-expanded="false" aria-controls="mobileFilterCollapse" role="button">
-                                <h3 class="mb-0 text-neutral-900" style="font-family: 'DM Sans', sans-serif; font-size: 24px; font-weight: 500;">
+                            <div class="d-flex d-lg-none justify-content-between align-items-center mb-3 cursor-pointer"
+                                data-bs-toggle="collapse" data-bs-target="#mobileFilterCollapse" aria-expanded="false"
+                                aria-controls="mobileFilterCollapse" role="button">
+                                <h3 class="mb-0 text-neutral-900"
+                                    style="font-family: 'DM Sans', sans-serif; font-size: 24px; font-weight: 500;">
                                     Filters</h3>
-                                <div class="bg-neutral-100 rounded-circle d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;">
-                                    <i data-lucide="sliders-horizontal" width="18" height="18" class="text-neutral-900"></i>
+                                <div class="bg-neutral-100 rounded-circle d-flex align-items-center justify-content-center"
+                                    style="width: 36px; height: 36px;">
+                                    <i data-lucide="sliders-horizontal" width="18" height="18"
+                                        class="text-neutral-900"></i>
                                 </div>
                             </div>
                             <div class="d-flex d-lg-none justify-content-end mb-4">
-                                <a href="#" id="clear-filters-mobile" class="text-primary small text-decoration-none fw-medium">Clear All Filters</a>
+                                <a href="#" id="clear-filters-mobile"
+                                    class="text-primary small text-decoration-none fw-medium">Clear All Filters</a>
                             </div>
 
                             <div class="collapse d-lg-block" id="mobileFilterCollapse">
                                 <!-- Date Group -->
                                 <div class="mb-4">
-                                    <div class="d-flex justify-content-between align-items-center mb-3 filter-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#collapseDate" aria-expanded="false" role="button">
-                                        <span class="fw-medium text-neutral-900" style="font-family: 'Inter', sans-serif; font-size: 16px;">Date</span>
-                                        <i data-lucide="chevron-down" width="20" height="20" class="chevron-icon text-neutral-400"></i>
+                                    <div class="d-flex justify-content-between align-items-center mb-3 filter-toggle collapsed"
+                                        data-bs-toggle="collapse" data-bs-target="#collapseDate" aria-expanded="false"
+                                        role="button">
+                                        <span class="fw-medium text-neutral-900"
+                                            style="font-family: 'Inter', sans-serif; font-size: 16px;">Date</span>
+                                        <i data-lucide="chevron-down" width="20" height="20"
+                                            class="chevron-icon text-neutral-400"></i>
                                     </div>
                                     <div class="collapse" id="collapseDate">
                                         <div class="d-flex flex-wrap gap-2">
-                                            <button class="filter-pill active">Today</button>
+                                            <button class="filter-pill">Today</button>
                                             <button class="filter-pill">Tomorrow</button>
                                             <button class="filter-pill">This Weekend</button>
                                         </div>
@@ -192,23 +205,30 @@
 
                                 <!-- City Group -->
                                 <div class="mb-4">
-                                    <div class="d-flex justify-content-between align-items-center mb-3 filter-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#collapseCity" aria-expanded="false" role="button">
-                                        <span class="fw-medium text-neutral-900" style="font-family: 'Inter', sans-serif; font-size: 16px;">City</span>
-                                        <i data-lucide="chevron-down" width="20" height="20" class="chevron-icon text-neutral-400"></i>
+                                    <div class="d-flex justify-content-between align-items-center mb-3 filter-toggle collapsed"
+                                        data-bs-toggle="collapse" data-bs-target="#collapseCity" aria-expanded="false"
+                                        role="button">
+                                        <span class="fw-medium text-neutral-900"
+                                            style="font-family: 'Inter', sans-serif; font-size: 16px;">City</span>
+                                        <i data-lucide="chevron-down" width="20" height="20"
+                                            class="chevron-icon text-neutral-400"></i>
                                     </div>
                                     <div class="collapse" id="collapseCity">
                                         <div class="d-flex flex-column gap-2">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" id="cityCoimbatore">
-                                                <label class="form-check-label text-neutral-900" for="cityCoimbatore" style="font-family: 'Inter', sans-serif; font-size: 14px;">Coimbatore</label>
+                                                <label class="form-check-label text-neutral-900" for="cityCoimbatore"
+                                                    style="font-family: 'Inter', sans-serif; font-size: 14px;">Coimbatore</label>
                                             </div>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" id="cityChennai">
-                                                <label class="form-check-label text-neutral-900" for="cityChennai" style="font-family: 'Inter', sans-serif; font-size: 14px;">Chennai</label>
+                                                <label class="form-check-label text-neutral-900" for="cityChennai"
+                                                    style="font-family: 'Inter', sans-serif; font-size: 14px;">Chennai</label>
                                             </div>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" id="cityMadurai">
-                                                <label class="form-check-label text-neutral-900" for="cityMadurai" style="font-family: 'Inter', sans-serif; font-size: 14px;">Madurai</label>
+                                                <label class="form-check-label text-neutral-900" for="cityMadurai"
+                                                    style="font-family: 'Inter', sans-serif; font-size: 14px;">Madurai</label>
                                             </div>
                                         </div>
                                     </div>
@@ -216,27 +236,36 @@
 
                                 <!-- Categories Group -->
                                 <div class="mb-4">
-                                    <div class="d-flex justify-content-between align-items-center mb-3 filter-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#collapseCategories" aria-expanded="false" role="button">
-                                        <span class="fw-medium text-neutral-900" style="font-family: 'Inter', sans-serif; font-size: 16px;">Categories</span>
-                                        <i data-lucide="chevron-down" width="20" height="20" class="chevron-icon text-neutral-400"></i>
+                                    <div class="d-flex justify-content-between align-items-center mb-3 filter-toggle collapsed"
+                                        data-bs-toggle="collapse" data-bs-target="#collapseCategories"
+                                        aria-expanded="false" role="button">
+                                        <span class="fw-medium text-neutral-900"
+                                            style="font-family: 'Inter', sans-serif; font-size: 16px;">Categories</span>
+                                        <i data-lucide="chevron-down" width="20" height="20"
+                                            class="chevron-icon text-neutral-400"></i>
                                     </div>
                                     <div class="collapse" id="collapseCategories">
                                         <div class="d-flex flex-column gap-2">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" id="catMusic">
-                                                <label class="form-check-label text-neutral-900" for="catMusic" style="font-family: 'Inter', sans-serif; font-size: 14px;">Music</label>
+                                                <label class="form-check-label text-neutral-900" for="catMusic"
+                                                    style="font-family: 'Inter', sans-serif; font-size: 14px;">Music</label>
                                             </div>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" id="catSports">
-                                                <label class="form-check-label text-neutral-900" for="catSports" style="font-family: 'Inter', sans-serif; font-size: 14px;">Sports</label>
+                                                <label class="form-check-label text-neutral-900" for="catSports"
+                                                    style="font-family: 'Inter', sans-serif; font-size: 14px;">Sports</label>
                                             </div>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" id="catWorkshops">
-                                                <label class="form-check-label text-neutral-900" for="catWorkshops" style="font-family: 'Inter', sans-serif; font-size: 14px;">Workshops</label>
+                                                <label class="form-check-label text-neutral-900" for="catWorkshops"
+                                                    style="font-family: 'Inter', sans-serif; font-size: 14px;">Workshops</label>
                                             </div>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" id="catFood">
-                                                <label class="form-check-label text-neutral-900" for="catFood" style="font-family: 'Inter', sans-serif; font-size: 14px;">Food &amp;
+                                                <label class="form-check-label text-neutral-900" for="catFood"
+                                                    style="font-family: 'Inter', sans-serif; font-size: 14px;">Food
+                                                    &amp;
                                                     Drinks</label>
                                             </div>
                                         </div>
@@ -245,29 +274,36 @@
 
                                 <!-- Price Group -->
                                 <div class="mb-4">
-                                    <div class="d-flex justify-content-between align-items-center mb-3 filter-toggle" data-bs-toggle="collapse" data-bs-target="#collapsePrice" aria-expanded="true">
-                                        <span class="fw-medium text-neutral-900" style="font-family: 'Inter', sans-serif; font-size: 16px;">Price</span>
-                                        <i data-lucide="chevron-down" width="20" height="20" class="chevron-icon text-neutral-400"></i>
+                                    <div class="d-flex justify-content-between align-items-center mb-3 filter-toggle"
+                                        data-bs-toggle="collapse" data-bs-target="#collapsePrice" aria-expanded="true">
+                                        <span class="fw-medium text-neutral-900"
+                                            style="font-family: 'Inter', sans-serif; font-size: 16px;">Price</span>
+                                        <i data-lucide="chevron-down" width="20" height="20"
+                                            class="chevron-icon text-neutral-400"></i>
                                     </div>
                                     <div class="collapse show" id="collapsePrice">
                                         <div class="d-flex flex-column gap-2">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" id="priceFree">
-                                                <label class="form-check-label text-neutral-900" for="priceFree" style="font-family: 'Inter', sans-serif; font-size: 14px;">Free</label>
+                                                <label class="form-check-label text-neutral-900" for="priceFree"
+                                                    style="font-family: 'Inter', sans-serif; font-size: 14px;">Free</label>
                                             </div>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" id="priceUnder500">
-                                                <label class="form-check-label text-neutral-900" for="priceUnder500" style="font-family: 'Inter', sans-serif; font-size: 14px;">Under
+                                                <label class="form-check-label text-neutral-900" for="priceUnder500"
+                                                    style="font-family: 'Inter', sans-serif; font-size: 14px;">Under
                                                     ₹500</label>
                                             </div>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" id="price500to1000">
-                                                <label class="form-check-label text-neutral-900" for="price500to1000" style="font-family: 'Inter', sans-serif; font-size: 14px;">₹500 -
+                                                <label class="form-check-label text-neutral-900" for="price500to1000"
+                                                    style="font-family: 'Inter', sans-serif; font-size: 14px;">₹500 -
                                                     ₹1000</label>
                                             </div>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" id="priceAbove1000">
-                                                <label class="form-check-label text-neutral-900" for="priceAbove1000" style="font-family: 'Inter', sans-serif; font-size: 14px;">Above
+                                                <label class="form-check-label text-neutral-900" for="priceAbove1000"
+                                                    style="font-family: 'Inter', sans-serif; font-size: 14px;">Above
                                                     ₹1000</label>
                                             </div>
                                         </div>
@@ -282,15 +318,17 @@
 
                     <!-- 3B. Event Grid Area (Right: 9 columns) -->
                     <div class="col-lg-9 ps-lg-5"> <!-- Spacing between sidebar and grid: 48px (approx 3rem) -->
-                        <h2 class="mb-4 text-neutral-900" style="font-family: 'DM Sans', sans-serif; font-size: 24px; font-weight: 500;">Events in
-                            Coimbatore</h2>
+                        <h2 id="events-title-heading" class="mb-4 text-neutral-900"
+                            style="font-family: 'DM Sans', sans-serif; font-size: 24px; font-weight: 500;">All Events
+                        </h2>
 
                         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="events-grid">
                             <!-- Events will be populated by JS -->
                         </div>
 
                         <!-- 4. Pagination -->
-                        <div class="d-flex justify-content-center align-items-center gap-2 mt-5" id="pagination-controls">
+                        <div class="d-flex justify-content-center align-items-center gap-2 mt-5"
+                            id="pagination-controls">
                             <!-- Pagination controls will be populated by JS -->
                         </div>
                     </div>
@@ -337,7 +375,8 @@
         <div class="container-custom">
             <div class="footer-grid">
                 <div>
-                    <a class="brand footer-brand" href="../../index.html"><img src="../../assets/Light logo.SVG" alt="SyncEvent"></a>
+                    <a class="brand footer-brand" href="../../index.html"><img src="../../assets/Light logo.SVG"
+                            alt="SyncEvent"></a>
                     <p class="mb-0" style="max-width: 300px;">Lorem ipsum dolor sit amet. Et neque atque est architecto
                         quia quo
                         excepturi pariatur est sunt aperiam. Ab vero veniam ea consequatur quod nam optio voluptate.</p>
@@ -358,21 +397,26 @@
                     <h4 class="footer-col-title">Contact</h4>
                     <div class="footer-contact-item">
                         <svg class="social-icon" viewBox="0 0 16 16" fill="none">
-                            <path d="M8 14s5-3.8 5-8A5 5 0 0 0 3 6c0 4.2 5 8 5 8z" stroke="currentColor" stroke-width="1.3"></path>
+                            <path d="M8 14s5-3.8 5-8A5 5 0 0 0 3 6c0 4.2 5 8 5 8z" stroke="currentColor"
+                                stroke-width="1.3"></path>
                             <circle cx="8" cy="6" r="1.7" stroke="currentColor" stroke-width="1.3"></circle>
                         </svg>
                         <span>303 RS Puram, Coimbatore, Tn</span>
                     </div>
                     <div class="footer-contact-item">
                         <svg class="social-icon" viewBox="0 0 16 16" fill="none">
-                            <path d="M2.8 2.8h2.2l1.1 2.7-1.3 1.2a9 9 0 0 0 4.5 4.5l1.2-1.3 2.7 1.1v2.2A1.6 1.6 0 0 1 11.6 15 10.8 10.8 0 0 1 1 4.4 1.6 1.6 0 0 1 2.8 2.8z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"></path>
+                            <path
+                                d="M2.8 2.8h2.2l1.1 2.7-1.3 1.2a9 9 0 0 0 4.5 4.5l1.2-1.3 2.7 1.1v2.2A1.6 1.6 0 0 1 11.6 15 10.8 10.8 0 0 1 1 4.4 1.6 1.6 0 0 1 2.8 2.8z"
+                                stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"></path>
                         </svg>
                         <span>89036 73410</span>
                     </div>
                     <div class="footer-contact-item">
                         <svg class="social-icon" viewBox="0 0 16 16" fill="none">
-                            <rect x="1.8" y="3" width="12.4" height="10" rx="1.6" stroke="currentColor" stroke-width="1.2"></rect>
-                            <path d="M2.5 4l5.5 4 5.5-4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <rect x="1.8" y="3" width="12.4" height="10" rx="1.6" stroke="currentColor"
+                                stroke-width="1.2"></rect>
+                            <path d="M2.5 4l5.5 4 5.5-4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"
+                                stroke-linejoin="round"></path>
                         </svg>
                         <span>contact@ems.com</span>
                     </div>
@@ -387,21 +431,28 @@
                     our Terms of Service, Cookie Policy, Privacy Policy, and Content Guidelines. All rights reserved.
                 </p>
                 <div class="social-list">
-                    <a class="footer-link" href="#" aria-label="Facebook"><svg class="social-icon" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M9.3 15V8.6h2.1l.3-2.5H9.3V4.6c0-.7.2-1.2 1.2-1.2h1.3V1.2c-.2 0-1-.1-1.8-.1-1.8 0-3.1 1.1-3.1 3.2V6H4.8v2.5h2.1V15h2.4z">
+                    <a class="footer-link" href="#" aria-label="Facebook"><svg class="social-icon" viewBox="0 0 16 16"
+                            fill="currentColor">
+                            <path
+                                d="M9.3 15V8.6h2.1l.3-2.5H9.3V4.6c0-.7.2-1.2 1.2-1.2h1.3V1.2c-.2 0-1-.1-1.8-.1-1.8 0-3.1 1.1-3.1 3.2V6H4.8v2.5h2.1V15h2.4z">
                             </path>
                         </svg></a>
-                    <a class="footer-link" href="#" aria-label="Instagram"><svg class="social-icon" viewBox="0 0 16 16" fill="none">
+                    <a class="footer-link" href="#" aria-label="Instagram"><svg class="social-icon" viewBox="0 0 16 16"
+                            fill="none">
                             <rect x="2" y="2" width="12" height="12" rx="3" stroke="currentColor" stroke-width="1.3">
                             </rect>
                             <circle cx="8" cy="8" r="2.5" stroke="currentColor" stroke-width="1.3"></circle>
                             <circle cx="11.7" cy="4.3" r=".7" fill="currentColor"></circle>
                         </svg></a>
-                    <a class="footer-link" href="#" aria-label="X"><svg class="social-icon" viewBox="0 0 16 16" fill="currentColor">
+                    <a class="footer-link" href="#" aria-label="X"><svg class="social-icon" viewBox="0 0 16 16"
+                            fill="currentColor">
                             <path d="M1 1h3.4L7.5 5l3.1-4H14l-4.8 6.1L14.5 15H11l-3.5-4.4L3.9 15H1l5-6.4L1 1z"></path>
                         </svg></a>
-                    <a class="footer-link" href="#" aria-label="YouTube"><svg class="social-icon" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.007 2.007 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.007 2.007 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31.4 31.4 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022.26.01-.104c.048-.519.119-1.023.22-1.402a2.007 2.007 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A99.788 99.788 0 0 1 7.858 2h.193zM6.4 5.209v4.818l4.157-2.408L6.4 5.209z"></path>
+                    <a class="footer-link" href="#" aria-label="YouTube"><svg class="social-icon" viewBox="0 0 16 16"
+                            fill="currentColor">
+                            <path
+                                d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.007 2.007 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.007 2.007 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31.4 31.4 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022.26.01-.104c.048-.519.119-1.023.22-1.402a2.007 2.007 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A99.788 99.788 0 0 1 7.858 2h.193zM6.4 5.209v4.818l4.157-2.408L6.4 5.209z">
+                            </path>
                         </svg></a>
                 </div>
             </div>
@@ -416,4 +467,6 @@
     <script type="module" src="../../scripts/app.js"></script>
 
 
-</body></html>
+</body>
+
+</html>

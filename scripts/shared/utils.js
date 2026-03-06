@@ -6,6 +6,61 @@ export function injectToastContainer() {
     document.body.appendChild(container);
 }
 
+/**
+ * Back to Top Button Logic
+ */
+export function injectBackToTopButton() {
+    if (document.getElementById('back-to-top-btn')) return;
+
+    const btn = document.createElement('button');
+    btn.id = 'back-to-top-btn';
+    btn.className = 'back-to-top';
+    btn.innerHTML = '<i data-lucide="arrow-up" width="24" height="24"></i>';
+    btn.setAttribute('aria-label', 'Back to Top');
+    document.body.appendChild(btn);
+
+    if (window.initIcons) window.initIcons({ root: btn });
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            btn.classList.add('visible');
+        } else {
+            btn.classList.remove('visible');
+        }
+    });
+
+    btn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+}
+
+/**
+ * Global Loading Indicators
+ */
+export function showLoading(containerId, message = 'Loading content...') {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    container.setAttribute('data-previous-html', container.innerHTML);
+    container.innerHTML = `
+        <div class="loading-container">
+            <div class="spinner-circle"></div>
+            <p class="text-neutral-500 small mb-0">${message}</p>
+        </div>
+    `;
+}
+
+export function hideLoading(containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    // Optional: restore previous HTML if needed, but usually we overwrite with new data
+    // container.innerHTML = container.getAttribute('data-previous-html') || '';
+}
+
 export function showToast(title, message, type = 'primary') {
     const container = document.getElementById('toast-container');
     if (!container) return;
@@ -43,11 +98,11 @@ export function injectSignOutModal() {
     if (document.getElementById('signOutModal')) return;
 
     const html = `
-    <div class="modal fade" id="signOutModal" tabindex="-1" aria-hidden="true">
+    <div class="modal fade" id="signOutModal" tabindex="-1" aria-labelledby="signOutModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-0 shadow-lg rounded-4 p-4 text-center" style="max-width: 480px;">
                 <div class="modal-body p-0">
-                    <h4 class="fw-bold text-neutral-900 mb-2">Sign out</h4>
+                    <h4 class="fw-bold text-neutral-900 mb-2" id="signOutModalLabel">Sign out</h4>
                     <p class="text-neutral-600 mb-4">Do you want to sign out your current account from SyncEvent?</p>
                     
                     <div class="d-flex justify-content-center gap-3 mt-4">
