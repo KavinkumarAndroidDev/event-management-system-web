@@ -14,14 +14,31 @@ export function initializeEvents() {
         }
     }
 
-    // Homepage: Featured Events
-    const featuredContainer = document.getElementById('featured-events');
-    if (featuredContainer && events) {
-        const featured = events.filter(e => e.status.isFeatured).slice(0, 5);
-        featuredContainer.innerHTML = '';
-        featured.forEach(e => {
-            featuredContainer.appendChild(createEventCard(e));
-        });
+    // Homepage: Featured Events Carousel
+    const carouselInner = document.getElementById('featured-events-carousel-inner');
+    if (carouselInner && events) {
+        const featured = events.filter(e => e.status.isFeatured && !e.title.toLowerCase().includes('template') && !e.title.toLowerCase().includes('placeholder'));
+        if (featured.length > 0) {
+            carouselInner.innerHTML = '';
+
+            const itemsPerPage = 4;
+            for (let i = 0; i < featured.length; i += itemsPerPage) {
+                const slideEvents = featured.slice(i, i + itemsPerPage);
+                const itemDiv = document.createElement('div');
+                itemDiv.className = `carousel-item ${i === 0 ? 'active' : ''}`;
+
+                const row = document.createElement('div');
+                row.className = 'row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4 py-2';
+
+                slideEvents.forEach(e => {
+                    row.appendChild(createEventCard(e));
+                });
+
+                itemDiv.appendChild(row);
+                carouselInner.appendChild(itemDiv);
+            }
+            if (window.initIcons) window.initIcons({ root: carouselInner });
+        }
     }
 
     // Top Organizers (Homepage)

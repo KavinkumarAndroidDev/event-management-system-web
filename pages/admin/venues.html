@@ -49,33 +49,22 @@
                             </div>
                         </div>
                         <hr class="border-neutral-100 my-2">
-                        <nav class="nav flex-column gap-1">
-                            <a href="dashboard.html" class="sidebar-item"><i data-lucide="layout-dashboard"
-                                    class="sidebar-icon"></i> Dashboard</a>
-                            <a href="user-management.html" class="sidebar-item"><i data-lucide="users"
-                                    class="sidebar-icon"></i> User Management</a>
-                            <a href="event-approvals.html" class="sidebar-item"><i data-lucide="check-circle"
-                                    class="sidebar-icon"></i> Event Approvals <span class="badge rounded-pill ms-auto"
-                                    style="background:#17b978;color:#fff;font-size:10px;">8</span></a>
-                            <a href="events.html" class="sidebar-item"><i data-lucide="calendar"
-                                    class="sidebar-icon"></i> Events</a>
-                            <a href="categories.html" class="sidebar-item"><i data-lucide="tag"
-                                    class="sidebar-icon"></i> Categories</a>
-                            <a href="venues.html" class="sidebar-item active"><i data-lucide="map-pin"
-                                    class="sidebar-icon"></i> Venues</a>
-                            <a href="tickets-registrations.html" class="sidebar-item"><i data-lucide="ticket"
-                                    class="sidebar-icon"></i> Tickets &amp; Registrations</a>
-                            <a href="payments-revenue.html" class="sidebar-item"><i data-lucide="dollar-sign"
-                                    class="sidebar-icon"></i> Payments &amp; Revenue</a>
-                            <a href="reports-analytics.html" class="sidebar-item"><i data-lucide="bar-chart-2"
-                                    class="sidebar-icon"></i> Reports &amp; Analytics</a>
-                            <a href="feedback-moderation.html" class="sidebar-item"><i data-lucide="message-square"
-                                    class="sidebar-icon"></i> Feedback Moderation</a>
-                            <a href="notifications.html" class="sidebar-item"><i data-lucide="bell"
-                                    class="sidebar-icon"></i> Notifications <span class="badge rounded-pill ms-auto"
-                                    style="background:#17b978;color:#fff;font-size:10px;">5</span></a>
-                            <a href="profile.html" class="sidebar-item"><i data-lucide="user" class="sidebar-icon"></i>
-                                Profile</a>
+                                                <nav class="nav flex-column gap-1">
+                            <a href="dashboard.html" class="sidebar-item">
+                                <i data-lucide="layout-dashboard" class="sidebar-icon"></i> Dashboard
+                            </a>
+                            <a href="user-management.html" class="sidebar-item"><i data-lucide="users" class="sidebar-icon"></i> User Management</a>
+                            <a href="organizer-approval.html" class="sidebar-item"><i data-lucide="user-check" class="sidebar-icon"></i> Organizer Approvals <span class="badge rounded-pill ms-auto" id="pending-org-count" style="background:#17b978;color:#fff;font-size:10px;">0</span></a>
+                            <a href="event-approvals.html" class="sidebar-item"><i data-lucide="check-circle" class="sidebar-icon"></i> Event Approvals <span class="badge rounded-pill ms-auto" style="background:#17b978;color:#fff;font-size:10px;">8</span></a>
+                            <a href="events.html" class="sidebar-item"><i data-lucide="calendar" class="sidebar-icon"></i> Events</a>
+                            <a href="categories.html" class="sidebar-item"><i data-lucide="tag" class="sidebar-icon"></i> Categories</a>
+                            <a href="venues.html" class="sidebar-item active"><i data-lucide="map-pin" class="sidebar-icon"></i> Venues</a>
+                            <a href="tickets-registrations.html" class="sidebar-item"><i data-lucide="ticket" class="sidebar-icon"></i> Tickets &amp; Registrations</a>
+                            <a href="payments-revenue.html" class="sidebar-item"><i data-lucide="dollar-sign" class="sidebar-icon"></i> Payments &amp; Revenue</a>
+                            <a href="reports-analytics.html" class="sidebar-item"><i data-lucide="bar-chart-2" class="sidebar-icon"></i> Reports &amp; Analytics</a>
+                            <a href="feedback-moderation.html" class="sidebar-item"><i data-lucide="message-square" class="sidebar-icon"></i> Feedback Moderation</a>
+                            <a href="notifications.html" class="sidebar-item"><i data-lucide="bell" class="sidebar-icon"></i> Notifications <span class="badge rounded-pill ms-auto" style="background:#17b978;color:#fff;font-size:10px;">5</span></a>
+                            <a href="profile.html" class="sidebar-item"><i data-lucide="user" class="sidebar-icon"></i> Profile</a>
                         </nav>
                         <hr class="border-neutral-100 my-3">
                         <div class="d-flex flex-column gap-2">
@@ -98,12 +87,7 @@
                     </nav>
 
                     <div class="d-flex justify-content-between align-items-center mb-4">
-                        <div class="d-flex align-items-center"><a href="dashboard.html"
-                                class="icon-circle text-decoration-none me-3" title="Back to Dashboard"
-                                style="flex-shrink:0;"><i data-lucide="arrow-left"
-                                    style="width:18px;height:18px;"></i></a>
-                            <h4 class="fw-bold mb-0">Venues</h4>
-                        </div>
+                        <h4 class="fw-bold mb-0">Venues</h4>
                     </div>
 
                     <div class="card-custom p-0 overflow-hidden">
@@ -114,7 +98,7 @@
                                     width="16"></i>
                                 <input type="text" class="form-control ps-5" placeholder="Search venues...">
                             </div>
-                            <button class="btn btn-primary rounded-pill px-4 fw-bold ms-3"
+                            <button class="btn btn-primary rounded-pill px-4 fw-medium ms-3"
                                 onclick="new bootstrap.Modal(document.getElementById('addVenueModal')).show()">
                                 <i data-lucide="plus" width="16" class="me-2"></i> Add Venue
                             </button>
@@ -139,128 +123,194 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td class="ps-4 fw-bold text-neutral-900">Convention Center</td>
+                                        <td class="ps-4 fw-medium text-neutral-900">Convention Center</td>
                                         <td class="text-neutral-400 small">123 Main St, New York</td>
                                         <td class="text-neutral-900 small">5,000</td>
                                         <td class="text-neutral-900 small">45</td>
-                                        <td><span class="badge rounded-pill px-3 py-2 fw-bold"
+                                        <td><span class="badge rounded-pill px-3 py-2 fw-medium"
                                                 style="font-size:11px;background:#111827;color:#fff;">Active</span></td>
                                         <td class="pe-4 text-end">
                                             <div class="dropdown">
-                                                <button class="btn btn-sm btn-icon border-0 p-0 text-neutral-400 shadow-none" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <button
+                                                    class="btn btn-sm btn-icon border-0 p-0 text-neutral-400 shadow-none"
+                                                    type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                     <i data-lucide="more-vertical" width="18"></i>
                                                 </button>
-                                                <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 py-2" style="font-size: 13px; min-width: 140px;">
-                                                    <li><a class="dropdown-item d-flex align-items-center gap-2" href="#"><i data-lucide="eye" width="14"></i> View Venue</a></li>
-                                                    <li><a class="dropdown-item d-flex align-items-center gap-2" href="#"><i data-lucide="edit-2" width="14"></i> Edit Venue</a></li>
-                                                    <li><hr class="dropdown-divider"></li>
-                                                    <li><a class="dropdown-item d-flex align-items-center gap-2 text-danger" href="#"><i data-lucide="trash-2" width="14"></i> Delete Venue</a></li>
+                                                <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 py-2"
+                                                    style="font-size: 13px; min-width: 140px;">
+                                                    <li><a class="dropdown-item d-flex align-items-center gap-2"
+                                                            href="#"><i data-lucide="eye" width="14"></i> View Venue</a>
+                                                    </li>
+                                                    <li><a class="dropdown-item d-flex align-items-center gap-2"
+                                                            href="#"><i data-lucide="edit-2" width="14"></i> Edit
+                                                            Venue</a></li>
+                                                    <li>
+                                                        <hr class="dropdown-divider">
+                                                    </li>
+                                                    <li><a class="dropdown-item d-flex align-items-center gap-2 text-danger"
+                                                            href="#"><i data-lucide="trash-2" width="14"></i> Delete
+                                                            Venue</a></li>
                                                 </ul>
                                             </div>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="ps-4 fw-bold text-neutral-900">City Arena</td>
+                                        <td class="ps-4 fw-medium text-neutral-900">City Arena</td>
                                         <td class="text-neutral-400 small">456 Arena Blvd, Los Angeles</td>
                                         <td class="text-neutral-900 small">10,000</td>
                                         <td class="text-neutral-900 small">32</td>
-                                        <td><span class="badge rounded-pill px-3 py-2 fw-bold"
+                                        <td><span class="badge rounded-pill px-3 py-2 fw-medium"
                                                 style="font-size:11px;background:#111827;color:#fff;">Active</span></td>
                                         <td class="pe-4 text-end">
                                             <div class="dropdown">
-                                                <button class="btn btn-sm btn-icon border-0 p-0 text-neutral-400 shadow-none" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <button
+                                                    class="btn btn-sm btn-icon border-0 p-0 text-neutral-400 shadow-none"
+                                                    type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                     <i data-lucide="more-vertical" width="18"></i>
                                                 </button>
-                                                <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 py-2" style="font-size: 13px; min-width: 140px;">
-                                                    <li><a class="dropdown-item d-flex align-items-center gap-2" href="#"><i data-lucide="eye" width="14"></i> View Venue</a></li>
-                                                    <li><a class="dropdown-item d-flex align-items-center gap-2" href="#"><i data-lucide="edit-2" width="14"></i> Edit Venue</a></li>
-                                                    <li><hr class="dropdown-divider"></li>
-                                                    <li><a class="dropdown-item d-flex align-items-center gap-2 text-danger" href="#"><i data-lucide="trash-2" width="14"></i> Delete Venue</a></li>
+                                                <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 py-2"
+                                                    style="font-size: 13px; min-width: 140px;">
+                                                    <li><a class="dropdown-item d-flex align-items-center gap-2"
+                                                            href="#"><i data-lucide="eye" width="14"></i> View Venue</a>
+                                                    </li>
+                                                    <li><a class="dropdown-item d-flex align-items-center gap-2"
+                                                            href="#"><i data-lucide="edit-2" width="14"></i> Edit
+                                                            Venue</a></li>
+                                                    <li>
+                                                        <hr class="dropdown-divider">
+                                                    </li>
+                                                    <li><a class="dropdown-item d-flex align-items-center gap-2 text-danger"
+                                                            href="#"><i data-lucide="trash-2" width="14"></i> Delete
+                                                            Venue</a></li>
                                                 </ul>
                                             </div>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="ps-4 fw-bold text-neutral-900">Tech Hub</td>
+                                        <td class="ps-4 fw-medium text-neutral-900">Tech Hub</td>
                                         <td class="text-neutral-400 small">789 Innovation Dr, San Francisco</td>
                                         <td class="text-neutral-900 small">500</td>
                                         <td class="text-neutral-900 small">28</td>
-                                        <td><span class="badge rounded-pill px-3 py-2 fw-bold"
+                                        <td><span class="badge rounded-pill px-3 py-2 fw-medium"
                                                 style="font-size:11px;background:#111827;color:#fff;">Active</span></td>
                                         <td class="pe-4 text-end">
                                             <div class="dropdown">
-                                                <button class="btn btn-sm btn-icon border-0 p-0 text-neutral-400 shadow-none" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <button
+                                                    class="btn btn-sm btn-icon border-0 p-0 text-neutral-400 shadow-none"
+                                                    type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                     <i data-lucide="more-vertical" width="18"></i>
                                                 </button>
-                                                <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 py-2" style="font-size: 13px; min-width: 140px;">
-                                                    <li><a class="dropdown-item d-flex align-items-center gap-2" href="#"><i data-lucide="eye" width="14"></i> View Venue</a></li>
-                                                    <li><a class="dropdown-item d-flex align-items-center gap-2" href="#"><i data-lucide="edit-2" width="14"></i> Edit Venue</a></li>
-                                                    <li><hr class="dropdown-divider"></li>
-                                                    <li><a class="dropdown-item d-flex align-items-center gap-2 text-danger" href="#"><i data-lucide="trash-2" width="14"></i> Delete Venue</a></li>
+                                                <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 py-2"
+                                                    style="font-size: 13px; min-width: 140px;">
+                                                    <li><a class="dropdown-item d-flex align-items-center gap-2"
+                                                            href="#"><i data-lucide="eye" width="14"></i> View Venue</a>
+                                                    </li>
+                                                    <li><a class="dropdown-item d-flex align-items-center gap-2"
+                                                            href="#"><i data-lucide="edit-2" width="14"></i> Edit
+                                                            Venue</a></li>
+                                                    <li>
+                                                        <hr class="dropdown-divider">
+                                                    </li>
+                                                    <li><a class="dropdown-item d-flex align-items-center gap-2 text-danger"
+                                                            href="#"><i data-lucide="trash-2" width="14"></i> Delete
+                                                            Venue</a></li>
                                                 </ul>
                                             </div>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="ps-4 fw-bold text-neutral-900">Grand Hotel Ballroom</td>
+                                        <td class="ps-4 fw-medium text-neutral-900">Grand Hotel Ballroom</td>
                                         <td class="text-neutral-400 small">321 Luxury Ave, Miami</td>
                                         <td class="text-neutral-900 small">1,000</td>
                                         <td class="text-neutral-900 small">56</td>
-                                        <td><span class="badge rounded-pill px-3 py-2 fw-bold"
+                                        <td><span class="badge rounded-pill px-3 py-2 fw-medium"
                                                 style="font-size:11px;background:#111827;color:#fff;">Active</span></td>
                                         <td class="pe-4 text-end">
                                             <div class="dropdown">
-                                                <button class="btn btn-sm btn-icon border-0 p-0 text-neutral-400 shadow-none" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <button
+                                                    class="btn btn-sm btn-icon border-0 p-0 text-neutral-400 shadow-none"
+                                                    type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                     <i data-lucide="more-vertical" width="18"></i>
                                                 </button>
-                                                <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 py-2" style="font-size: 13px; min-width: 140px;">
-                                                    <li><a class="dropdown-item d-flex align-items-center gap-2" href="#"><i data-lucide="eye" width="14"></i> View Venue</a></li>
-                                                    <li><a class="dropdown-item d-flex align-items-center gap-2" href="#"><i data-lucide="edit-2" width="14"></i> Edit Venue</a></li>
-                                                    <li><hr class="dropdown-divider"></li>
-                                                    <li><a class="dropdown-item d-flex align-items-center gap-2 text-danger" href="#"><i data-lucide="trash-2" width="14"></i> Delete Venue</a></li>
+                                                <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 py-2"
+                                                    style="font-size: 13px; min-width: 140px;">
+                                                    <li><a class="dropdown-item d-flex align-items-center gap-2"
+                                                            href="#"><i data-lucide="eye" width="14"></i> View Venue</a>
+                                                    </li>
+                                                    <li><a class="dropdown-item d-flex align-items-center gap-2"
+                                                            href="#"><i data-lucide="edit-2" width="14"></i> Edit
+                                                            Venue</a></li>
+                                                    <li>
+                                                        <hr class="dropdown-divider">
+                                                    </li>
+                                                    <li><a class="dropdown-item d-flex align-items-center gap-2 text-danger"
+                                                            href="#"><i data-lucide="trash-2" width="14"></i> Delete
+                                                            Venue</a></li>
                                                 </ul>
                                             </div>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="ps-4 fw-bold text-neutral-900">Outdoor Amphitheater</td>
+                                        <td class="ps-4 fw-medium text-neutral-900">Outdoor Amphitheater</td>
                                         <td class="text-neutral-400 small">654 Park Rd, Austin</td>
                                         <td class="text-neutral-900 small">3,000</td>
                                         <td class="text-neutral-900 small">19</td>
-                                        <td><span class="badge rounded-pill px-3 py-2 fw-bold"
+                                        <td><span class="badge rounded-pill px-3 py-2 fw-medium"
                                                 style="font-size:11px;background:#111827;color:#fff;">Active</span></td>
                                         <td class="pe-4 text-end">
                                             <div class="dropdown">
-                                                <button class="btn btn-sm btn-icon border-0 p-0 text-neutral-400 shadow-none" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <button
+                                                    class="btn btn-sm btn-icon border-0 p-0 text-neutral-400 shadow-none"
+                                                    type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                     <i data-lucide="more-vertical" width="18"></i>
                                                 </button>
-                                                <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 py-2" style="font-size: 13px; min-width: 140px;">
-                                                    <li><a class="dropdown-item d-flex align-items-center gap-2" href="#"><i data-lucide="eye" width="14"></i> View Venue</a></li>
-                                                    <li><a class="dropdown-item d-flex align-items-center gap-2" href="#"><i data-lucide="edit-2" width="14"></i> Edit Venue</a></li>
-                                                    <li><hr class="dropdown-divider"></li>
-                                                    <li><a class="dropdown-item d-flex align-items-center gap-2 text-danger" href="#"><i data-lucide="trash-2" width="14"></i> Delete Venue</a></li>
+                                                <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 py-2"
+                                                    style="font-size: 13px; min-width: 140px;">
+                                                    <li><a class="dropdown-item d-flex align-items-center gap-2"
+                                                            href="#"><i data-lucide="eye" width="14"></i> View Venue</a>
+                                                    </li>
+                                                    <li><a class="dropdown-item d-flex align-items-center gap-2"
+                                                            href="#"><i data-lucide="edit-2" width="14"></i> Edit
+                                                            Venue</a></li>
+                                                    <li>
+                                                        <hr class="dropdown-divider">
+                                                    </li>
+                                                    <li><a class="dropdown-item d-flex align-items-center gap-2 text-danger"
+                                                            href="#"><i data-lucide="trash-2" width="14"></i> Delete
+                                                            Venue</a></li>
                                                 </ul>
                                             </div>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="ps-4 fw-bold text-neutral-900">Exhibition Hall</td>
+                                        <td class="ps-4 fw-medium text-neutral-900">Exhibition Hall</td>
                                         <td class="text-neutral-400 small">987 Trade St, Chicago</td>
                                         <td class="text-neutral-900 small">2,000</td>
                                         <td class="text-neutral-900 small">23</td>
-                                        <td><span class="badge rounded-pill px-3 py-2 fw-bold"
+                                        <td><span class="badge rounded-pill px-3 py-2 fw-medium"
                                                 style="font-size:11px;background:#F1F5F9;color:#475569;">Disabled</span>
                                         </td>
                                         <td class="pe-4 text-end">
                                             <div class="dropdown">
-                                                <button class="btn btn-sm btn-icon border-0 p-0 text-neutral-400 shadow-none" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <button
+                                                    class="btn btn-sm btn-icon border-0 p-0 text-neutral-400 shadow-none"
+                                                    type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                     <i data-lucide="more-vertical" width="18"></i>
                                                 </button>
-                                                <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 py-2" style="font-size: 13px; min-width: 140px;">
-                                                    <li><a class="dropdown-item d-flex align-items-center gap-2" href="#"><i data-lucide="eye" width="14"></i> View Venue</a></li>
-                                                    <li><a class="dropdown-item d-flex align-items-center gap-2" href="#"><i data-lucide="edit-2" width="14"></i> Edit Venue</a></li>
-                                                    <li><hr class="dropdown-divider"></li>
-                                                    <li><a class="dropdown-item d-flex align-items-center gap-2 text-danger" href="#"><i data-lucide="trash-2" width="14"></i> Delete Venue</a></li>
+                                                <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 py-2"
+                                                    style="font-size: 13px; min-width: 140px;">
+                                                    <li><a class="dropdown-item d-flex align-items-center gap-2"
+                                                            href="#"><i data-lucide="eye" width="14"></i> View Venue</a>
+                                                    </li>
+                                                    <li><a class="dropdown-item d-flex align-items-center gap-2"
+                                                            href="#"><i data-lucide="edit-2" width="14"></i> Edit
+                                                            Venue</a></li>
+                                                    <li>
+                                                        <hr class="dropdown-divider">
+                                                    </li>
+                                                    <li><a class="dropdown-item d-flex align-items-center gap-2 text-danger"
+                                                            href="#"><i data-lucide="trash-2" width="14"></i> Delete
+                                                            Venue</a></li>
                                                 </ul>
                                             </div>
                                         </td>
@@ -282,16 +332,16 @@
                     <button type="button" class="btn-close position-absolute top-0 end-0 m-3"
                         data-bs-dismiss="modal"></button>
                     <h5 class="fw-bold mb-4">Add Venue</h5>
-                    <div class="mb-3"><label class="form-label fw-bold text-neutral-900 small">Venue Name</label><input
+                    <div class="mb-3"><label class="form-label fw-medium text-neutral-900 small">Venue Name</label><input
                             type="text" class="form-control" placeholder="e.g. Convention Center"></div>
-                    <div class="mb-3"><label class="form-label fw-bold text-neutral-900 small">Location</label><input
+                    <div class="mb-3"><label class="form-label fw-medium text-neutral-900 small">Location</label><input
                             type="text" class="form-control" placeholder="Full address"></div>
-                    <div class="mb-3"><label class="form-label fw-bold text-neutral-900 small">Capacity</label><input
+                    <div class="mb-3"><label class="form-label fw-medium text-neutral-900 small">Capacity</label><input
                             type="number" class="form-control" placeholder="e.g. 500"></div>
                     <div class="d-flex justify-content-end gap-2 mt-4">
-                        <button type="button" class="btn btn-outline-secondary rounded-pill px-4"
+                        <button type="button" class="btn btn-outline-neutral-900 rounded-pill px-4"
                             data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-primary rounded-pill px-4 fw-bold"
+                        <button type="button" class="btn btn-primary rounded-pill px-4 fw-medium"
                             data-bs-dismiss="modal">Add Venue</button>
                     </div>
                 </div>

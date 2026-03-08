@@ -1,7 +1,7 @@
 export function injectToastContainer() {
     const container = document.createElement('div');
     container.id = 'toast-container';
-    container.className = 'toast-container position-fixed top-0 end-0 p-3';
+    container.className = 'toast-container position-fixed bottom-0 end-0 p-3';
     container.style.zIndex = '1100';
     document.body.appendChild(container);
 }
@@ -66,18 +66,17 @@ export function showToast(title, message, type = 'primary') {
     if (!container) return;
 
     const id = 'toast-' + Date.now();
-    const bgClass = type === 'danger' ? 'text-bg-danger' :
-        type === 'success' ? 'text-bg-success' :
-            type === 'warning' ? 'text-bg-warning' : 'text-bg-primary';
+    const bgClass = type === 'danger' ? 'text-bg-soft-danger' :
+        type === 'success' ? 'text-bg-soft-success' :
+            type === 'warning' ? 'text-bg-soft-warning' : 'text-bg-soft-primary';
 
     const html = `
-        <div id="${id}" class="toast align-items-center ${bgClass} border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div id="${id}" class="toast align-items-center ${bgClass} border-0 shadow-sm" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="d-flex">
-                <div class="toast-body">
-                    <strong>${title}</strong><br>
+                <div class="toast-body py-3">
                     ${message}
                 </div>
-                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                <button type="button" class="btn-close ${type === 'primary' || type === 'success' || type === 'danger' || type === 'warning' ? '' : 'btn-close-white'} me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
         </div>
     `;
@@ -300,8 +299,14 @@ export function setupRealtimeValidation(formId) {
         }
 
         if (!input.checkValidity()) {
+            const isTerms = input.type === 'checkbox' && (input.id?.toLowerCase().includes('terms') || input.name?.toLowerCase().includes('terms'));
+
             input.classList.remove('is-valid');
-            input.classList.add('is-invalid');
+            if (isTerms) {
+                input.classList.add('is-invalid', 'no-red-validation');
+            } else {
+                input.classList.add('is-invalid');
+            }
 
             // Generate contextual error message
             let errorMsg = feedbackEl.getAttribute('data-original-text') || 'Please provide a valid value.';

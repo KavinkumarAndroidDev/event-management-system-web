@@ -49,33 +49,22 @@
                             </div>
                         </div>
                         <hr class="border-neutral-100 my-2">
-                        <nav class="nav flex-column gap-1">
-                            <a href="dashboard.html" class="sidebar-item"><i data-lucide="layout-dashboard"
-                                    class="sidebar-icon"></i> Dashboard</a>
-                            <a href="user-management.html" class="sidebar-item"><i data-lucide="users"
-                                    class="sidebar-icon"></i> User Management</a>
-                            <a href="event-approvals.html" class="sidebar-item"><i data-lucide="check-circle"
-                                    class="sidebar-icon"></i> Event Approvals <span class="badge rounded-pill ms-auto"
-                                    style="background:#17b978;color:#fff;font-size:10px;">8</span></a>
-                            <a href="events.html" class="sidebar-item"><i data-lucide="calendar"
-                                    class="sidebar-icon"></i> Events</a>
-                            <a href="categories.html" class="sidebar-item"><i data-lucide="tag"
-                                    class="sidebar-icon"></i> Categories</a>
-                            <a href="venues.html" class="sidebar-item"><i data-lucide="map-pin"
-                                    class="sidebar-icon"></i> Venues</a>
-                            <a href="tickets-registrations.html" class="sidebar-item"><i data-lucide="ticket"
-                                    class="sidebar-icon"></i> Tickets &amp; Registrations</a>
-                            <a href="payments-revenue.html" class="sidebar-item active"><i data-lucide="dollar-sign"
-                                    class="sidebar-icon"></i> Payments &amp; Revenue</a>
-                            <a href="reports-analytics.html" class="sidebar-item"><i data-lucide="bar-chart-2"
-                                    class="sidebar-icon"></i> Reports &amp; Analytics</a>
-                            <a href="feedback-moderation.html" class="sidebar-item"><i data-lucide="message-square"
-                                    class="sidebar-icon"></i> Feedback Moderation</a>
-                            <a href="notifications.html" class="sidebar-item"><i data-lucide="bell"
-                                    class="sidebar-icon"></i> Notifications <span class="badge rounded-pill ms-auto"
-                                    style="background:#17b978;color:#fff;font-size:10px;">5</span></a>
-                            <a href="profile.html" class="sidebar-item"><i data-lucide="user" class="sidebar-icon"></i>
-                                Profile</a>
+                                                <nav class="nav flex-column gap-1">
+                            <a href="dashboard.html" class="sidebar-item">
+                                <i data-lucide="layout-dashboard" class="sidebar-icon"></i> Dashboard
+                            </a>
+                            <a href="user-management.html" class="sidebar-item"><i data-lucide="users" class="sidebar-icon"></i> User Management</a>
+                            <a href="organizer-approval.html" class="sidebar-item"><i data-lucide="user-check" class="sidebar-icon"></i> Organizer Approvals <span class="badge rounded-pill ms-auto" id="pending-org-count" style="background:#17b978;color:#fff;font-size:10px;">0</span></a>
+                            <a href="event-approvals.html" class="sidebar-item"><i data-lucide="check-circle" class="sidebar-icon"></i> Event Approvals <span class="badge rounded-pill ms-auto" style="background:#17b978;color:#fff;font-size:10px;">8</span></a>
+                            <a href="events.html" class="sidebar-item"><i data-lucide="calendar" class="sidebar-icon"></i> Events</a>
+                            <a href="categories.html" class="sidebar-item"><i data-lucide="tag" class="sidebar-icon"></i> Categories</a>
+                            <a href="venues.html" class="sidebar-item"><i data-lucide="map-pin" class="sidebar-icon"></i> Venues</a>
+                            <a href="tickets-registrations.html" class="sidebar-item"><i data-lucide="ticket" class="sidebar-icon"></i> Tickets &amp; Registrations</a>
+                            <a href="payments-revenue.html" class="sidebar-item active"><i data-lucide="dollar-sign" class="sidebar-icon"></i> Payments &amp; Revenue</a>
+                            <a href="reports-analytics.html" class="sidebar-item"><i data-lucide="bar-chart-2" class="sidebar-icon"></i> Reports &amp; Analytics</a>
+                            <a href="feedback-moderation.html" class="sidebar-item"><i data-lucide="message-square" class="sidebar-icon"></i> Feedback Moderation</a>
+                            <a href="notifications.html" class="sidebar-item"><i data-lucide="bell" class="sidebar-icon"></i> Notifications <span class="badge rounded-pill ms-auto" style="background:#17b978;color:#fff;font-size:10px;">5</span></a>
+                            <a href="profile.html" class="sidebar-item"><i data-lucide="user" class="sidebar-icon"></i> Profile</a>
                         </nav>
                         <hr class="border-neutral-100 my-3">
                         <div class="d-flex flex-column gap-2">
@@ -99,12 +88,7 @@
                     </nav>
 
                     <div class="d-flex justify-content-between align-items-center mb-4">
-                        <div class="d-flex align-items-center"><a href="dashboard.html"
-                                class="icon-circle text-decoration-none me-3" title="Back to Dashboard"
-                                style="flex-shrink:0;"><i data-lucide="arrow-left"
-                                    style="width:18px;height:18px;"></i></a>
-                            <h4 class="fw-bold mb-0">Payments &amp; Revenue</h4>
-                        </div>
+                        <h4 class="fw-bold mb-0">Payments &amp; Revenue</h4>
                     </div>
 
                     <!-- Stat Cards -->
@@ -113,17 +97,17 @@
                             <div class="card-custom p-4">
                                 <div class="icon-container mb-3"><i data-lucide="dollar-sign"
                                         style="width:24px;height:24px;"></i></div>
-                                <div class="h3 fw-bold text-neutral-900 mb-1">$245,670</div>
+                                <div class="h3 fw-medium text-neutral-900 mb-1">$245,670</div>
                                 <div class="text-neutral-400 small fw-medium mb-1">Gross Revenue</div>
                                 <div class="text-success small">↑ 18% from last month</div>
                             </div>
                         </div>
                         <div class="col-sm-6 col-xl-3">
                             <div class="card-custom p-4">
-                                <div class="icon-container mb-3" style="background:rgba(0,184,217,0.12);color:#00b8d9;">
+                                <div class="icon-container" style="background:rgba(23,185,120,0.12);color:#17b978;">
                                     <i data-lucide="trending-up" style="width:24px;height:24px;"></i>
                                 </div>
-                                <div class="h3 fw-bold text-neutral-900 mb-1">$24,567</div>
+                                <div class="h3 fw-medium text-neutral-900 mb-1">$24,567</div>
                                 <div class="text-neutral-400 small fw-medium mb-1">Platform Fee</div>
                                 <div class="text-success small">↑ 18% from last month</div>
                             </div>
@@ -133,7 +117,7 @@
                                 <div class="icon-container mb-3" style="background:rgba(34,197,94,0.12);color:#22c55e;">
                                     <i data-lucide="download" style="width:24px;height:24px;"></i>
                                 </div>
-                                <div class="h3 fw-bold text-neutral-900 mb-1">$221,103</div>
+                                <div class="h3 fw-medium text-neutral-900 mb-1">$221,103</div>
                                 <div class="text-neutral-400 small fw-medium mb-1">Net Payout</div>
                                 <div class="text-success small">↑ 18% from last month</div>
                             </div>
@@ -143,7 +127,7 @@
                                 <div class="icon-container mb-3"
                                     style="background:rgba(245,158,11,0.12);color:#f59e0b;"><i data-lucide="refresh-cw"
                                         style="width:24px;height:24px;"></i></div>
-                                <div class="h3 fw-bold text-neutral-900 mb-1">$12,450</div>
+                                <div class="h3 fw-medium text-neutral-900 mb-1">$12,450</div>
                                 <div class="text-neutral-400 small fw-medium mb-1">Refund Amount</div>
                                 <div class="text-danger small">↓ 5% from last month</div>
                             </div>
@@ -181,85 +165,163 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td class="ps-4 fw-bold text-neutral-900">Tech Conference 2026</td>
+                                        <td class="ps-4 fw-medium text-neutral-900">Tech Conference 2026</td>
                                         <td class="text-neutral-400 small">John Doe</td>
                                         <td class="text-neutral-900 small">450</td>
-                                        <td class="text-neutral-900 small fw-bold">$22,500</td>
+                                        <td class="text-neutral-900 small fw-medium">$22,500</td>
                                         <td class="text-neutral-400 small">10%</td>
                                         <td class="text-neutral-400 small">$2,250</td>
-                                        <td class="text-neutral-900 small fw-bold">$20,250</td>
-                                        <td><span class="badge rounded-pill px-3 py-2 fw-bold"
+                                        <td class="text-neutral-900 small fw-medium">$20,250</td>
+                                        <td><span class="badge rounded-pill px-3 py-2 fw-medium"
                                                 style="font-size:11px;background:#111827;color:#fff;">Paid</span></td>
-                                        <td class="pe-4"><a href="#" class="btn btn-sm text-primary p-0 fw-bold"
-                                                style="font-size:12px;">View</a></td>
+                                        <td class="pe-4 text-end">
+                                            <div class="dropdown">
+                                                <button
+                                                    class="btn btn-sm btn-icon border-0 p-0 text-neutral-400 shadow-none"
+                                                    type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i data-lucide="more-vertical" width="18"></i>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 py-2"
+                                                    style="font-size: 13px; min-width: 140px;">
+                                                    <li><a class="dropdown-item d-flex align-items-center gap-2"
+                                                            href="#"><i data-lucide="eye" width="14"></i> View
+                                                            Details</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
                                     </tr>
                                     <tr>
-                                        <td class="ps-4 fw-bold text-neutral-900">Music Festival Summer</td>
+                                        <td class="ps-4 fw-medium text-neutral-900">Music Festival Summer</td>
                                         <td class="text-neutral-400 small">Jane Smith</td>
                                         <td class="text-neutral-900 small">1200</td>
-                                        <td class="text-neutral-900 small fw-bold">$60,000</td>
+                                        <td class="text-neutral-900 small fw-medium">$60,000</td>
                                         <td class="text-neutral-400 small">10%</td>
                                         <td class="text-neutral-400 small">$6,000</td>
-                                        <td class="text-neutral-900 small fw-bold">$54,000</td>
-                                        <td><span class="badge rounded-pill px-3 py-2 fw-bold"
+                                        <td class="text-neutral-900 small fw-medium">$54,000</td>
+                                        <td><span class="badge rounded-pill px-3 py-2 fw-medium"
                                                 style="font-size:11px;background:#F1F5F9;color:#475569;">Pending</span>
                                         </td>
-                                        <td class="pe-4"><a href="#" class="btn btn-sm text-primary p-0 fw-bold"
-                                                style="font-size:12px;">View</a></td>
+                                        <td class="pe-4 text-end">
+                                            <div class="dropdown">
+                                                <button
+                                                    class="btn btn-sm btn-icon border-0 p-0 text-neutral-400 shadow-none"
+                                                    type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i data-lucide="more-vertical" width="18"></i>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 py-2"
+                                                    style="font-size: 13px; min-width: 140px;">
+                                                    <li><a class="dropdown-item d-flex align-items-center gap-2"
+                                                            href="#"><i data-lucide="eye" width="14"></i> View
+                                                            Details</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
                                     </tr>
                                     <tr>
-                                        <td class="ps-4 fw-bold text-neutral-900">Food &amp; Wine Expo</td>
+                                        <td class="ps-4 fw-medium text-neutral-900">Food &amp; Wine Expo</td>
                                         <td class="text-neutral-400 small">Mike Johnson</td>
                                         <td class="text-neutral-900 small">300</td>
-                                        <td class="text-neutral-900 small fw-bold">$15,000</td>
+                                        <td class="text-neutral-900 small fw-medium">$15,000</td>
                                         <td class="text-neutral-400 small">10%</td>
                                         <td class="text-neutral-400 small">$1,500</td>
-                                        <td class="text-neutral-900 small fw-bold">$13,500</td>
-                                        <td><span class="badge rounded-pill px-3 py-2 fw-bold"
+                                        <td class="text-neutral-900 small fw-medium">$13,500</td>
+                                        <td><span class="badge rounded-pill px-3 py-2 fw-medium"
                                                 style="font-size:11px;background:#111827;color:#fff;">Paid</span></td>
-                                        <td class="pe-4"><a href="#" class="btn btn-sm text-primary p-0 fw-bold"
-                                                style="font-size:12px;">View</a></td>
+                                        <td class="pe-4 text-end">
+                                            <div class="dropdown">
+                                                <button
+                                                    class="btn btn-sm btn-icon border-0 p-0 text-neutral-400 shadow-none"
+                                                    type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i data-lucide="more-vertical" width="18"></i>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 py-2"
+                                                    style="font-size: 13px; min-width: 140px;">
+                                                    <li><a class="dropdown-item d-flex align-items-center gap-2"
+                                                            href="#"><i data-lucide="eye" width="14"></i> View
+                                                            Details</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
                                     </tr>
                                     <tr>
-                                        <td class="ps-4 fw-bold text-neutral-900">Startup Pitch Night</td>
+                                        <td class="ps-4 fw-medium text-neutral-900">Startup Pitch Night</td>
                                         <td class="text-neutral-400 small">Sarah Williams</td>
                                         <td class="text-neutral-900 small">150</td>
-                                        <td class="text-neutral-900 small fw-bold">$7,500</td>
+                                        <td class="text-neutral-900 small fw-medium">$7,500</td>
                                         <td class="text-neutral-400 small">10%</td>
                                         <td class="text-neutral-400 small">$750</td>
-                                        <td class="text-neutral-900 small fw-bold">$6,750</td>
-                                        <td><span class="badge rounded-pill px-3 py-2 fw-bold"
+                                        <td class="text-neutral-900 small fw-medium">$6,750</td>
+                                        <td><span class="badge rounded-pill px-3 py-2 fw-medium"
                                                 style="font-size:11px;background:#F1F5F9;color:#475569;">Pending</span>
                                         </td>
-                                        <td class="pe-4"><a href="#" class="btn btn-sm text-primary p-0 fw-bold"
-                                                style="font-size:12px;">View</a></td>
+                                        <td class="pe-4 text-end">
+                                            <div class="dropdown">
+                                                <button
+                                                    class="btn btn-sm btn-icon border-0 p-0 text-neutral-400 shadow-none"
+                                                    type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i data-lucide="more-vertical" width="18"></i>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 py-2"
+                                                    style="font-size: 13px; min-width: 140px;">
+                                                    <li><a class="dropdown-item d-flex align-items-center gap-2"
+                                                            href="#"><i data-lucide="eye" width="14"></i> View
+                                                            Details</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
                                     </tr>
                                     <tr>
-                                        <td class="ps-4 fw-bold text-neutral-900">Art Gallery Opening</td>
+                                        <td class="ps-4 fw-medium text-neutral-900">Art Gallery Opening</td>
                                         <td class="text-neutral-400 small">David Brown</td>
                                         <td class="text-neutral-900 small">200</td>
-                                        <td class="text-neutral-900 small fw-bold">$10,000</td>
+                                        <td class="text-neutral-900 small fw-medium">$10,000</td>
                                         <td class="text-neutral-400 small">10%</td>
                                         <td class="text-neutral-400 small">$1,000</td>
-                                        <td class="text-neutral-900 small fw-bold">$9,000</td>
-                                        <td><span class="badge rounded-pill px-3 py-2 fw-bold"
+                                        <td class="text-neutral-900 small fw-medium">$9,000</td>
+                                        <td><span class="badge rounded-pill px-3 py-2 fw-medium"
                                                 style="font-size:11px;background:#111827;color:#fff;">Paid</span></td>
-                                        <td class="pe-4"><a href="#" class="btn btn-sm text-primary p-0 fw-bold"
-                                                style="font-size:12px;">View</a></td>
+                                        <td class="pe-4 text-end">
+                                            <div class="dropdown">
+                                                <button
+                                                    class="btn btn-sm btn-icon border-0 p-0 text-neutral-400 shadow-none"
+                                                    type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i data-lucide="more-vertical" width="18"></i>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 py-2"
+                                                    style="font-size: 13px; min-width: 140px;">
+                                                    <li><a class="dropdown-item d-flex align-items-center gap-2"
+                                                            href="#"><i data-lucide="eye" width="14"></i> View
+                                                            Details</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
                                     </tr>
                                     <tr>
-                                        <td class="ps-4 fw-bold text-neutral-900">Gaming Tournament</td>
+                                        <td class="ps-4 fw-medium text-neutral-900">Gaming Tournament</td>
                                         <td class="text-neutral-400 small">Robert Kim</td>
                                         <td class="text-neutral-900 small">500</td>
-                                        <td class="text-neutral-900 small fw-bold">$25,000</td>
+                                        <td class="text-neutral-900 small fw-medium">$25,000</td>
                                         <td class="text-neutral-400 small">10%</td>
                                         <td class="text-neutral-400 small">$2,500</td>
-                                        <td class="text-neutral-900 small fw-bold">$22,500</td>
-                                        <td><span class="badge rounded-pill px-3 py-2 fw-bold"
+                                        <td class="text-neutral-900 small fw-medium">$22,500</td>
+                                        <td><span class="badge rounded-pill px-3 py-2 fw-medium"
                                                 style="font-size:11px;background:#e5f4f0;color:#17b978;">Processing</span>
                                         </td>
-                                        <td class="pe-4"><a href="#" class="btn btn-sm text-primary p-0 fw-bold"
-                                                style="font-size:12px;">View</a></td>
+                                        <td class="pe-4 text-end">
+                                            <div class="dropdown">
+                                                <button
+                                                    class="btn btn-sm btn-icon border-0 p-0 text-neutral-400 shadow-none"
+                                                    type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i data-lucide="more-vertical" width="18"></i>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 py-2"
+                                                    style="font-size: 13px; min-width: 140px;">
+                                                    <li><a class="dropdown-item d-flex align-items-center gap-2"
+                                                            href="#"><i data-lucide="eye" width="14"></i> View
+                                                            Details</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -293,38 +355,80 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td class="ps-4 fw-bold text-neutral-900">Tech Conference 2026</td>
+                                        <td class="ps-4 fw-medium text-neutral-900">Tech Conference 2026</td>
                                         <td class="text-neutral-400 small">Michael Scott</td>
-                                        <td class="text-neutral-900 small fw-bold">$150</td>
+                                        <td class="text-neutral-900 small fw-medium">$150</td>
                                         <td class="text-neutral-400 small">Cannot attend</td>
                                         <td class="text-neutral-400 small">2026-02-10</td>
-                                        <td><span class="badge rounded-pill px-3 py-2 fw-bold"
+                                        <td><span class="badge rounded-pill px-3 py-2 fw-medium"
                                                 style="font-size:11px;background:#F1F5F9;color:#475569;">Pending</span>
                                         </td>
-                                        <td class="pe-4"><button
-                                                class="btn btn-sm btn-primary rounded-pill px-3 fw-bold"
-                                                style="font-size:12px;">Approve Refund</button></td>
+                                        <td class="pe-4 text-end">
+                                            <div class="dropdown">
+                                                <button
+                                                    class="btn btn-sm btn-icon border-0 p-0 text-neutral-400 shadow-none"
+                                                    type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i data-lucide="more-vertical" width="18"></i>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 py-2"
+                                                    style="font-size: 13px; min-width: 140px;">
+                                                    <li><a class="dropdown-item d-flex align-items-center gap-2"
+                                                            href="#"><i data-lucide="eye" width="14"></i> View
+                                                            Details</a></li>
+                                                    <li>
+                                                        <hr class="dropdown-divider">
+                                                    </li>
+                                                    <li><a class="dropdown-item d-flex align-items-center gap-2 text-success"
+                                                            href="#"><i data-lucide="check-circle" width="14"></i>
+                                                            Approve Refund</a></li>
+                                                    <li><a class="dropdown-item d-flex align-items-center gap-2 text-danger"
+                                                            href="#"><i data-lucide="x-circle" width="14"></i> Reject
+                                                            Refund</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
                                     </tr>
                                     <tr>
-                                        <td class="ps-4 fw-bold text-neutral-900">Music Festival Summer</td>
+                                        <td class="ps-4 fw-medium text-neutral-900">Music Festival Summer</td>
                                         <td class="text-neutral-400 small">Pam Beesly</td>
-                                        <td class="text-neutral-900 small fw-bold">$200</td>
+                                        <td class="text-neutral-900 small fw-medium">$200</td>
                                         <td class="text-neutral-400 small">Event date conflict</td>
                                         <td class="text-neutral-400 small">2026-02-12</td>
-                                        <td><span class="badge rounded-pill px-3 py-2 fw-bold"
+                                        <td><span class="badge rounded-pill px-3 py-2 fw-medium"
                                                 style="font-size:11px;background:#F1F5F9;color:#475569;">Pending</span>
                                         </td>
-                                        <td class="pe-4"><button
-                                                class="btn btn-sm btn-primary rounded-pill px-3 fw-bold"
-                                                style="font-size:12px;">Approve Refund</button></td>
+                                        <td class="pe-4 text-end">
+                                            <div class="dropdown">
+                                                <button
+                                                    class="btn btn-sm btn-icon border-0 p-0 text-neutral-400 shadow-none"
+                                                    type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i data-lucide="more-vertical" width="18"></i>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 py-2"
+                                                    style="font-size: 13px; min-width: 140px;">
+                                                    <li><a class="dropdown-item d-flex align-items-center gap-2"
+                                                            href="#"><i data-lucide="eye" width="14"></i> View
+                                                            Details</a></li>
+                                                    <li>
+                                                        <hr class="dropdown-divider">
+                                                    </li>
+                                                    <li><a class="dropdown-item d-flex align-items-center gap-2 text-success"
+                                                            href="#"><i data-lucide="check-circle" width="14"></i>
+                                                            Approve Refund</a></li>
+                                                    <li><a class="dropdown-item d-flex align-items-center gap-2 text-danger"
+                                                            href="#"><i data-lucide="x-circle" width="14"></i> Reject
+                                                            Refund</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
                                     </tr>
                                     <tr>
-                                        <td class="ps-4 fw-bold text-neutral-900">Food &amp; Wine Expo</td>
+                                        <td class="ps-4 fw-medium text-neutral-900">Food &amp; Wine Expo</td>
                                         <td class="text-neutral-400 small">Jim Halpert</td>
-                                        <td class="text-neutral-900 small fw-bold">$100</td>
+                                        <td class="text-neutral-900 small fw-medium">$100</td>
                                         <td class="text-neutral-400 small">Health issues</td>
                                         <td class="text-neutral-400 small">2026-02-13</td>
-                                        <td><span class="badge rounded-pill px-3 py-2 fw-bold"
+                                        <td><span class="badge rounded-pill px-3 py-2 fw-medium"
                                                 style="font-size:11px;background:#111827;color:#fff;">Approved</span>
                                         </td>
                                         <td class="pe-4"><span class="text-neutral-400 small">—</span></td>

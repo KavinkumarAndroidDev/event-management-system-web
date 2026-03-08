@@ -54,33 +54,22 @@
                             </div>
                         </div>
                         <hr class="border-neutral-100 my-2">
-                        <nav class="nav flex-column gap-1">
-                            <a href="dashboard.html" class="sidebar-item"><i data-lucide="layout-dashboard"
-                                    class="sidebar-icon"></i> Dashboard</a>
-                            <a href="user-management.html" class="sidebar-item"><i data-lucide="users"
-                                    class="sidebar-icon"></i> User Management</a>
-                            <a href="event-approvals.html" class="sidebar-item"><i data-lucide="check-circle"
-                                    class="sidebar-icon"></i> Event Approvals <span class="badge rounded-pill ms-auto"
-                                    style="background:#17b978;color:#fff;font-size:10px;">8</span></a>
-                            <a href="events.html" class="sidebar-item"><i data-lucide="calendar"
-                                    class="sidebar-icon"></i> Events</a>
-                            <a href="categories.html" class="sidebar-item"><i data-lucide="tag"
-                                    class="sidebar-icon"></i> Categories</a>
-                            <a href="venues.html" class="sidebar-item"><i data-lucide="map-pin"
-                                    class="sidebar-icon"></i> Venues</a>
-                            <a href="tickets-registrations.html" class="sidebar-item"><i data-lucide="ticket"
-                                    class="sidebar-icon"></i> Tickets &amp; Registrations</a>
-                            <a href="payments-revenue.html" class="sidebar-item"><i data-lucide="dollar-sign"
-                                    class="sidebar-icon"></i> Payments &amp; Revenue</a>
-                            <a href="reports-analytics.html" class="sidebar-item"><i data-lucide="bar-chart-2"
-                                    class="sidebar-icon"></i> Reports &amp; Analytics</a>
-                            <a href="feedback-moderation.html" class="sidebar-item active"><i
-                                    data-lucide="message-square" class="sidebar-icon"></i> Feedback Moderation</a>
-                            <a href="notifications.html" class="sidebar-item"><i data-lucide="bell"
-                                    class="sidebar-icon"></i> Notifications <span class="badge rounded-pill ms-auto"
-                                    style="background:#17b978;color:#fff;font-size:10px;">5</span></a>
-                            <a href="profile.html" class="sidebar-item"><i data-lucide="user" class="sidebar-icon"></i>
-                                Profile</a>
+                                                <nav class="nav flex-column gap-1">
+                            <a href="dashboard.html" class="sidebar-item">
+                                <i data-lucide="layout-dashboard" class="sidebar-icon"></i> Dashboard
+                            </a>
+                            <a href="user-management.html" class="sidebar-item"><i data-lucide="users" class="sidebar-icon"></i> User Management</a>
+                            <a href="organizer-approval.html" class="sidebar-item"><i data-lucide="user-check" class="sidebar-icon"></i> Organizer Approvals <span class="badge rounded-pill ms-auto" id="pending-org-count" style="background:#17b978;color:#fff;font-size:10px;">0</span></a>
+                            <a href="event-approvals.html" class="sidebar-item"><i data-lucide="check-circle" class="sidebar-icon"></i> Event Approvals <span class="badge rounded-pill ms-auto" style="background:#17b978;color:#fff;font-size:10px;">8</span></a>
+                            <a href="events.html" class="sidebar-item"><i data-lucide="calendar" class="sidebar-icon"></i> Events</a>
+                            <a href="categories.html" class="sidebar-item"><i data-lucide="tag" class="sidebar-icon"></i> Categories</a>
+                            <a href="venues.html" class="sidebar-item"><i data-lucide="map-pin" class="sidebar-icon"></i> Venues</a>
+                            <a href="tickets-registrations.html" class="sidebar-item"><i data-lucide="ticket" class="sidebar-icon"></i> Tickets &amp; Registrations</a>
+                            <a href="payments-revenue.html" class="sidebar-item"><i data-lucide="dollar-sign" class="sidebar-icon"></i> Payments &amp; Revenue</a>
+                            <a href="reports-analytics.html" class="sidebar-item"><i data-lucide="bar-chart-2" class="sidebar-icon"></i> Reports &amp; Analytics</a>
+                            <a href="feedback-moderation.html" class="sidebar-item active"><i data-lucide="message-square" class="sidebar-icon"></i> Feedback Moderation</a>
+                            <a href="notifications.html" class="sidebar-item"><i data-lucide="bell" class="sidebar-icon"></i> Notifications <span class="badge rounded-pill ms-auto" style="background:#17b978;color:#fff;font-size:10px;">5</span></a>
+                            <a href="profile.html" class="sidebar-item"><i data-lucide="user" class="sidebar-icon"></i> Profile</a>
                         </nav>
                         <hr class="border-neutral-100 my-3">
                         <div class="d-flex flex-column gap-2">
@@ -104,12 +93,7 @@
                     </nav>
 
                     <div class="d-flex justify-content-between align-items-center mb-4">
-                        <div class="d-flex align-items-center"><a href="dashboard.html"
-                                class="icon-circle text-decoration-none me-3" title="Back to Dashboard"
-                                style="flex-shrink:0;"><i data-lucide="arrow-left"
-                                    style="width:18px;height:18px;"></i></a>
-                            <h4 class="fw-bold mb-0">Feedback Moderation</h4>
-                        </div>
+                        <h4 class="fw-bold mb-0">Feedback Moderation</h4>
                     </div>
 
                     <!-- Filters -->
@@ -142,7 +126,7 @@
                                     style="width:40px;height:40px;font-size:14px;background:#17b978;">AJ</div>
                                 <div class="flex-grow-1">
                                     <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
-                                        <span class="fw-bold text-neutral-900 small">Alice Johnson</span>
+                                        <span class="fw-medium text-neutral-900 small">Alice Johnson</span>
                                         <span class="text-neutral-400 small">on Tech Conference 2026</span>
                                         <span class="star-rating" style="font-size:12px;">★★★★★</span>
                                         <span class="badge rounded-pill px-2"
@@ -156,14 +140,21 @@
                                 </div>
                                 <div class="flex-shrink-0">
                                     <div class="dropdown">
-                                        <button class="btn btn-sm btn-icon border-0 p-0 text-neutral-400 shadow-none" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <button class="btn btn-sm btn-icon border-0 p-0 text-neutral-400 shadow-none"
+                                            type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             <i data-lucide="more-vertical" width="18"></i>
                                         </button>
-                                        <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 py-2" style="font-size: 13px; min-width: 140px;">
-                                            <li><a class="dropdown-item d-flex align-items-center gap-2" href="#"><i data-lucide="check-circle" width="14"></i> Approve</a></li>
-                                            <li><a class="dropdown-item d-flex align-items-center gap-2" href="#"><i data-lucide="eye-off" width="14"></i> Hide</a></li>
-                                            <li><hr class="dropdown-divider"></li>
-                                            <li><a class="dropdown-item d-flex align-items-center gap-2 text-danger" href="#"><i data-lucide="trash-2" width="14"></i> Delete</a></li>
+                                        <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 py-2"
+                                            style="font-size: 13px; min-width: 140px;">
+                                            <li><a class="dropdown-item d-flex align-items-center gap-2" href="#"><i
+                                                        data-lucide="check-circle" width="14"></i> Approve</a></li>
+                                            <li><a class="dropdown-item d-flex align-items-center gap-2" href="#"><i
+                                                        data-lucide="eye-off" width="14"></i> Hide</a></li>
+                                            <li>
+                                                <hr class="dropdown-divider">
+                                            </li>
+                                            <li><a class="dropdown-item d-flex align-items-center gap-2 text-danger"
+                                                    href="#"><i data-lucide="trash-2" width="14"></i> Delete</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -173,10 +164,10 @@
                         <div class="px-4 py-4 border-bottom">
                             <div class="d-flex align-items-start gap-3">
                                 <div class="avatar-circle flex-shrink-0"
-                                    style="width:40px;height:40px;font-size:14px;background:#00b8d9;">BS</div>
+                                    style="width:40px;height:40px;font-size:14px;background:#17b978;">BS</div>
                                 <div class="flex-grow-1">
                                     <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
-                                        <span class="fw-bold text-neutral-900 small">Bob Smith</span>
+                                        <span class="fw-medium text-neutral-900 small">Bob Smith</span>
                                         <span class="text-neutral-400 small">on Music Festival Summer</span>
                                         <span class="star-rating" style="font-size:12px;">★★★★☆</span>
                                         <span class="badge rounded-pill px-2"
@@ -189,13 +180,19 @@
                                 </div>
                                 <div class="flex-shrink-0">
                                     <div class="dropdown">
-                                        <button class="btn btn-sm btn-icon border-0 p-0 text-neutral-400 shadow-none" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <button class="btn btn-sm btn-icon border-0 p-0 text-neutral-400 shadow-none"
+                                            type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             <i data-lucide="more-vertical" width="18"></i>
                                         </button>
-                                        <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 py-2" style="font-size: 13px; min-width: 140px;">
-                                            <li><a class="dropdown-item d-flex align-items-center gap-2" href="#"><i data-lucide="eye-off" width="14"></i> Hide</a></li>
-                                            <li><hr class="dropdown-divider"></li>
-                                            <li><a class="dropdown-item d-flex align-items-center gap-2 text-danger" href="#"><i data-lucide="trash-2" width="14"></i> Delete</a></li>
+                                        <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 py-2"
+                                            style="font-size: 13px; min-width: 140px;">
+                                            <li><a class="dropdown-item d-flex align-items-center gap-2" href="#"><i
+                                                        data-lucide="eye-off" width="14"></i> Hide</a></li>
+                                            <li>
+                                                <hr class="dropdown-divider">
+                                            </li>
+                                            <li><a class="dropdown-item d-flex align-items-center gap-2 text-danger"
+                                                    href="#"><i data-lucide="trash-2" width="14"></i> Delete</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -208,7 +205,7 @@
                                     style="width:40px;height:40px;font-size:14px;background:#ef4444;">DL</div>
                                 <div class="flex-grow-1">
                                     <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
-                                        <span class="fw-bold text-neutral-900 small">David Lee</span>
+                                        <span class="fw-medium text-neutral-900 small">David Lee</span>
                                         <span class="text-neutral-400 small">on Startup Pitch Night</span>
                                         <span class="star-rating" style="font-size:12px;">★★☆☆☆</span>
                                         <span class="badge rounded-pill px-2"
@@ -222,14 +219,21 @@
                                 </div>
                                 <div class="flex-shrink-0">
                                     <div class="dropdown">
-                                        <button class="btn btn-sm btn-icon border-0 p-0 text-neutral-400 shadow-none" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <button class="btn btn-sm btn-icon border-0 p-0 text-neutral-400 shadow-none"
+                                            type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             <i data-lucide="more-vertical" width="18"></i>
                                         </button>
-                                        <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 py-2" style="font-size: 13px; min-width: 140px;">
-                                            <li><a class="dropdown-item d-flex align-items-center gap-2" href="#"><i data-lucide="check-circle" width="14"></i> Approve</a></li>
-                                            <li><a class="dropdown-item d-flex align-items-center gap-2" href="#"><i data-lucide="eye-off" width="14"></i> Hide</a></li>
-                                            <li><hr class="dropdown-divider"></li>
-                                            <li><a class="dropdown-item d-flex align-items-center gap-2 text-danger" href="#"><i data-lucide="trash-2" width="14"></i> Delete</a></li>
+                                        <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 py-2"
+                                            style="font-size: 13px; min-width: 140px;">
+                                            <li><a class="dropdown-item d-flex align-items-center gap-2" href="#"><i
+                                                        data-lucide="check-circle" width="14"></i> Approve</a></li>
+                                            <li><a class="dropdown-item d-flex align-items-center gap-2" href="#"><i
+                                                        data-lucide="eye-off" width="14"></i> Hide</a></li>
+                                            <li>
+                                                <hr class="dropdown-divider">
+                                            </li>
+                                            <li><a class="dropdown-item d-flex align-items-center gap-2 text-danger"
+                                                    href="#"><i data-lucide="trash-2" width="14"></i> Delete</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -242,7 +246,7 @@
                                     style="width:40px;height:40px;font-size:14px;background:#17b978;">CW</div>
                                 <div class="flex-grow-1">
                                     <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
-                                        <span class="fw-bold text-neutral-900 small">Carol White</span>
+                                        <span class="fw-medium text-neutral-900 small">Carol White</span>
                                         <span class="text-neutral-400 small">on Food &amp; Wine Expo</span>
                                         <span class="star-rating" style="font-size:12px;">★★★★★</span>
                                         <span class="badge rounded-pill px-2"
@@ -255,13 +259,19 @@
                                 </div>
                                 <div class="flex-shrink-0">
                                     <div class="dropdown">
-                                        <button class="btn btn-sm btn-icon border-0 p-0 text-neutral-400 shadow-none" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <button class="btn btn-sm btn-icon border-0 p-0 text-neutral-400 shadow-none"
+                                            type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             <i data-lucide="more-vertical" width="18"></i>
                                         </button>
-                                        <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 py-2" style="font-size: 13px; min-width: 140px;">
-                                            <li><a class="dropdown-item d-flex align-items-center gap-2" href="#"><i data-lucide="eye-off" width="14"></i> Hide</a></li>
-                                            <li><hr class="dropdown-divider"></li>
-                                            <li><a class="dropdown-item d-flex align-items-center gap-2 text-danger" href="#"><i data-lucide="trash-2" width="14"></i> Delete</a></li>
+                                        <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 py-2"
+                                            style="font-size: 13px; min-width: 140px;">
+                                            <li><a class="dropdown-item d-flex align-items-center gap-2" href="#"><i
+                                                        data-lucide="eye-off" width="14"></i> Hide</a></li>
+                                            <li>
+                                                <hr class="dropdown-divider">
+                                            </li>
+                                            <li><a class="dropdown-item d-flex align-items-center gap-2 text-danger"
+                                                    href="#"><i data-lucide="trash-2" width="14"></i> Delete</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -275,7 +285,7 @@
                                 </div>
                                 <div class="flex-grow-1">
                                     <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
-                                        <span class="fw-bold text-neutral-900 small">Emma Davis</span>
+                                        <span class="fw-medium text-neutral-900 small">Emma Davis</span>
                                         <span class="text-neutral-400 small">on Art Gallery Opening</span>
                                         <span class="star-rating" style="font-size:12px;">★★★★☆</span>
                                         <span class="badge rounded-pill px-2"
@@ -289,14 +299,21 @@
                                 </div>
                                 <div class="flex-shrink-0">
                                     <div class="dropdown">
-                                        <button class="btn btn-sm btn-icon border-0 p-0 text-neutral-400 shadow-none" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <button class="btn btn-sm btn-icon border-0 p-0 text-neutral-400 shadow-none"
+                                            type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             <i data-lucide="more-vertical" width="18"></i>
                                         </button>
-                                        <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 py-2" style="font-size: 13px; min-width: 140px;">
-                                            <li><a class="dropdown-item d-flex align-items-center gap-2" href="#"><i data-lucide="check-circle" width="14"></i> Approve</a></li>
-                                            <li><a class="dropdown-item d-flex align-items-center gap-2" href="#"><i data-lucide="eye-off" width="14"></i> Hide</a></li>
-                                            <li><hr class="dropdown-divider"></li>
-                                            <li><a class="dropdown-item d-flex align-items-center gap-2 text-danger" href="#"><i data-lucide="trash-2" width="14"></i> Delete</a></li>
+                                        <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 py-2"
+                                            style="font-size: 13px; min-width: 140px;">
+                                            <li><a class="dropdown-item d-flex align-items-center gap-2" href="#"><i
+                                                        data-lucide="check-circle" width="14"></i> Approve</a></li>
+                                            <li><a class="dropdown-item d-flex align-items-center gap-2" href="#"><i
+                                                        data-lucide="eye-off" width="14"></i> Hide</a></li>
+                                            <li>
+                                                <hr class="dropdown-divider">
+                                            </li>
+                                            <li><a class="dropdown-item d-flex align-items-center gap-2 text-danger"
+                                                    href="#"><i data-lucide="trash-2" width="14"></i> Delete</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -309,7 +326,7 @@
                                     style="width:40px;height:40px;font-size:14px;background:#475569;">FM</div>
                                 <div class="flex-grow-1">
                                     <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
-                                        <span class="fw-bold text-neutral-900 small">Frank Miller</span>
+                                        <span class="fw-medium text-neutral-900 small">Frank Miller</span>
                                         <span class="text-neutral-400 small">on Gaming Tournament</span>
                                         <span class="star-rating" style="font-size:12px;">★★★★★</span>
                                         <span class="badge rounded-pill px-2"
@@ -322,13 +339,19 @@
                                 </div>
                                 <div class="flex-shrink-0">
                                     <div class="dropdown">
-                                        <button class="btn btn-sm btn-icon border-0 p-0 text-neutral-400 shadow-none" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <button class="btn btn-sm btn-icon border-0 p-0 text-neutral-400 shadow-none"
+                                            type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             <i data-lucide="more-vertical" width="18"></i>
                                         </button>
-                                        <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 py-2" style="font-size: 13px; min-width: 140px;">
-                                            <li><a class="dropdown-item d-flex align-items-center gap-2" href="#"><i data-lucide="eye-off" width="14"></i> Hide</a></li>
-                                            <li><hr class="dropdown-divider"></li>
-                                            <li><a class="dropdown-item d-flex align-items-center gap-2 text-danger" href="#"><i data-lucide="trash-2" width="14"></i> Delete</a></li>
+                                        <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 py-2"
+                                            style="font-size: 13px; min-width: 140px;">
+                                            <li><a class="dropdown-item d-flex align-items-center gap-2" href="#"><i
+                                                        data-lucide="eye-off" width="14"></i> Hide</a></li>
+                                            <li>
+                                                <hr class="dropdown-divider">
+                                            </li>
+                                            <li><a class="dropdown-item d-flex align-items-center gap-2 text-danger"
+                                                    href="#"><i data-lucide="trash-2" width="14"></i> Delete</a></li>
                                         </ul>
                                     </div>
                                 </div>

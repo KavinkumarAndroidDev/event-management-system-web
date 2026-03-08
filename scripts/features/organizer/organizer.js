@@ -94,7 +94,7 @@ function setupPagination(items, itemsPerPage, containerId, renderFn) {
 
         let html = '';
         html += `<button class="pagination-btn" data-page="${page - 1}" ${page === 1 ? 'disabled' : ''}><i data-lucide="chevron-left" width="16" height="16"></i></button>`;
-        
+
         // Simple pagination: 1, 2, 3...
         for (let i = 1; i <= totalPages; i++) {
             if (i === 1 || i === totalPages || (i >= page - 2 && i <= page + 2)) {
@@ -152,13 +152,49 @@ export function setupOrganizerForm() {
                 btn.disabled = true;
                 btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Submitting...';
 
-                setTimeout(() => {
-                    import('../../shared/utils.js').then(m => m.showToast('Application Received', 'We will review your application and get back to you shortly.', 'success'));
+                // Mocking the backend POST to /users for organizer signup
+                const firstName = organizerSignupForm.querySelector('[name="firstName"]')?.value || 'New';
+                const lastName = organizerSignupForm.querySelector('[name="lastName"]')?.value || 'Organizer';
+                const email = organizerSignupForm.querySelector('[name="email"]')?.value || 'org@example.com';
+                const phone = organizerSignupForm.querySelector('[name="phone"]')?.value || '';
+                const orgName = organizerSignupForm.querySelector('[name="organizationName"]')?.value || 'Acme';
+
+                const newUser = {
+                    id: 'USR-' + Date.now(),
+                    password: 'mocked-otp-user',
+                    profile: {
+                        fullName: `${firstName} ${lastName}`,
+                        email: email,
+                        phone: phone,
+                        avatar: `https://ui-avatars.com/api/?name=${firstName}+${lastName}&background=random`,
+                        organizationName: orgName
+                    },
+                    role: {
+                        id: "ROLE-3",
+                        name: "ORGANIZER",
+                        permissions: ["CREATE_EVENT", "MANAGE_EVENTS", "VIEW_REPORTS"]
+                    },
+                    accountStatus: {
+                        status: "PENDING",
+                        joinDate: new Date().toISOString().split('T')[0]
+                    }
+                };
+
+                fetch('http://localhost:3000/users', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(newUser)
+                }).then(() => {
+                    import('../../shared/utils.js').then(m => {
+                        m.showToast('Application Submitted', 'Your application is under review. We will notify you once approved.', 'success');
+                        document.getElementById('formContainer')?.classList.add('d-none');
+                        document.getElementById('successState')?.classList.remove('d-none');
+                    });
+                }).finally(() => {
                     btn.disabled = false;
                     btn.innerHTML = origText;
                     organizerSignupForm.reset();
-                    organizerSignupForm.querySelectorAll('.is-valid, .is-invalid').forEach(el => el.classList.remove('is-valid', 'is-invalid'));
-                }, 1500);
+                });
             }
         });
     }
@@ -408,6 +444,28 @@ export function initMyEvents() {
     if (!user) return;
 
     populateSidebarUserInfo();
+
+    // Check if organizer is approved
+    if (user.accountStatus && user.accountStatus.status === 'PENDING') {
+        const mainContent = document.querySelector('.col-lg-9');
+        if (mainContent) {
+            mainContent.innerHTML = `
+                <div class="card-custom p-5 text-center">
+                    <div class="icon-circle bg-warning bg-opacity-10 text-warning mx-auto mb-4" style="width: 80px; height: 80px;">
+                        <i data-lucide="clock" width="40" height="40"></i>
+                    </div>
+                    <h3 class="fw-bold text-neutral-900 mb-2">Account Under Review</h3>
+                    <p class="text-neutral-500 mb-4">Your organizer account is currently pending administrator approval. <br> You will be able to create and manage events once your account is verified.</p>
+                    <div class="d-flex justify-content-center gap-3">
+                        <a href="../profile/index.html" class="btn btn-primary rounded-pill px-4 fw-medium">View Profile</a>
+                        <button class="btn btn-outline-neutral-900 rounded-pill px-4 fw-medium" onclick="location.reload()">Check Status</button>
+                    </div>
+                </div>
+            `;
+            if (window.initIcons) window.initIcons({ root: mainContent });
+        }
+        return;
+    }
 
     const myEvents = getOrganizerEvents(user);
     const myRegs = getEventRegistrations(myEvents);
@@ -758,7 +816,7 @@ export function initTicketManagement() {
             `;
             tbody.appendChild(tr);
             if (window.initIcons) window.initIcons({ root: tr });
-            
+
             tr.querySelectorAll('input').forEach(input => {
                 input.addEventListener('input', updateStats);
             });
@@ -1391,7 +1449,7 @@ export function initCreateEventWizard() {
         localStorage.setItem('events', JSON.stringify(state.events));
 
         showToast(published ? 'Published' : 'Saved', `Event ${title} has been ${published ? 'published' : 'saved as draft'}.`, 'success');
-        
+
         setTimeout(() => {
             window.location.href = 'my-events.html';
         }, 1500);

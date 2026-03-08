@@ -55,8 +55,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Admin Logic
     if (path.includes('/pages/admin/')) {
-        const { initAdminPage } = await import('./features/admin/admin.js');
+        const { initAdminPage, initOrganizerApprovals } = await import('./features/admin/admin.js');
         initAdminPage();
+
+        if (path.includes('organizer-approval.html')) {
+            whenDataReady(() => initOrganizerApprovals());
+        }
     }
 
     // Organizer Logic

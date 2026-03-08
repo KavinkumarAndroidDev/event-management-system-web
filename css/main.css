@@ -125,6 +125,49 @@
   --bs-form-invalid-border-color: #ef4444;
 }
 
+/* Custom Soft Toasts */
+.text-bg-soft-danger {
+  background-color: #fff1f2 !important;
+  color: #e11d48 !important;
+  border: 1px solid #fecdd3 !important;
+}
+
+.text-bg-soft-success {
+  background-color: #f0fdf4 !important;
+  color: #166534 !important;
+  border: 1px solid #dcfce7 !important;
+}
+
+.text-bg-soft-warning {
+  background-color: #fffbeb !important;
+  color: #92400e !important;
+  border: 1px solid #fef3c7 !important;
+}
+
+.text-bg-soft-primary {
+  background-color: #eff6ff !important;
+  color: #1e40af !important;
+  border: 1px solid #dbeafe !important;
+}
+
+/* Terms Checkbox Override */
+.form-check-input.no-red-validation.is-invalid {
+  border-color: var(--bs-border-color) !important;
+  background-image: none !important;
+}
+
+.form-check-input.no-red-validation.is-invalid~.form-check-label {
+  color: inherit !important;
+}
+
+.form-check-input.no-red-validation.is-invalid~.invalid-feedback {
+  display: block;
+  color: var(--bs-neutral-500);
+  /* Helper text style */
+  font-size: 0.825rem;
+  margin-top: 0.25rem;
+}
+
 [data-bs-theme=dark] {
   color-scheme: dark;
   --bs-body-color: #dee2e6;
@@ -14794,8 +14837,33 @@ h4,
 
 .site-header {
   width: 100%;
-  border-bottom: 1px solid #e5e7eb;
-  background: #ffffff;
+  background: linear-gradient(135deg, #1a1a1a 0%, #000000 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.site-header .nav-link {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.site-header .nav-link:hover,
+.site-header .nav-link.active {
+  color: #17b978 !important;
+}
+
+.site-header .welcome-text {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.site-header .icon-circle {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+.site-header .icon-circle:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
 }
 
 .brand {
@@ -15239,6 +15307,7 @@ h4,
   color: #17B978;
   border: none;
 }
+
 /* --- Back to Top Button --- */
 .back-to-top {
   position: fixed;

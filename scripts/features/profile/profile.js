@@ -89,11 +89,6 @@ export function initProfilePage() {
     document.getElementById('profile-email').style.color = '#4B5563';
     document.getElementById('profile-email').style.cursor = 'not-allowed';
     document.getElementById('profile-email').style.borderStyle = 'dashed';
-    document.getElementById('profile-email').setAttribute('title', 'Email cannot be changed');
-    const emailLabel = document.getElementById('profile-email')?.closest('.col-md-6')?.querySelector('label');
-    if (emailLabel && !emailLabel.querySelector('.non-editable-label')) {
-        emailLabel.insertAdjacentHTML('beforeend', ' <span class="small text-neutral-400 non-editable-label" style="font-size: 0.75rem;">(Not editable)</span>');
-    }
 
     document.getElementById('profile-phone').value = user.profile.phone || '';
     document.getElementById('profile-phone').readOnly = false;
@@ -101,7 +96,28 @@ export function initProfilePage() {
     document.getElementById('profile-phone').classList.remove('form-control-readonly');
     document.getElementById('profile-fullname').value = user.profile.fullName;
     document.getElementById('profile-dob').value = user.profile.dateOfBirth || '';
-    if (user.profile.gender) document.getElementById('profile-gender').value = user.profile.gender;
+
+    // Initialize Gender Radios
+    if (user.profile.gender) {
+        const genderRadio = document.querySelector(`input[name="profile-gender"][value="${user.profile.gender}"]`);
+        if (genderRadio) genderRadio.checked = true;
+    }
+
+    // Initialize Preferences
+    if (user.preferences) {
+        if (user.preferences.language) document.getElementById('pref-language').value = user.preferences.language;
+        if (user.preferences.notifications) {
+            document.getElementById('notify-email').checked = user.preferences.notifications.email;
+            document.getElementById('notify-sms').checked = user.preferences.notifications.sms;
+            document.getElementById('notify-push').checked = user.preferences.notifications.push;
+        }
+        if (user.preferences.interestedCategories) {
+            user.preferences.interestedCategories.forEach(cat => {
+                const check = document.querySelector(`input[value="${cat}"]`);
+                if (check) check.checked = true;
+            });
+        }
+    }
 
     // Profile Completion Calculation
     const fieldsToTrack = ['fullName', 'email', 'phone', 'dateOfBirth', 'gender', 'profileImage'];
@@ -129,7 +145,11 @@ export function initProfilePage() {
     }
 
     // Hide loader and show content
-    hideProfileLoader();
+    setupAvatarUpload();
+
+    // Attach Filter Listeners for Profile Views
+    attachPastEventsFilters();
+    attachPaymentsFilters();
 
     // Sidebar Navigation
     const navLinks = document.querySelectorAll('.sidebar-item[data-section]');
@@ -194,6 +214,25 @@ export function initProfilePage() {
         });
     }
 
+    function attachPastEventsFilters() {
+        const search = document.getElementById('past-events-search');
+        const year = document.getElementById('past-events-year');
+        const sort = document.getElementById('past-events-sort');
+
+        if (search) search.addEventListener('input', renderPastEvents);
+        if (year) year.addEventListener('change', renderPastEvents);
+        if (sort) sort.addEventListener('change', renderPastEvents);
+    }
+
+    function attachPaymentsFilters() {
+        const search = document.getElementById('payments-search');
+        const status = document.getElementById('payments-status');
+        const sort = document.getElementById('payments-sort');
+
+        if (search) search.addEventListener('input', renderPayments);
+        if (status) status.addEventListener('change', renderPayments);
+        if (sort) sort.addEventListener('change', renderPayments);
+    }
     // Simplified: injectSignOutModal handles the confirm button
 
     // Populate Upcoming Events
@@ -214,17 +253,20 @@ export function initProfilePage() {
                 const date = new Date(event.schedule.startDateTime);
                 const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
                 return `
-                    <div class="card-custom p-3 mb-3">
+                    <div class="card-custom p-3">
                         <div class="d-flex gap-3">
                             <img src="${event.media.thumbnail}" class="rounded-3 object-fit-cover" style="width: 120px; height: 80px;" alt="${event.title}">
                             <div class="flex-grow-1">
                                 <div class="d-flex justify-content-between align-items-start">
                                     <div>
                                         <h6 class="fw-bold mb-1">${event.title}</h6>
-                                        <div class="small text-neutral-400 mb-2">
+                                        <div class="small text-neutral-400 mb-0">
                                             <i data-lucide="calendar" width="14" class="me-1"></i> ${dateStr} • ${event.venue.address.city}
                                         </div>
                                     </div>
+                                    <button class="btn btn-outline-primary btn-sm rounded-pill btn-view-ticket" data-reg-id="${reg.id}">
+                                        View Ticket
+                                    </button>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-between mt-1 pt-2 border-top border-neutral-100">
                                     <div class="small text-neutral-600">${reg.quantity} Ticket${reg.quantity > 1 ? 's' : ''} • ${reg.ticketType}</div>
@@ -236,15 +278,13 @@ export function initProfilePage() {
                 `;
             }).join('');
 
-            // Wire up clicking the card to immediately launch the Registration Details Modal
-            upcomingData.forEach(({ reg }, index) => {
-                const card = container.children[index];
-                if (card) {
-                    card.style.cursor = 'pointer';
-                    card.addEventListener('click', (e) => {
-                        openRegistrationModal(reg);
-                    });
-                }
+            // View Ticket button handler
+            container.querySelectorAll('.btn-view-ticket').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const regId = btn.dataset.regId;
+                    const reg = state.registrations.find(r => r.id === regId);
+                    if (reg) openRegistrationModal(reg);
+                });
             });
         }
     }
@@ -306,13 +346,30 @@ export function initProfilePage() {
             const fullName = document.getElementById('profile-fullname').value;
             const phone = document.getElementById('profile-phone').value;
             const dob = document.getElementById('profile-dob').value;
-            const gender = document.getElementById('profile-gender').value;
+            const gender = document.querySelector('input[name="profile-gender"]:checked')?.value;
 
             // Update user object
             user.profile.fullName = fullName;
             user.profile.phone = phone;
             user.profile.dateOfBirth = dob;
             user.profile.gender = gender;
+
+            // Get Preferences
+            const language = document.getElementById('pref-language').value;
+            const notifyEmail = document.getElementById('notify-email').checked;
+            const notifySms = document.getElementById('notify-sms').checked;
+            const notifyPush = document.getElementById('notify-push').checked;
+            const interestedCategories = Array.from(document.querySelectorAll('#pref-categories input:checked')).map(cb => cb.value);
+
+            user.preferences = {
+                language,
+                notifications: {
+                    email: notifyEmail,
+                    sms: notifySms,
+                    push: notifyPush
+                },
+                interestedCategories
+            };
 
             // Save to localStorage
             localStorage.setItem('currentUser', JSON.stringify(user));
@@ -329,10 +386,13 @@ export function initProfilePage() {
             fetch(`http://localhost:3000/users/${user.id}`, {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ profile: user.profile })
+                body: JSON.stringify({
+                    profile: user.profile,
+                    preferences: user.preferences
+                })
             }).then(res => {
                 if (res.ok) {
-                    showToast('Success', 'Profile updated successfully!', 'success');
+                    showToast('Success', 'Profile and preferences updated successfully!', 'success');
                 } else {
                     showToast('Error', 'Failed to save changes to server.', 'danger');
                 }
@@ -418,89 +478,137 @@ function renderRegistrations() {
     const userId = user ? user.id : null;
 
     // Order: upcoming confirmed registrations first, cancelled after that.
-    const registrations = state.registrations
-        .filter(r => r.userId === userId && r.status !== 'COMPLETED')
-        .sort((a, b) => {
-            // First: Sort by status (CONFIRMED before CANCELLED)
+    let registrations = state.registrations
+        .filter(r => r.userId === userId && r.status !== 'COMPLETED');
+
+    // Search and Filter Handling
+    const searchInput = document.querySelector('#view-registrations input[type="text"]');
+    const venueFilter = document.querySelector('#view-registrations .filter-select:nth-of-type(1)');
+    const categoryFilter = document.querySelector('#view-registrations .filter-select:nth-of-type(2)');
+    const sortFilter = document.querySelector('#view-registrations .filter-select:nth-of-type(3)');
+
+    const applyFilters = () => {
+        const searchTerm = searchInput?.value.toLowerCase() || '';
+        const venueTerm = venueFilter?.value || 'All Venues';
+        const categoryTerm = categoryFilter?.value || 'All Categories';
+
+        let filtered = registrations.filter(r => {
+            const matchesSearch = r.eventName.toLowerCase().includes(searchTerm) || r.id.includes(searchTerm);
+            const matchesVenue = venueTerm === 'All Venues' || r.location.includes(venueTerm);
+            const matchesCategory = categoryTerm === 'All Categories' || (r.category && r.category === categoryTerm);
+            return matchesSearch && matchesVenue && matchesCategory;
+        });
+
+        // Sort
+        const sortVal = sortFilter?.value || 'Sort by: Date';
+        filtered.sort((a, b) => {
+            if (sortVal.includes('Date')) return new Date(a.date) - new Date(b.date);
+            if (sortVal.includes('Price')) return b.price - a.price;
+            return 0;
+        });
+
+        // Separate confirmed and cancelled
+        filtered.sort((a, b) => {
             const aCancelled = a.status === 'CANCELLED';
             const bCancelled = b.status === 'CANCELLED';
             if (aCancelled !== bCancelled) return aCancelled ? 1 : -1;
-
-            // Second: Sort by date (Upcoming first - soonest date at top)
-            return new Date(a.date) - new Date(b.date);
+            return 0;
         });
 
-    setupGenericPagination({
-        items: registrations,
-        containerId: 'registrations-list',
-        paginationId: 'registrations-pagination',
-        itemsPerPage: 5,
-        renderItem: (reg) => {
-            const date = new Date(reg.date);
-            const dateStr = date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }) + ' • ' +
-                date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
-            const isCancelled = reg.status === 'CANCELLED';
-            return `
-            <div class="card card-custom border-0 shadow-sm mb-3 registration-card ${isCancelled ? 'opacity-75' : ''}" data-id="${reg.id}" style="border-radius: 16px; transition: transform 0.2s, box-shadow 0.2s;">
-                    <div class="card-body p-3">
-                        <div class="d-flex flex-column flex-md-row gap-3">
-                            <div class="position-relative">
-                                <img src="${reg.img}" class="rounded-3 object-fit-cover" style="width: 140px; height: 100px; aspect-ratio: 1.4;" alt="${reg.eventName}">
-                                    ${isCancelled ? '<div class="position-absolute top-50 start-50 translate-middle badge bg-dark bg-opacity-50 px-2 py-1 rounded-pill">Cancelled</div>' : ''}
+        return filtered;
+    };
+
+    const attachFilterListeners = () => {
+        if (!searchInput.dataset.listener) {
+            searchInput.addEventListener('input', () => renderLimited());
+            venueFilter.addEventListener('change', () => renderLimited());
+            categoryFilter.addEventListener('change', () => renderLimited());
+            sortFilter.addEventListener('change', () => renderLimited());
+            searchInput.dataset.listener = 'true';
+        }
+    };
+
+    const renderLimited = () => {
+        const filtered = applyFilters();
+        setupGenericPagination({
+            items: filtered,
+            containerId: 'registrations-list',
+            paginationId: 'registrations-pagination',
+            itemsPerPage: 5,
+            renderItem: renderRegistrationItem,
+            onRender: attachActionListeners
+        });
+    };
+
+    const renderRegistrationItem = (reg) => {
+        const date = new Date(reg.date);
+        const dateStr = date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }) + ' • ' +
+            date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+        const isCancelled = reg.status === 'CANCELLED';
+        return `
+        <div class="card card-custom border-0 shadow-sm mb-3 registration-card ${isCancelled ? 'opacity-75' : ''}" data-id="${reg.id}" style="border-radius: 16px; transition: transform 0.2s, box-shadow 0.2s;">
+                <div class="card-body p-3">
+                    <div class="d-flex flex-column flex-md-row gap-3">
+                        <div class="position-relative">
+                            <img src="${reg.img}" class="rounded-3 object-fit-cover" style="width: 140px; height: 100px; aspect-ratio: 1.4;" alt="${reg.eventName}">
+                                ${isCancelled ? '<div class="position-absolute top-50 start-50 translate-middle badge bg-dark bg-opacity-50 px-2 py-1 rounded-pill">Cancelled</div>' : ''}
+                        </div>
+                        <div class="flex-grow-1">
+                            <div class="d-flex justify-content-between align-items-start mb-1">
+                                <h6 class="fw-bold mb-0 text-neutral-900 fs-5">${reg.eventName}</h6>
+                                ${!isCancelled ? '<span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-3 py-1 fw-medium" style="font-size: 0.75rem;">Confirmed</span>' : ''}
                             </div>
-                            <div class="flex-grow-1">
-                                <div class="d-flex justify-content-between align-items-start mb-1">
-                                    <h6 class="fw-bold mb-0 text-neutral-900 fs-5">${reg.eventName}</h6>
-                                    ${!isCancelled ? '<span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-3 py-1 fw-medium" style="font-size: 0.75rem;">Confirmed</span>' : ''}
-                                </div>
 
-                                <div class="d-flex flex-wrap gap-3 mb-3">
-                                    <span class="small text-neutral-400 d-flex align-items-center gap-1">
-                                        <i data-lucide="calendar" width="14"></i> ${dateStr}
-                                    </span>
-                                    <span class="small text-neutral-400 d-flex align-items-center gap-1">
-                                        <i data-lucide="map-pin" width="14"></i> ${reg.location}
-                                    </span>
-                                    <span class="small text-neutral-500 fw-medium bg-neutral-100 px-2 py-0.5 rounded">${reg.quantity} x ${reg.ticketType}</span>
-                                </div>
+                            <div class="d-flex flex-wrap gap-3 mb-3">
+                                <span class="small text-neutral-400 d-flex align-items-center gap-1">
+                                    <i data-lucide="calendar" width="14"></i> ${dateStr}
+                                </span>
+                                <span class="small text-neutral-400 d-flex align-items-center gap-1">
+                                    <i data-lucide="map-pin" width="14"></i> ${reg.location}
+                                </span>
+                                <span class="small text-neutral-500 fw-medium bg-neutral-100 px-2 py-0.5 rounded">${reg.quantity} x ${reg.ticketType}</span>
+                            </div>
 
-                                <div class="d-flex align-items-center justify-content-between pt-3 border-top border-neutral-100">
-                                    <div class="fw-bold text-neutral-900 fs-5">₹${reg.price}</div>
-                                    <div class="d-flex align-items-center gap-3">
-                                        ${!isCancelled ? `
-                                        <button class="btn btn-link text-danger p-0 small text-decoration-none btn-cancel-reg" data-id="${reg.id}" style="font-size: 0.85rem;">Cancel Booking</button>
-                                        <button class="btn btn-primary rounded-pill px-4 py-2 btn-view-pass d-flex align-items-center gap-2" data-id="${reg.id}" style="font-size: 0.9rem;">
-                                            View Pass <i data-lucide="external-link" width="16"></i>
-                                        </button>
-                                    ` : `
-                                        <span class="small text-neutral-400 italic">Reference: #${reg.id.substring(0, 8).toUpperCase()}</span>
-                                    `}
-                                    </div>
+                            <div class="d-flex align-items-center justify-content-between pt-3 border-top border-neutral-100">
+                                <div class="fw-bold text-neutral-900 fs-5">₹${reg.price}</div>
+                                <div class="d-flex align-items-center gap-3">
+                                    ${!isCancelled ? `
+                                    <button class="btn btn-link text-danger p-0 small text-decoration-none btn-cancel-reg" data-id="${reg.id}" style="font-size: 0.85rem;">Cancel Booking</button>
+                                    <button class="btn btn-primary rounded-pill px-4 py-2 btn-view-pass d-flex align-items-center gap-2" data-id="${reg.id}" style="font-size: 0.9rem;">
+                                        View Pass <i data-lucide="external-link" width="16"></i>
+                                    </button>
+                                ` : `
+                                    <span class="small text-neutral-400 italic">Reference: #${reg.id.substring(0, 8).toUpperCase()}</span>
+                                `}
                                 </div>
                             </div>
                         </div>
                     </div>
-            </div > `;
-        },
-        onRender: () => {
-            if (window.initIcons) window.initIcons();
-            document.querySelectorAll('.btn-cancel-reg').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const reg = state.registrations.find(r => r.id === btn.dataset.id);
-                    if (reg) openCancelModal(reg);
-                });
-            });
+                </div>
+        </div > `;
+    };
 
-            // View Pass click handler
-            document.querySelectorAll('.btn-view-pass').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const reg = state.registrations.find(r => r.id == btn.dataset.id);
-                    if (reg) openRegistrationModal(reg);
-                });
+    const attachActionListeners = () => {
+        if (window.initIcons) window.initIcons();
+        document.querySelectorAll('.btn-cancel-reg').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const reg = state.registrations.find(r => r.id === btn.dataset.id);
+                if (reg) openCancelModal(reg);
             });
-        }
-    });
+        });
+
+        document.querySelectorAll('.btn-view-pass').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const reg = state.registrations.find(r => r.id == btn.dataset.id);
+                if (reg) openRegistrationModal(reg);
+            });
+        });
+    };
+
+    attachFilterListeners();
+    renderLimited();
 }
+
 
 function openRegistrationModal(reg) {
     const modalEl = document.getElementById('registrationDetailsModal');
@@ -604,15 +712,31 @@ function renderPastEvents() {
     const user = userStr ? JSON.parse(userStr) : null;
     const userId = user ? user.id : null;
 
+    const searchQuery = document.getElementById('past-events-search')?.value.toLowerCase() || '';
+    const yearFilter = document.getElementById('past-events-year')?.value || 'All Years';
+    const sortBy = document.getElementById('past-events-sort')?.value || 'Sort by: Date';
+
     // Filter for past events and deduplicate by eventId
     const seenEventIds = new Set();
-    const pastEvents = state.registrations
+    let pastEvents = state.registrations
         .filter(r => r.userId === userId && (r.status === 'COMPLETED' || r.status === 'CANCELLED'))
         .filter(r => {
-            if (seenEventIds.has(r.eventId)) return false;
-            seenEventIds.add(r.eventId);
-            return true;
+            const matchesSearch = r.eventName.toLowerCase().includes(searchQuery);
+            const matchesYear = yearFilter === 'All Years' || new Date(r.date).getFullYear().toString() === yearFilter;
+
+            if (matchesSearch && matchesYear) {
+                if (seenEventIds.has(r.eventId)) return false;
+                seenEventIds.add(r.eventId);
+                return true;
+            }
+            return false;
         });
+
+    if (sortBy === 'Sort by: Rating') {
+        pastEvents.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+    } else {
+        pastEvents.sort((a, b) => new Date(b.date) - new Date(a.date));
+    }
 
     setupGenericPagination({
         items: pastEvents,
@@ -620,6 +744,7 @@ function renderPastEvents() {
         paginationId: 'past-events-pagination',
         itemsPerPage: 5,
         renderItem: (evt) => {
+            // ... (rest of the renderItem logic)
             const date = new Date(evt.date);
             const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
             const hasFeedback = evt.feedback && evt.rating > 0;
@@ -696,10 +821,37 @@ function openFeedbackModal(evt) {
     submitBtn.addEventListener('click', () => {
         evt.feedbackSubmitted = true;
         evt.rating = selectedRating;
+        evt.feedback = document.getElementById('feedback-text').value;
+
+        // Update Backend
+        fetch(`http://localhost:3000/registrations/${evt.id}`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                feedbackSubmitted: true,
+                rating: selectedRating,
+                feedback: evt.feedback
+            })
+        }).catch(err => console.error("Error saving feedback", err));
+
         modal.hide();
         showToast('Thank You', 'Your feedback has been submitted.', 'success');
         renderPastEvents();
     });
+
+    // Character Counter
+    const feedbackText = document.getElementById('feedback-text');
+    const charCount = document.getElementById('feedback-char-count');
+    if (feedbackText && charCount) {
+        feedbackText.value = ''; // Reset for new feedback
+        charCount.textContent = '0/500';
+        feedbackText.addEventListener('input', () => {
+            const count = feedbackText.value.length;
+            charCount.textContent = `${count}/500`;
+            if (count >= 500) charCount.classList.add('text-danger');
+            else charCount.classList.remove('text-danger');
+        });
+    }
     modal.show();
 }
 
@@ -714,9 +866,23 @@ function renderPayments() {
     const user = userStr ? JSON.parse(userStr) : null;
     const userId = user ? user.id : null;
 
-    const payments = state.payments
+    const searchQuery = document.getElementById('payments-search')?.value.toLowerCase() || '';
+    const statusFilter = document.getElementById('payments-status')?.value || 'All Statuses';
+    const sortBy = document.getElementById('payments-sort')?.value || 'Sort by: Date';
+
+    let payments = state.payments
         .filter(p => p.userId === userId)
-        .sort((a, b) => getPaymentActivityDate(b) - getPaymentActivityDate(a));
+        .filter(p => {
+            const matchesSearch = p.orderId.toLowerCase().includes(searchQuery) || p.eventName.toLowerCase().includes(searchQuery);
+            const matchesStatus = statusFilter === 'All Statuses' || p.status === statusFilter;
+            return matchesSearch && matchesStatus;
+        });
+
+    if (sortBy === 'Sort by: Amount') {
+        payments.sort((a, b) => b.amount - a.amount);
+    } else {
+        payments.sort((a, b) => getPaymentActivityDate(b) - getPaymentActivityDate(a));
+    }
 
     setupGenericPagination({
         items: payments,

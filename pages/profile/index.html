@@ -174,7 +174,7 @@
                                                     role="progressbar" style="width: 70%" aria-valuenow="70"
                                                     aria-valuemin="0" aria-valuemax="100"></div>
                                             </div>
-                                            <span class="small fw-bold text-primary"
+                                            <span class="small fw-medium text-primary"
                                                 id="profile-completion-text">70%</span>
                                         </div>
                                     </div>
@@ -189,7 +189,7 @@
                                     <h5 class="fw-bold mb-0">Upcoming Events</h5>
                                     <button class="btn btn-text small" id="btn-view-all-registrations">See All</button>
                                 </div>
-                                <div class="d-flex flex-column gap-3" id="profile-upcoming-events">
+                                <div class="d-flex flex-column gap-2" id="profile-upcoming-events">
                                     <!-- Injected via JS -->
                                 </div>
                             </div>
@@ -259,20 +259,86 @@
                                         </div>
                                         <div class="col-md-6">
                                             <label class="form-label">Gender</label>
-                                            <select class="form-select" id="profile-gender">
-                                                <option value="MALE">Male</option>
-                                                <option value="FEMALE">Female</option>
-                                                <option value="OTHER">Other</option>
+                                            <div class="d-flex gap-3 mt-2">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="profile-gender"
+                                                        id="gender-male" value="MALE">
+                                                    <label class="form-check-label" for="gender-male">Male</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="profile-gender"
+                                                        id="gender-female" value="FEMALE">
+                                                    <label class="form-check-label" for="gender-female">Female</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="profile-gender"
+                                                        id="gender-other" value="OTHER">
+                                                    <label class="form-check-label" for="gender-other">Other</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <hr class="border-neutral-100 my-4">
+
+                                    <!-- Preferences -->
+                                    <h6 class="fw-bold mb-3">Preferences</h6>
+                                    <div class="row g-3 mb-4">
+                                        <div class="col-md-6">
+                                            <label class="form-label">Language</label>
+                                            <select class="form-select" id="pref-language">
+                                                <option value="English">English</option>
+                                                <option value="Spanish">Spanish</option>
+                                                <option value="French">French</option>
+                                                <option value="German">German</option>
                                             </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label d-block">Notifications</label>
+                                            <div class="d-flex flex-wrap gap-3 mt-2">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="notify-email">
+                                                    <label class="form-check-label" for="notify-email">Email</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="notify-sms">
+                                                    <label class="form-check-label" for="notify-sms">SMS</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="notify-push">
+                                                    <label class="form-check-label" for="notify-push">Push</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <label class="form-label">Interested Categories</label>
+                                            <div class="d-flex flex-wrap gap-3 mt-2" id="pref-categories">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="cat-music"
+                                                        value="Music">
+                                                    <label class="form-check-label" for="cat-music">Music</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="cat-tech"
+                                                        value="Technology">
+                                                    <label class="form-check-label" for="cat-tech">Technology</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="cat-sports"
+                                                        value="Sports">
+                                                    <label class="form-check-label" for="cat-sports">Sports</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="cat-food"
+                                                        value="Food">
+                                                    <label class="form-check-label" for="cat-food">Food & Drinks</label>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 
                                     <!-- Actions -->
                                     <div class="d-flex gap-3 mt-5">
-                                        <button type="button" class="btn btn-outline-danger rounded-pill flex-fill"
-                                            data-bs-toggle="modal" data-bs-target="#changePasswordModal">
-                                            Change Password
-                                        </button>
                                         <button type="submit" class="btn btn-primary rounded-pill flex-fill">
                                             Update Profile
                                         </button>
@@ -336,15 +402,16 @@
                                     <i data-lucide="search"
                                         class="position-absolute top-50 start-0 translate-middle-y ms-3 text-neutral-400"
                                         width="16"></i>
-                                    <input type="text" class="form-control ps-5" placeholder="Search history..."
-                                        style="font-size: 0.875rem;">
+                                    <input type="text" class="form-control ps-5" id="past-events-search"
+                                        placeholder="Search history..." style="font-size: 0.875rem;">
                                 </div>
-                                <select class="form-select filter-select w-auto">
+                                <select class="form-select filter-select w-auto" id="past-events-year">
                                     <option selected="">All Years</option>
+                                    <option>2026</option>
                                     <option>2025</option>
                                     <option>2024</option>
                                 </select>
-                                <select class="form-select filter-select w-auto ms-auto">
+                                <select class="form-select filter-select w-auto ms-auto" id="past-events-sort">
                                     <option selected="">Sort by: Date</option>
                                     <option>Sort by: Rating</option>
                                 </select>
@@ -373,16 +440,16 @@
                                     <i data-lucide="search"
                                         class="position-absolute top-50 start-0 translate-middle-y ms-3 text-neutral-400"
                                         width="16"></i>
-                                    <input type="text" class="form-control ps-5" placeholder="Search payments..."
-                                        style="font-size: 0.875rem;">
+                                    <input type="text" class="form-control ps-5" id="payments-search"
+                                        placeholder="Search payments..." style="font-size: 0.875rem;">
                                 </div>
-                                <select class="form-select filter-select w-auto">
+                                <select class="form-select filter-select w-auto" id="payments-status">
                                     <option selected="">All Statuses</option>
                                     <option>Confirmed</option>
                                     <option>Refunded</option>
                                     <option>Failed</option>
                                 </select>
-                                <select class="form-select filter-select w-auto ms-auto">
+                                <select class="form-select filter-select w-auto ms-auto" id="payments-sort">
                                     <option selected="">Sort by: Date</option>
                                     <option>Sort by: Amount</option>
                                 </select>
@@ -402,55 +469,6 @@
                 </div>
             </div>
     </main>
-
-    <!-- Change Password Modal -->
-    <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content border-0 shadow-lg rounded-4">
-                <div class="modal-header border-0 pb-0">
-                    <h5 class="modal-title fw-bold text-neutral-900">Change Password</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body pt-3">
-                    <form id="changePasswordForm">
-                        <div class="mb-3">
-                            <label class="form-label fw-medium text-neutral-900 small">Old Password</label>
-                            <input type="password" class="form-control" id="cpOldPassword" required="">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label fw-medium text-neutral-900 small">New Password</label>
-                            <input type="password" class="form-control" id="cpNewPassword" required="" minlength="8">
-                            <!-- Password Strength Meter -->
-                            <div class="mt-2" id="cpPasswordStrength">
-                                <div class="progress" style="height: 4px;">
-                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 0%"></div>
-                                </div>
-                                <ul class="list-unstyled mt-2 mb-0 small text-neutral-400" style="font-size: 0.75rem;">
-                                    <li id="cp-req-length"><i data-lucide="circle" width="10" height="10"
-                                            class="me-1"></i> 8+ characters</li>
-                                    <li id="cp-req-upper"><i data-lucide="circle" width="10" height="10"
-                                            class="me-1"></i> 1 uppercase</li>
-                                    <li id="cp-req-number"><i data-lucide="circle" width="10" height="10"
-                                            class="me-1"></i> 1 number</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="mb-4">
-                            <label class="form-label fw-medium text-neutral-900 small">Confirm New Password</label>
-                            <input type="password" class="form-control" id="cpConfirmPassword" required=""
-                                minlength="8">
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer border-0 pt-0 w-100 d-flex gap-2">
-                    <button type="button" class="btn btn-outline-dark rounded-pill flex-fill"
-                        data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" form="changePasswordForm" class="btn btn-danger rounded-pill flex-fill">Change
-                        Password</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Cancel Booking Modal -->
     <div class="modal fade" id="cancelBookingModal" tabindex="-1" aria-hidden="true">
@@ -474,10 +492,10 @@
                             <span class="fw-medium text-danger" id="cancel-fee">-₹0</span>
                         </div>
                         <hr class="border-neutral-200 my-2">
-                        <div class="d-flex justify-content-between fw-bold">
+                        <span class="d-flex justify-content-between fw-medium">
                             <span class="text-neutral-900">Refund Amount</span>
                             <span class="text-success" id="cancel-refund">₹0</span>
-                        </div>
+                        </span>
                     </div>
 
                     <div class="d-flex justify-content-between align-items-center">
@@ -534,9 +552,9 @@
                     <div class="mb-3">
                         <label class="form-label fw-medium text-neutral-900 small">Additional Feedback
                             (Optional)</label>
-                        <textarea class="form-control" id="feedback-text" rows="3"
-                            placeholder="Tell us what you liked or what could be improved..."
-                            maxlength="500"></textarea>
+                        <textarea class="form-control" id="feedback-text" rows="5"
+                            placeholder="Tell us what you liked or what could be improved..." maxlength="500"
+                            style="resize: none;"></textarea>
                         <div class="text-end small text-neutral-400 mt-1" id="feedback-char-count">0/500</div>
                     </div>
                 </div>

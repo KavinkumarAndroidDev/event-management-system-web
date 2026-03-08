@@ -54,7 +54,17 @@ export function performLogin(loginId, otp, onRedirect = null) {
             return false;
         }
 
+        if (!user.accountInfo) user.accountInfo = {};
+        user.accountInfo.lastLogin = new Date().toISOString();
+
         localStorage.setItem('currentUser', JSON.stringify(user));
+
+        // Update Last Login in DB
+        fetch(`http://localhost:3000/users/${user.id}`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ accountInfo: user.accountInfo })
+        }).catch(err => console.error("Error updating last login", err));
         // Create success modal
         let modalEl = document.getElementById('loginSuccessModal');
         if (!modalEl) {

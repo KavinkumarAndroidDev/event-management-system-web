@@ -60,7 +60,7 @@ function injectHeader(rootPath, user, currentPath) {
   } else {
     rightContent = `
             <div id="guestState" class="auth-state">
-                <a href="${rootPath}pages/auth/login.html" class="btn btn-text">Login</a>
+                <a href="${rootPath}pages/auth/login.html" class="btn btn-link text-white text-decoration-none">Login</a>
                 <a href="${rootPath}pages/auth/signup.html" class="btn btn-primary">
                     <span>Signup</span>
                     <svg class="btn-icon" viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -79,40 +79,48 @@ function injectHeader(rootPath, user, currentPath) {
   }
 
   header.innerHTML = `
-    <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
+    <nav class="navbar navbar-expand-lg py-3">
       <div class="container-custom w-100 px-0 d-flex align-items-center justify-content-between">
         
         <!-- Logo -->
         <a class="navbar-brand py-0 m-0" href="${homeUrl}">
-          <img src="${rootPath}assets/logo.SVG" alt="SyncEvent" height="40">
+          <img src="${rootPath}assets/Light logo.SVG" alt="SyncEvent" height="40">
         </a>
         
-        <!-- Hamburger Toggle -->
-        <button class="navbar-toggler border-0 shadow-none px-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-            <i data-lucide="menu" width="28" height="28" class="text-neutral-900"></i>
-        </button>
+        <!-- Actions & Hamburger (Right) -->
+        <div class="d-flex align-items-center gap-2 gap-lg-3 order-lg-last">
+            <!-- Desktop Right Content -->
+            <div class="d-none d-lg-flex align-items-center gap-3">
+                ${rightContent}
+            </div>
+            
+            <!-- Hamburger Toggle -->
+            <button class="navbar-toggler border-0 shadow-none px-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i data-lucide="menu" width="28" height="28" class="text-white"></i>
+            </button>
+        </div>
         
         <!-- Collapsible Content -->
-        <div class="collapse navbar-collapse bg-white" id="navbarContent">
+        <div class="collapse navbar-collapse" id="navbarContent" style="background: transparent;">
             
             <!-- Centered Links -->
             <ul class="navbar-nav mx-auto mb-3 mb-lg-0 gap-1 gap-lg-3 text-center mt-3 mt-lg-0">
                 <li class="nav-item">
-                    <a href="${homeUrl}" class="nav-link text-neutral-900 fw-medium ${isHome ? 'active' : ''}">Home</a>
+                    <a href="${homeUrl}" class="nav-link fw-medium ${isHome ? 'active' : ''}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a href="${rootPath}pages/events/index.html" class="nav-link text-neutral-900 fw-medium ${isEvents ? 'active' : ''}">Events</a>
+                    <a href="${rootPath}pages/events/index.html" class="nav-link fw-medium ${isEvents ? 'active' : ''}">Events</a>
                 </li>
                 <li class="nav-item">
-                    <a href="${rootPath}pages/about/index.html" class="nav-link text-neutral-900 fw-medium ${isAbout ? 'active' : ''}">About</a>
+                    <a href="${rootPath}pages/about/index.html" class="nav-link fw-medium ${isAbout ? 'active' : ''}">About</a>
                 </li>
                 <li class="nav-item">
-                    <a href="${rootPath}pages/about/contact.html" class="nav-link text-neutral-900 fw-medium ${isContact ? 'active' : ''}">Contact</a>
+                    <a href="${rootPath}pages/about/contact.html" class="nav-link fw-medium ${isContact ? 'active' : ''}">Contact</a>
                 </li>
             </ul>
             
-            <!-- Right Actions (Auth/Profile) -->
-            <div class="d-flex align-items-center justify-content-center gap-3 pb-3 pb-lg-0">
+            <!-- Mobile Right Content (inside collapse) -->
+            <div class="d-flex d-lg-none align-items-center justify-content-center gap-3 pb-3 mt-2">
                 ${rightContent}
             </div>
 
