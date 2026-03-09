@@ -5,6 +5,15 @@ import { injectSignOutModal, populateSidebarUserInfo, showToast } from '../../sh
 // ─────────────────────────────────────────────────────────────────────────────
 const API = 'http://localhost:3000';
 
+function normalizeLegacyEventStatus(event) {
+    if (!event || !event.status || typeof event.status !== 'object') return event;
+    if (event.status.current === 'ACTIVE') event.status.current = 'APPROVED';
+    if (Array.isArray(event.status.history)) {
+        event.status.history = event.status.history.map((s) => s === 'ACTIVE' ? 'APPROVED' : s);
+    }
+    return event;
+}
+
 // ─────────────────────────────────────────────────────────────────────────────
 // HELPERS
 // ─────────────────────────────────────────────────────────────────────────────
@@ -61,7 +70,12 @@ async function apiFetch(endpoint) {
     try {
         const res = await fetch(`${API}/${endpoint}`);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        return await res.json();
+        const data = await res.json();
+        if (endpoint === 'events') {
+            if (Array.isArray(data)) return data.map(normalizeLegacyEventStatus);
+            return normalizeLegacyEventStatus(data);
+        }
+        return data;
     } catch (err) {
         console.error(`Failed to fetch ${endpoint}:`, err);
         return [];
@@ -92,6 +106,43 @@ async function apiDelete(endpoint, id) {
     const res = await fetch(`${API}/${endpoint}/${id}`, { method: 'DELETE' });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     return true;
+}
+
+function buildEventStatus(event, nextStatus, extra = {}) {
+    const currentStatus = event?.status?.current || 'DRAFT';
+    const history = Array.isArray(event?.status?.history) ? [...event.status.history] : [currentStatus];
+    if (history[history.length - 1] !== currentStatus) history.push(currentStatus);
+    if (history[history.length - 1] !== nextStatus) history.push(nextStatus);
+
+    const status = { current: nextStatus, history };
+    Object.keys(extra).forEach((k) => {
+        if (extra[k] !== undefined && extra[k] !== null && extra[k] !== '') {
+            status[k] = extra[k];
+        }
+    });
+    if (nextStatus !== 'REJECTED') delete status.reason;
+    return status;
+}
+
+async function updateEventStatus(event, nextStatus, extra = {}) {
+    const status = buildEventStatus(event, nextStatus, extra);
+    await apiPatch('events', event.id, { status });
+    event.status = status;
+}
+
+async function notifyOrganizerForEvent(event, title, message, type) {
+    const targetUserId = event.organizerId || event.organizer?.id || '';
+    if (!targetUserId) return;
+    await apiPost('notifications', {
+        id: `notif-${Date.now()}`,
+        title,
+        message,
+        type: type || 'INFO',
+        targetRole: 'ORGANIZER',
+        targetUserId,
+        read: false,
+        createdAt: new Date().toISOString()
+    });
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -295,18 +346,11 @@ export async function initAdminDashboard() {
                         confirmLabel: 'Approve', confirmClass: 'btn-success',
                         onConfirm: async () => {
                             try {
-                                await apiPatch('events', btn.dataset.id, { status: { current: 'ACTIVE' } });
-                                await apiPost('notifications', {
-                                    id: `notif-${Date.now()}`,
-                                    title: 'Event Approved',
-                                    message: `Your event "${btn.dataset.name}" has been approved.`,
-                                    type: 'SUCCESS',
-                                    targetRole: 'ORGANIZER',
-                                    targetUserId: btn.dataset.orgId || '', // Store orgId in dataset
-                                    read: false,
-                                    createdAt: new Date().toISOString()
-                                });
-                                showToast('Approved', 'Event is now active.', 'success');
+                                const event = events.find(e => e.id === btn.dataset.id);
+                                if (!event) throw new Error('Event not found');
+                                await updateEventStatus(event, 'APPROVED');
+                                await notifyOrganizerForEvent(event, 'Event Approved', `Your event "${btn.dataset.name}" has been approved.`, 'SUCCESS');
+                                showToast('Approved', 'Event is now approved.', 'success');
                                 initAdminDashboard();
                             } catch (e) { showToast('Error', 'Failed.', 'danger'); }
                         }
@@ -318,9 +362,19 @@ export async function initAdminDashboard() {
                     showConfirmModal({
                         title: 'Reject Event', message: `Reject "${btn.dataset.name}"?`,
                         confirmLabel: 'Reject', confirmClass: 'btn-danger',
+                        extraHtml: '<textarea class="form-control mt-2" id="_rejectReason" rows="3" placeholder="Rejection reason..."></textarea>',
                         onConfirm: async () => {
                             try {
-                                await apiPatch('events', btn.dataset.id, { status: { current: 'REJECTED' } });
+                                const reason = document.getElementById('_rejectReason')?.value?.trim() || '';
+                                const event = events.find(e => e.id === btn.dataset.id);
+                                if (!event) throw new Error('Event not found');
+                                await updateEventStatus(event, 'REJECTED', { reason });
+                                await notifyOrganizerForEvent(
+                                    event,
+                                    'Event Rejected',
+                                    `Your event "${btn.dataset.name}" has been rejected.${reason ? ` Reason: ${reason}` : ''}`,
+                                    'DANGER'
+                                );
                                 showToast('Rejected', 'Event application rejected.', 'warning');
                                 initAdminDashboard();
                             } catch (e) { showToast('Error', 'Failed.', 'danger'); }
@@ -378,7 +432,10 @@ export async function initEventApprovals() {
             tbody.querySelectorAll('.btn-approve-event').forEach(btn => {
                 btn.onclick = async () => {
                     try {
-                        await apiPatch('events', btn.dataset.id, { status: { current: 'ACTIVE' } });
+                        const event = events.find(e => e.id === btn.dataset.id);
+                        if (!event) throw new Error('Event not found');
+                        await updateEventStatus(event, 'APPROVED');
+                        await notifyOrganizerForEvent(event, 'Event Approved', `Your event "${btn.dataset.name}" has been approved.`, 'SUCCESS');
                         showToast('Approved', 'Event approved.', 'success');
                         initEventApprovals();
                     } catch (e) { showToast('Error', 'Failed.', 'danger'); }
@@ -389,19 +446,19 @@ export async function initEventApprovals() {
                     showConfirmModal({
                         title: 'Reject Event', message: `Reject "${btn.dataset.name}"?`,
                         confirmLabel: 'Reject', confirmClass: 'btn-danger',
+                        extraHtml: '<textarea class="form-control mt-2" id="_rejectReason" rows="3" placeholder="Rejection reason..."></textarea>',
                         onConfirm: async () => {
                             try {
-                                await apiPatch('events', btn.dataset.id, { status: { current: 'REJECTED' } });
-                                await apiPost('notifications', {
-                                    id: `notif-${Date.now()}`,
-                                    title: 'Event Rejected',
-                                    message: `Your event "${btn.dataset.name}" has been rejected.`,
-                                    type: 'DANGER',
-                                    targetRole: 'ORGANIZER',
-                                    targetUserId: btn.dataset.orgId || '',
-                                    read: false,
-                                    createdAt: new Date().toISOString()
-                                });
+                                const reason = document.getElementById('_rejectReason')?.value?.trim() || '';
+                                const event = events.find(e => e.id === btn.dataset.id);
+                                if (!event) throw new Error('Event not found');
+                                await updateEventStatus(event, 'REJECTED', { reason });
+                                await notifyOrganizerForEvent(
+                                    event,
+                                    'Event Rejected',
+                                    `Your event "${btn.dataset.name}" has been rejected.${reason ? ` Reason: ${reason}` : ''}`,
+                                    'DANGER'
+                                );
                                 showToast('Rejected', 'Event rejected.', 'warning');
                                 initEventApprovals();
                             } catch (e) { showToast('Error', 'Failed.', 'danger'); }
@@ -782,14 +839,21 @@ export async function initAdminEvents() {
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 py-2" style="font-size:13px;min-width:160px;">
                                 <li><a class="dropdown-item d-flex align-items-center gap-2" href="#"><i data-lucide="eye" width="14"></i> View Event</a></li>
-                                ${ev.status?.current === 'DRAFT' ? `
+                                ${ev.status?.current === 'PENDING' ? `
                                     <li><button class="dropdown-item d-flex align-items-center gap-2 btn-status-change" data-id="${ev.id}" data-next="APPROVED">
                                         <i data-lucide="check-circle" width="14" class="text-success"></i> Approve
                                     </button></li>
-                                    <li><button class="dropdown-item d-flex align-items-center gap-2 btn-status-change text-danger" data-id="${ev.id}" data-next="CANCELLED">
-                                        <i data-lucide="x-circle" width="14"></i> Cancel
+                                    <li><button class="dropdown-item d-flex align-items-center gap-2 btn-status-change text-warning" data-id="${ev.id}" data-next="REJECTED">
+                                        <i data-lucide="x-circle" width="14"></i> Reject
                                     </button></li>
-                                ` : (ev.status?.current === 'APPROVED' || ev.status?.current === 'PUBLISHED') ? `
+                                ` : ev.status?.current === 'APPROVED' ? `
+                                    <li><button class="dropdown-item d-flex align-items-center gap-2 btn-status-change text-danger" data-id="${ev.id}" data-next="CANCELLED">
+                                        <i data-lucide="slash" width="14"></i> Cancel Event
+                                    </button></li>
+                                ` : ev.status?.current === 'PUBLISHED' ? `
+                                    <li><button class="dropdown-item d-flex align-items-center gap-2 btn-status-change" data-id="${ev.id}" data-next="COMPLETED">
+                                        <i data-lucide="check-check" width="14" class="text-success"></i> Mark Completed
+                                    </button></li>
                                     <li><button class="dropdown-item d-flex align-items-center gap-2 btn-status-change text-danger" data-id="${ev.id}" data-next="CANCELLED">
                                         <i data-lucide="slash" width="14"></i> Cancel Event
                                     </button></li>
@@ -821,7 +885,6 @@ export async function initAdminEvents() {
             const normalized = currentStatus.toLowerCase();
             const statusFilter = status.toLowerCase();
             const matchStatus = status === 'All Status' ||
-                (statusFilter === 'active' && (normalized === 'published' || normalized === 'active')) ||
                 (statusFilter === 'completed' && normalized === 'completed') ||
                 (statusFilter === 'cancelled' && normalized === 'cancelled') ||
                 normalized === statusFilter;
@@ -841,10 +904,43 @@ function bindEventsActions(tbody, events, applyFilters) {
         btn.addEventListener('click', async function () {
             const id = btn.dataset.id;
             const next = btn.dataset.next;
+            const ev = events.find(function (e) { return e.id === id; });
+            if (!ev) return;
+
+            if (next === 'REJECTED') {
+                showConfirmModal({
+                    title: 'Reject Event',
+                    message: `Reject "${ev.title || ev.name || 'this event'}"?`,
+                    confirmLabel: 'Reject',
+                    confirmClass: 'btn-danger',
+                    extraHtml: '<textarea class="form-control mt-2" id="_rejectReason" rows="3" placeholder="Rejection reason..."></textarea>',
+                    onConfirm: async function () {
+                        try {
+                            const reason = document.getElementById('_rejectReason')?.value?.trim() || '';
+                            await updateEventStatus(ev, 'REJECTED', { reason });
+                            await notifyOrganizerForEvent(
+                                ev,
+                                'Event Rejected',
+                                `Your event "${ev.title || ev.name || ev.id}" has been rejected.${reason ? ` Reason: ${reason}` : ''}`,
+                                'DANGER'
+                            );
+                            showToast('Success', 'Event status set to REJECTED.', 'success');
+                            applyFilters();
+                        } catch (e) { showToast('Error', 'Failed to update status.', 'danger'); }
+                    }
+                });
+                return;
+            }
+
             try {
-                await apiPatch('events', id, { status: { current: next } });
-                const ev = events.find(function (e) { return e.id === id; });
-                if (ev && ev.status) ev.status.current = next;
+                await updateEventStatus(ev, next);
+                if (next === 'APPROVED') {
+                    await notifyOrganizerForEvent(ev, 'Event Approved', `Your event "${ev.title || ev.name || ev.id}" has been approved.`, 'SUCCESS');
+                } else if (next === 'CANCELLED') {
+                    await notifyOrganizerForEvent(ev, 'Event Cancelled', `Your event "${ev.title || ev.name || ev.id}" has been cancelled by admin.`, 'WARNING');
+                } else if (next === 'COMPLETED') {
+                    await notifyOrganizerForEvent(ev, 'Event Completed', `Your event "${ev.title || ev.name || ev.id}" has been marked as completed.`, 'INFO');
+                }
                 showToast('Success', `Event status set to ${next}.`, 'success');
                 applyFilters();
             } catch (e) { showToast('Error', 'Failed to update status.', 'danger'); }
@@ -1632,7 +1728,7 @@ export async function initAdminOffers() {
 
     const isPublished = (ev) => {
         const status = (ev.status && ev.status.current) || '';
-        return status === 'PUBLISHED' || status === 'ACTIVE';
+        return status === 'PUBLISHED' || status === 'APPROVED';
     };
 
     const toOfferRows = () => events.flatMap((ev) => {

@@ -4,10 +4,24 @@ import { showToast, populateSidebarUserInfo } from '../../shared/utils.js';
 // ─── Shared Helpers ───────────────────────────────────────────────────────────
 const API_BASE = 'http://localhost:3000';
 
+function normalizeLegacyEventStatus(event) {
+    if (!event || !event.status || typeof event.status !== 'object') return event;
+    if (event.status.current === 'ACTIVE') event.status.current = 'APPROVED';
+    if (Array.isArray(event.status.history)) {
+        event.status.history = event.status.history.map((s) => s === 'ACTIVE' ? 'APPROVED' : s);
+    }
+    return event;
+}
+
 async function apiFetch(endpoint) {
     const res = await fetch(`${API_BASE}/${endpoint}`);
     if (!res.ok) throw new Error(`Fetch failed: ${endpoint}`);
-    return res.json();
+    const data = await res.json();
+    if (endpoint === 'events') {
+        if (Array.isArray(data)) return data.map(normalizeLegacyEventStatus);
+        return normalizeLegacyEventStatus(data);
+    }
+    return data;
 }
 
 async function apiPost(endpoint, data) {
@@ -42,6 +56,28 @@ async function apiDelete(endpoint, id) {
     return res.json();
 }
 
+function buildStatusPayload(event, nextStatus, extra = {}) {
+    const currentStatus = event?.status?.current || 'DRAFT';
+    const history = Array.isArray(event?.status?.history) ? [...event.status.history] : [currentStatus];
+    if (history[history.length - 1] !== currentStatus) history.push(currentStatus);
+    if (history[history.length - 1] !== nextStatus) history.push(nextStatus);
+
+    const status = { current: nextStatus, history };
+    Object.keys(extra).forEach((k) => {
+        if (extra[k] !== undefined && extra[k] !== null && extra[k] !== '') {
+            status[k] = extra[k];
+        }
+    });
+    if (nextStatus !== 'REJECTED') delete status.reason;
+    return status;
+}
+
+async function patchEventStatus(event, nextStatus, extra = {}) {
+    const status = buildStatusPayload(event, nextStatus, extra);
+    await apiPatch('events', event.id, { status });
+    event.status = status;
+}
+
 function getCurrentUser() {
     const str = localStorage.getItem('currentUser');
     return str ? JSON.parse(str) : null;
@@ -70,7 +106,9 @@ function timeAgo(dateStr) {
 
 function getOrganizerEvents(user) {
     if (!user) return [];
-    return state.events.filter(e => e.organizerId === user.id);
+    return state.events
+        .filter(e => e.organizerId === user.id)
+        .map(normalizeLegacyEventStatus);
 }
 
 function getEventRegistrations(events) {
@@ -224,9 +262,12 @@ window.viewRegistrationDetails = (id) => {
 };
 
 function getStatusBadge(status) {
-    if (status === 'PUBLISHED' || status === 'ACTIVE') return '<span class="badge rounded-pill bg-success text-white px-3 py-2 fw-bold" style="font-size:11px;">Active</span>';
+    if (status === 'PUBLISHED') return '<span class="badge rounded-pill bg-success text-white px-3 py-2 fw-bold" style="font-size:11px;">Published</span>';
+    if (status === 'APPROVED') return '<span class="badge rounded-pill bg-info text-white px-3 py-2 fw-bold" style="font-size:11px;">Approved</span>';
     if (status === 'PENDING') return '<span class="badge rounded-pill px-3 py-2 fw-bold" style="font-size:11px;background:#FEF9C3;color:#854D0E;">Pending</span>';
     if (status === 'REJECTED') return '<span class="badge rounded-pill px-3 py-2 fw-bold" style="font-size:11px;background:#FEE2E2;color:#991B1B;">Rejected</span>';
+    if (status === 'COMPLETED') return '<span class="badge rounded-pill bg-primary text-white px-3 py-2 fw-bold" style="font-size:11px;">Completed</span>';
+    if (status === 'CANCELLED') return '<span class="badge rounded-pill bg-danger text-white px-3 py-2 fw-bold" style="font-size:11px;">Cancelled</span>';
     return `<span class="badge rounded-pill px-3 py-2 fw-bold" style="font-size:11px;background:#F1F5F9;color:#475569;">${status || 'Draft'}</span>`;
 }
 
@@ -691,19 +732,25 @@ export function initMyEvents() {
                 .reduce((sum, r) => sum + (r.totalAmount || 0), 0);
             const statusBgMap = {
                 DRAFT: 'bg-secondary',
+                PENDING: 'bg-warning text-dark',
                 APPROVED: 'bg-info',
                 PUBLISHED: 'bg-success',
+                REJECTED: 'bg-danger',
                 CANCELLED: 'bg-danger',
                 COMPLETED: 'bg-primary'
             };
-            const statusBg = statusBgMap[evt.status.current] || 'bg-secondary';
+            
+            // Always render the persisted status; avoid deriving COMPLETED only in UI.
+            const displayStatus = (evt.status && evt.status.current) ? evt.status.current : 'DRAFT';
+            const statusBg = statusBgMap[displayStatus] || 'bg-secondary';
+            const rejectionReason = displayStatus === 'REJECTED' ? (evt.status?.reason || '').trim() : '';
 
             return `
             <div class="col-md-6 col-xl-4">
                 <div class="card-custom p-0 overflow-hidden h-100">
                     <div class="position-relative">
                         <img src="${evt.media.thumbnail}" class="w-100" style="height: 180px; object-fit: cover;" alt="${evt.title}">
-                        <span class="badge rounded-pill ${statusBg} px-3 py-2 fw-bold position-absolute" style="top:12px; right:12px; font-size: 11px;">${evt.status.current}</span>
+                        <span class="badge rounded-pill ${statusBg} px-3 py-2 fw-bold position-absolute" style="top:12px; right:12px; font-size: 11px;">${displayStatus}</span>
                     </div>
                     <div class="p-4">
                         <h6 class="fw-bold text-neutral-900 mb-2">${evt.title}</h6>
@@ -716,6 +763,7 @@ export function initMyEvents() {
                         <div class="d-flex align-items-center gap-2 text-neutral-400 small mb-3">
                             <i data-lucide="users" style="width:14px; height:14px;"></i> ${sold} / ${capacity} sold
                         </div>
+                        ${rejectionReason ? `<div class="small mb-3 px-2 py-1 rounded-2" style="background:#FEF2F2;color:#991B1B;">Rejection reason: ${rejectionReason}</div>` : ''}
                         <div class="progress mb-3" style="height: 6px; border-radius: 3px;">
                             <div class="progress-bar bg-primary" style="width: ${pct}%;"></div>
                         </div>
@@ -727,16 +775,30 @@ export function initMyEvents() {
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 py-2" style="font-size: 13px; min-width: 140px;">
                                     <li><a class="dropdown-item d-flex align-items-center gap-2" href="../events/details.html?id=${evt.id}"><i data-lucide="eye" width="14"></i> View Details</a></li>
-                                    ${evt.status.current === 'APPROVED' ? `
+                                    ${displayStatus === 'DRAFT' ? `
+                                        <li><button class="dropdown-item d-flex align-items-center gap-2 btn-submit-review" data-id="${evt.id}"><i data-lucide="send" width="14" class="text-primary"></i> Submit for Review</button></li>
+                                    ` : ''}
+                                    ${displayStatus === 'APPROVED' ? `
                                         <li><button class="dropdown-item d-flex align-items-center gap-2 btn-publish-event" data-id="${evt.id}"><i data-lucide="send" width="14" class="text-success"></i> Publish Now</button></li>
                                     ` : ''}
-                                    ${evt.status.current === 'DRAFT' || evt.status.current === 'APPROVED' ? `
+                                    ${displayStatus === 'REJECTED' ? `
+                                        <li><button class="dropdown-item d-flex align-items-center gap-2 btn-resubmit-event" data-id="${evt.id}"><i data-lucide="rotate-ccw" width="14"></i> Edit & Resubmit</button></li>
+                                    ` : ''}
+                                    ${displayStatus === 'DRAFT' ? `
                                         <li><a class="dropdown-item d-flex align-items-center gap-2" href="#"><i data-lucide="pencil" width="14"></i> Edit Event</a></li>
                                     ` : ''}
                                     <li><a class="dropdown-item d-flex align-items-center gap-2" href="reports.html"><i data-lucide="bar-chart-2" width="14"></i> Sales Report</a></li>
-                                    ${evt.status.current !== 'PUBLISHED' && evt.status.current !== 'COMPLETED' ? `
+                                    ${displayStatus === 'APPROVED' ? `
                                         <li><hr class="dropdown-divider"></li>
-                                        <li><button class="dropdown-item d-flex align-items-center gap-2 text-danger btn-delete-event" data-id="${evt.id}" data-name="${evt.title}"><i data-lucide="trash-2" width="14"></i> Delete</button></li>
+                                        <li><button class="dropdown-item d-flex align-items-center gap-2 text-warning btn-cancel-event" data-id="${evt.id}" data-name="${evt.title.replace(/"/g, '&quot;')}"><i data-lucide="slash" width="14"></i> Cancel Event</button></li>
+                                    ` : ''}
+                                    ${displayStatus === 'PUBLISHED' ? `
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><button class="dropdown-item d-flex align-items-center gap-2 text-warning btn-request-cancel" data-id="${evt.id}" data-name="${evt.title.replace(/"/g, '&quot;')}"><i data-lucide="flag" width="14"></i> Request Cancellation</button></li>
+                                    ` : ''}
+                                    ${displayStatus === 'DRAFT' || displayStatus === 'REJECTED' ? `
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><button class="dropdown-item d-flex align-items-center gap-2 text-danger btn-delete-event" data-id="${evt.id}" data-name="${evt.title.replace(/"/g, '&quot;')}"><i data-lucide="trash-2" width="14"></i> Delete</button></li>
                                     ` : ''}
                                 </ul>
                             </div>
@@ -753,8 +815,10 @@ export function initMyEvents() {
             btn.onclick = async (e) => {
                 e.preventDefault();
                 const id = btn.dataset.id;
+                const ev = myEvents.find(x => x.id === id);
+                if (!ev) return;
                 try {
-                    await apiPatch('events', id, { status: { current: 'PUBLISHED' } });
+                    await patchEventStatus(ev, 'PUBLISHED');
                     showToast('Published', 'Event is now visible to everyone!', 'success');
                     initMyEvents(); // Refresh
                 } catch (err) {
@@ -776,6 +840,91 @@ export function initMyEvents() {
                     } catch (err) {
                         showToast('Error', 'Failed to delete event.', 'danger');
                     }
+                }
+            };
+        });
+
+        eventsGrid.querySelectorAll('.btn-submit-review').forEach(btn => {
+            btn.onclick = async (e) => {
+                e.preventDefault();
+                const id = btn.dataset.id;
+                const ev = myEvents.find(x => x.id === id);
+                if (!ev) return;
+                try {
+                    await patchEventStatus(ev, 'PENDING');
+                    showToast('Submitted', 'Event sent for admin review.', 'success');
+                    initMyEvents(); // Refresh
+                } catch (err) {
+                    showToast('Error', 'Failed to submit event.', 'danger');
+                }
+            };
+        });
+
+        eventsGrid.querySelectorAll('.btn-cancel-event').forEach(btn => {
+            btn.onclick = async (e) => {
+                e.preventDefault();
+                const id = btn.dataset.id;
+                const name = btn.dataset.name;
+                const ev = myEvents.find(x => x.id === id);
+                if (!ev) return;
+                if (confirm(`Are you sure you want to cancel "${name}"?`)) {
+                    try {
+                        await patchEventStatus(ev, 'CANCELLED');
+                        showToast('Cancelled', 'Event has been cancelled.', 'success');
+                        initMyEvents(); // Refresh
+                    } catch (err) {
+                        showToast('Error', 'Failed to cancel event.', 'danger');
+                    }
+                }
+            };
+        });
+
+        eventsGrid.querySelectorAll('.btn-resubmit-event').forEach(btn => {
+            btn.onclick = async (e) => {
+                e.preventDefault();
+                const id = btn.dataset.id;
+                const ev = myEvents.find(x => x.id === id);
+                if (!ev) return;
+                try {
+                    await patchEventStatus(ev, 'PENDING');
+                    showToast('Resubmitted', 'Event was resubmitted for review.', 'success');
+                    initMyEvents();
+                } catch (err) {
+                    showToast('Error', 'Failed to resubmit event.', 'danger');
+                }
+            };
+        });
+
+        eventsGrid.querySelectorAll('.btn-request-cancel').forEach(btn => {
+            btn.onclick = async (e) => {
+                e.preventDefault();
+                const id = btn.dataset.id;
+                const name = btn.dataset.name;
+                const ev = myEvents.find(x => x.id === id);
+                if (!ev) return;
+                if (!confirm(`Send cancellation request for "${name}" to admin?`)) return;
+
+                try {
+                    await apiPatch('events', id, {
+                        cancellationRequest: {
+                            requestedBy: user.id,
+                            requestedAt: new Date().toISOString(),
+                            status: 'PENDING'
+                        }
+                    });
+                    await apiPost('notifications', {
+                        id: `notif-${Date.now()}`,
+                        title: 'Cancellation Request',
+                        message: `Organizer requested cancellation for "${name}".`,
+                        type: 'WARNING',
+                        targetRole: 'ADMIN',
+                        targetUserId: 'ALL_ADMINS',
+                        read: false,
+                        createdAt: new Date().toISOString()
+                    });
+                    showToast('Requested', 'Cancellation request sent to admin.', 'success');
+                } catch (err) {
+                    showToast('Error', 'Failed to send cancellation request.', 'danger');
                 }
             };
         });
@@ -1628,7 +1777,7 @@ export function initCreateEventWizard() {
     const eventData = {
         id: `evt-${Date.now()}`,
         organizerId: user.id,
-        status: { current: 'DRAFT', history: [] },
+        status: { current: 'DRAFT', history: ['DRAFT'] },
         tickets: [],
         media: { thumbnail: '../../assets/about_the_eif.jpg', gallery: [] }
     };
@@ -2138,6 +2287,7 @@ export function initCreateEventWizard() {
         };
 
         eventData.status.current = published ? 'PENDING' : 'DRAFT';
+        eventData.status.history = published ? ['DRAFT', 'PENDING'] : ['DRAFT'];
 
         try {
             await apiPost('events', eventData);
@@ -2198,7 +2348,7 @@ export async function initOrganizerOffers() {
 
     const isPublished = (ev) => {
         const status = (ev.status && ev.status.current) || '';
-        return status === 'PUBLISHED' || status === 'ACTIVE';
+        return status === 'PUBLISHED' || status === 'APPROVED';
     };
 
     const toOfferRows = () => events.flatMap((ev) => {

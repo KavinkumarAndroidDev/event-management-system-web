@@ -628,6 +628,7 @@
         "history": [
           "DRAFT",
           "PENDING",
+          "APPROVED",
           "PUBLISHED"
         ],
         "isFeatured": true
@@ -710,6 +711,7 @@
         "history": [
           "DRAFT",
           "PENDING",
+          "APPROVED",
           "PUBLISHED"
         ],
         "isFeatured": true
@@ -788,6 +790,7 @@
         "history": [
           "DRAFT",
           "PENDING",
+          "APPROVED",
           "PUBLISHED"
         ],
         "isFeatured": true
@@ -938,6 +941,7 @@
         "history": [
           "DRAFT",
           "PENDING",
+          "APPROVED",
           "PUBLISHED",
           "COMPLETED"
         ],
